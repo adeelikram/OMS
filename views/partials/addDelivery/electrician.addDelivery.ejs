@@ -1,0 +1,37 @@
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Electrician</h5>
+        <input type="text" name="deliveryElectrician_name" class="with-border"
+            placeholder="Name"
+            value="<% if (editing && delivery.electrician) { %><%= delivery.electrician.name %><% } %>">
+    </div>
+</div>
+
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Email</h5>
+        <input type="text" name="deliveryElectrician_email" class="with-border"
+            placeholder="Email"
+            value="<% if (editing && delivery.electrician) { %><%= delivery.electrician.email %><% } %>">
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Date</h5>
+        <input type="date" name="deliveryElectrician_date"
+            class="with-border" placeholder="Date"
+            value="<% if (editing && delivery.electrician && delivery.electrician.date) { %><%= delivery.electrician.date.toDateString() %><% } %>">
+    </div>
+</div>
+<div class="col-xl-12">
+    <div class="submit-field">
+        <h3>Utbildning</h3>
+    </div>
+</div>
+<div class="col-xl-12">
+    <div class="submit-field">
+        <hr>
+    </div>
+</div>

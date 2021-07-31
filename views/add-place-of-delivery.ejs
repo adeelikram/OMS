@@ -1,0 +1,277 @@
+<%- include('./includes/header.ejs') %>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <%- include('./includes/side-bar.ejs') %>
+            <!-- Dashboard Content
+    ================================================== -->
+            <div class="dashboard-content-container" data-simplebar>
+                <div class="dashboard-content-inner">
+
+                    <!-- Dashboard Headline -->
+                    <div class="dashboard-headline">
+                        <h3>
+                            Place of Delivery
+                        </h3>
+
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs" class="dark">
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Dashboard</a></li>
+                                <li>
+                                    Place of Delivery
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Row -->
+                    <div class="row">
+
+                        <!-- Dashboard Box -->
+                        <div class="col-xl-12">
+                            <div class="dashboard-box margin-top-0">
+                                <!-- Headline -->
+                                <div class="headline">
+                                    <h3><i class="icon-feather-award"></i> Place of Delivery Form</h3>
+                                </div>
+                                <%- include ("./partials/messages") %>
+                                    <form
+                                        action="/<% if (editing) { %>post-edit-place-of-delivery<% } else { %>post-add-place-of-delivery <% } %>"
+                                        method="POST">
+                                        <div class="content with-padding padding-bottom-10">
+                                            <div class="row">
+
+                                                <%- include('./partials/addDelivery/initial.addDelivery.ejs', { editing,
+                                                    delivery: editing ? delivery : null }) %>
+
+                                                    <div class="col-xl-12">
+                                                        <div class="submit-field">
+                                                            <hr>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-12">
+                                                        <div class="submit-field">
+                                                            <h3>Number of units to Install</h3>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-12">
+                                                        <div class="submit-field">
+                                                            <hr>
+                                                        </div>
+                                                    </div>
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="vertical-align:top">Product</th>
+                                                                <th style="vertical-align:top">Number of units</th>
+                                                                <th style="vertical-align:top">Left to Implement</th>
+                                                                <th style="vertical-align:top">Installed</th>
+                                                                <th style="vertical-align:top">Date</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <% const productNames=[ { value: 'roomMate' ,
+                                                                label: 'RoomMate Hyra' }, { value: 'roomMateRent' ,
+                                                                label: 'RoomMate Rent' }, { value: 'roomMateSold' ,
+                                                                label: 'RoomMate Sold' }, { value: 'nucleus' ,
+                                                                label: 'Nucleus' }, { value: 'neatseat' ,
+                                                                label: 'Neatseat' }, { value: 'sitShowerRent' ,
+                                                                label: 'Sit&Shower Rent' }, { value: 'sitShowerSold' ,
+                                                                label: 'Sit&Shower Sold' }, { value: 'otium' ,
+                                                                label: 'Otium' }, ]; for (const productName of
+                                                                productNames) { const product=order[productName.value];
+                                                                const d=editing ? delivery[productName.value] : null; if
+                                                                (product) { if (productName.value==='neatseat' ) { if
+                                                                (product.large && product.large.bought) { %>
+                                                                <tr>
+                                                                    <td><b>Neatseat Large</b></td>
+                                                                    <td>
+                                                                        <input type="number" name="neatseat_large"
+                                                                            value="<% if (editing && d && d.large) { %><%= d.large.bought %><% } %>"
+                                                                            class="with-border">
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="number"
+                                                                            value="<%= product.large.left %>"
+                                                                            class="with-border" readonly>
+                                                                    </td>
+                                                                    <td></td>
+                                                                    <td>
+                                                                        <% if (editing && d.date) { %>
+                                                                            <h5>Current: <%= d.date.toDateString() %>
+                                                                            </h5>
+                                                                            <% } %>
+                                                                                <input type="date" class="with-border"
+                                                                                    name="large_date">
+                                                                    </td>
+                                                                </tr>
+                                                                <% } %>
+                                                                    <% if (product.medium && product.medium.bought) { %>
+                                                                        <tr>
+                                                                            <td><b>Neatseat Medium</b></td>
+                                                                            <td>
+                                                                                <input type="number"
+                                                                                    name="neatseat_medium"
+                                                                                    value="<% if (editing && d && d.medium) { %><%= d.medium.bought %><% } %>"
+                                                                                    class="with-border">
+                                                                            </td>
+                                                                            <td>
+                                                                                <input type="number"
+                                                                                    value="<%= product.medium.left %>"
+                                                                                    class="with-border" readonly>
+                                                                            </td>
+                                                                            <td></td>
+                                                                            <td>
+                                                                                <% if (editing && d.date) { %>
+                                                                                    <h5>Current: <%=
+                                                                                            d.date.toDateString() %>
+                                                                                    </h5>
+                                                                                    <% } %>
+                                                                                        <input type="date"
+                                                                                            class="with-border"
+                                                                                            name="medium_date">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <% } %>
+                                                                            <% } else { %>
+                                                                                <% if (product.units &&
+                                                                                    product.units.bought) { %>
+                                                                                    <tr>
+                                                                                        <td><b>
+                                                                                                <%= productName.label %>
+                                                                                            </b></td>
+                                                                                        <td>
+                                                                                            <input type="number"
+                                                                                                name="<%= productName.value %>_units"
+                                                                                                value="<% if (editing && d && d.units) { %><%= d.units.bought %><% } %>"
+                                                                                                class="with-border">
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <input type="number"
+                                                                                                value="<%= product.units.left %>"
+                                                                                                class="with-border"
+                                                                                                readonly>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <select
+                                                                                                name="<%= productName.value %>_installation"
+                                                                                                class="browser-default custom-select "
+                                                                                                data-live-search="true">
+                                                                                                <option value="true">Yes
+                                                                                                </option>
+                                                                                                <option value="false"
+                                                                                                    selected>No</option>
+                                                                                            </select>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <% if (editing && d.date) {
+                                                                                                %>
+                                                                                                <h5>Current: <%=
+                                                                                                        d.date.toDateString()
+                                                                                                        %>
+                                                                                                </h5>
+                                                                                                <% } %>
+                                                                                                    <input type="date"
+                                                                                                        class="with-border"
+                                                                                                        name="<%= productName.value %>_date">
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <% } %>
+                                                                                        <% } %>
+                                                                                            <% } %>
+                                                                                                <% } %>
+                                                        </tbody>
+                                                    </table>
+
+                                                    <div class="col-xl-4">
+                                                        <div class="submit-field">
+                                                            <h5>Has the unit been sen?</h5>
+                                                            <select name="delivery_sent">
+                                                                <% if (editing) { %>
+                                                                    <% if (delivery.sent) { %>
+                                                                        <option value="">Select</option>
+                                                                        <option value="false">No</option>
+                                                                        <option value="true" selected>Yes</option>
+                                                                        <% } else { %>
+                                                                            <% if (delivery.sent===undefined) { %>
+                                                                                <option value="" selected>Select
+                                                                                </option>
+                                                                                <option value="false">No</option>
+                                                                                <option value="true">Yes</option>
+                                                                                <% } else { %>
+                                                                                    <option value="">Select</option>
+                                                                                    <option value="false" selected>No
+                                                                                    </option>
+                                                                                    <option value="true">Yes</option>
+                                                                                    <% } %>
+                                                                                        <% } %>
+                                                                                            <% } else { %>
+                                                                                                <option value=""
+                                                                                                    selected>Select
+                                                                                                </option>
+                                                                                                <option value="false">No
+                                                                                                </option>
+                                                                                                <option value="true">Yes
+                                                                                                </option>
+                                                                                                <% } %>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="col-xl-12">
+                                                        <div class="submit-field">
+                                                            <hr>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-12">
+                                                        <div class="row">
+                                                            <%- include('./partials/addDelivery/designVisit.addDelivery.ejs',
+                                                                { editing, delivery: editing ? delivery : null }) %>
+                                                                <%- include('./partials/addDelivery/tasks.addDelivery.ejs',
+                                                                    { editing, delivery: editing ? delivery : null }) %>
+                                                                    <%- include('./partials/addDelivery/installation.addDelivery.ejs',
+                                                                        { editing, delivery: editing ? delivery : null
+                                                                        }) %>
+                                                                        <%- include('./partials/addDelivery/installer.addDelivery.ejs',
+                                                                            { editing, delivery: editing ? delivery :
+                                                                            null }) %>
+                                                                            <%- include('./partials/addDelivery/otherInstaller.addDelivery.ejs',
+                                                                                { editing, delivery: editing ? delivery
+                                                                                : null }) %>
+                                                                                <%- include('./partials/addDelivery/plumbingFitter.addDelivery.ejs',
+                                                                                    { editing, delivery: editing ?
+                                                                                    delivery : null }) %>
+                                                                                    <%- include('./partials/addDelivery/electrician.addDelivery.ejs',
+                                                                                        { editing, delivery: editing ?
+                                                                                        delivery : null }) %>
+                                                                                        <%- include('./partials/addDelivery/education.addDelivery.ejs',
+                                                                                            { editing, delivery: editing
+                                                                                            ? delivery : null }) %>
+                                                        </div>
+                                                    </div>
+
+
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-12">
+                                            <button type="button"
+                                                onclick="handleSubmitDelivery(<%= JSON.stringify({ editing, order, deliveryId: editing ? delivery._id : null }) %>)"
+                                                class="button ripple-effect big margin-top-30 margin-bottom-30">
+                                                <% if (editing) { %>
+                                                    Edit
+                                                    <% } else {%>
+                                                        Add
+                                                        <% } %>
+                                            </button>
+                                            <br>
+                                        </div>
+                                    </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <!-- Row / End -->
+                    <%- include('./includes/footer.ejs') %>

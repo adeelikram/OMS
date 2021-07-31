@@ -1,0 +1,258 @@
+<%- include('./includes/header.ejs') %>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <%- include('./includes/side-bar.ejs') %>
+            <!-- Dashboard Content
+    ================================================== -->
+            <div class="dashboard-content-container" data-simplebar>
+                <div class="dashboard-content-inner">
+                    <!-- Dashboard Headline -->
+                    <div class="dashboard-headline">
+                        <h3></h3>
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs" class="dark">
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Orders</a></li>
+                                <li>
+                                    Edit Ongoing Project
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <!-- Row -->
+                    <div class="row">
+                        <!-- Dashboard Box -->
+                        <div class="col-xl-12">
+                            <div class="dashboard-box margin-top-0">
+
+                                <!-- Headline -->
+                                <div class="headline">
+                                    <h3><i class="icon-feather-flag"></i> Edit Ongoing Project</h3>
+                                </div>
+                                <main style="overflow-x:auto;">
+                                    <div>
+                                        <%- include ("./partials/messages") %>
+                                    </div>
+
+                                    <table class="table table-bordered mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Products Sold:</th>
+                                                <th>Units</th>
+                                                <th>Left to implement</th>
+                                                <th>Installation included?</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <%- include ('./partials/editOngoingProject/roomMateRent.ejs', { product:
+                                                order.roomMateRent }) %>
+                                                <%- include ('./partials/editOngoingProject/roomMateSold.ejs', {
+                                                    product: order.roomMateSold }) %>
+                                                    <%- include ('./partials/editOngoingProject/nucleus.ejs', { product:
+                                                        order.nucleus }) %>
+                                                        <%- include ('./partials/editOngoingProject/neatseat.ejs', {
+                                                            product: order.neatseat }) %>
+                                                            <%- include
+                                                                ('./partials/editOngoingProject/sitShowerRent.ejs', {
+                                                                product: order.sitShowerRent }) %>
+                                                                <%- include
+                                                                    ('./partials/editOngoingProject/sitShowerSold.ejs',
+                                                                    { product: order.sitShowerSold }) %>
+                                                                    <%- include
+                                                                        ('./partials/editOngoingProject/otium.ejs', {
+                                                                        product: order.otium }) %>
+                                        </tbody>
+                                    </table>
+
+
+                                </main>
+                                <%- include ("./partials/messages") %>
+
+
+
+                                    <form action="/post-edit-order-management" method="POST">
+                                        <div class="content padding-bottom-10">
+                                            <input type="hidden" value="<%= order._id %>" name="orderId">
+                                            <!-- <div class="submit-field"> -->
+                                            <div class="row mx-4 mt-xl-4 mt-3">
+                                                
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>Projektansvarig:</h5>
+                                                        <select name="order_manager" id="order_manager"
+                                                            class="browser-default custom-select"
+                                                            data-live-search="true">
+                                                            <% for (const user of users) { if (user.username) { const
+                                                                isCurrentUser=user.username===order.manager; %>
+                                                                <option value="<%= user.username %>" <%- isCurrentUser
+                                                                    ? 'selected' : '' %> >
+                                                                    <%= user.username %>
+                                                                        <%= isCurrentUser ? '(Current)' : '' %>
+                                                                </option>
+                                                                <% } else { %>
+                                                                    <h1>No users found</h1>
+                                                                    <% } } %>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                               
+                                                
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>Genomfört planeringsmöte</h5>
+                                                        <select name="order_planningMeeting" id="order_planningMeeting"
+                                                            class="browser-default custom-select"
+                                                            data-live-search="true">
+                                                            <option value="false" <%- order.planningMeeting==false
+                                                                ? 'selected' : '' %>>No</option>
+                                                            <option value="true" <%- order.planningMeeting ? 'selected'
+                                                                : '' %>>Yes</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>Internt samråd</h5>
+                                                        <select name="order_internalConsultation"
+                                                            id="order_internalConsultation"
+                                                            class="browser-default custom-select "
+                                                            data-live-search="true">
+                                                            <option value="false" <%- order.planningMeeting==false
+                                                                ? 'selected' : '' %>>No</option>
+                                                            <option value="true" <%- order.internalConsultation
+                                                                ? 'selected' : '' %>>Yes</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>Beställa enheter</h5>
+                                                        <select name="order_orderedUnits" id="order_orderedUnits"
+                                                            class="browser-default custom-select "
+                                                            data-live-search="true">
+                                                            <option value="false" <%- order.orderedUnits==false
+                                                                ? 'selected' : '' %>>No</option>
+                                                            <option value="true" <%- order.orderedUnits ? 'selected'
+                                                                : '' %>>Yes</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>Internetanslutning</h5>
+                                                        <select name="order_internetConnection"
+                                                            id="order_internetConnection"
+                                                            class="browser-default custom-select "
+                                                            data-live-search="true">
+                                                            <option value="no" <%- !order.internetConnection ||
+                                                                order.internetConnection==="no" ? 'selected' : '' %>
+                                                                >Nej!</option>
+                                                            <option value="yes" <%- order.internetConnection==="yes"
+                                                                ? 'selected' : '' %>>Ja!</option>
+                                                            <option value="wifi" <%- order.internetConnection==="wifi"
+                                                                ? 'selected' : '' %>>Ja, Wifi med redundans</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>Mesh-system</h5>
+                                                        <select name="order_meshSystem" id="order_meshSystem"
+                                                            class="browser-default custom-select "
+                                                            data-live-search="true">
+                                                            <option value="false" <%- order.meshSystem==false
+                                                                ? 'selected' : '' %>>No</option>
+                                                            <option value="true" <%- order.meshSystem ? 'selected' : ''
+                                                                %>>Yes</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-12">
+                                                <div class="submit-field">
+                                                    <hr>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="submit-field">
+                                                    <button type="button"
+                                                        onclick="handleSubmitAddOrder(<%= JSON.stringify({ editing: true, id: order._id }) %>)"
+                                                        href="/post-edit-order/<%= order._id %>"
+                                                        class="btn btn-success">Save</button>
+                                                    <a href="/get-add-place-of-delivery/<%= order._id %>"
+                                                        class="btn btn-info">Add Place of Delivery</a>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-xl-12">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Place of Delivery</th>
+                                                                <th>Date</th>
+                                                                <th>Deadline</th>
+                                                                <th>Sent?</th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <% if (deliveries && deliveries.length> 0) {
+                                                                for (const d of deliveries) {
+                                                                %>
+                                                                <tr>
+                                                                    <td>
+                                                                        <% if (d.title) { %>
+                                                                            <%= d.title %>
+                                                                                <% } %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <% if (d.date) { %>
+                                                                            <%= d.date.toDateString() %>
+                                                                                <% } %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <% if (d.deadline) { %>
+                                                                            <%= d.deadline.toDateString() %>
+                                                                                <% } %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <% if (d.sent !==null || d.sent !==undefined) {
+                                                                            %>
+                                                                            <%= d.sent %>
+                                                                                <% } %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <a class="btn btn-info"
+                                                                            href="/get-edit-place-of-delivery/<%= d._id %>?edit=true"
+                                                                            class="button ripple-effect"><i
+                                                                                class="icon-line-awesome-pencil"></i>
+                                                                            Update</a>
+                                                                    </td>
+                                                                </tr>
+                                                                <% } } else { %>
+                                                                    <tr>
+                                                                        <td>No Deliveries</td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                    </tr>
+                                                                    <% } %>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </form>
+                                    <!--Next Rahil-->
+
+                                    
+
+
+
+                                    <!-- Row / End -->
+                                    <%- include('./includes/footer.ejs') %>

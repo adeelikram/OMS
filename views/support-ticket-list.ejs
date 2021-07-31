@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <base href="/">
+    <!-- Basic Page Needs
+    ================================================== -->
+    <title>OMS 🚀 </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Favicon
+    ==================================-->
+    <link href="/images/order.png" rel="shortcut icon" type="image/x-icon" />
+
+    <!-- CSS
+    ================================================== -->
+    <meta http-equiv="X-UA-Compatible" content="IE=7" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://bootswatch.com/4/journal/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/colors/theme.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet" />
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
+        <style>.checkbox-1x {
+             transform: scale(0.5);
+            -webkit-transform: scale(0.5);
+            margin-right: 0.5px;
+            margin-left: -10px;
+            
+            display:inline-block;
+        }
+        </style>
+</head>
+
+
+
+
+
+<body class="gray">
+   
+    <!--<%- include('./includes/header.ejs') %>
+   <!-- Dashboard Container -->
+   <div class="dashboard-container">
+    
+        <!--<%- include('./includes/side-bar.ejs') %>
+           <!-- Dashboard Content
+   ================================================== -->
+           <div class="dashboard-content-container" data-simplebar>
+               <div class="dashboard-content-inner">
+                <%- include ("./partials/messages") %>
+                   <!-- Row -->
+                   <div class="row">
+                   
+                       <!-- Dashboard Box -->
+                       
+                       
+                       <div class="col-md-8">
+                        <div class="dashboard-box margin-top-0">
+                            <div class="headline">
+                                <H2>Customer Support</H2>
+                                <br>
+                                
+                                 
+                             </div>
+                        <div class="content with-padding padding-bottom-10">
+                            <div class="row">
+                                <form class="row" action="/<% if (editing) { %>support-ticket-list-filter-main<% } else { %>support-ticket-list-filter-main<% } %>"
+                                    method="POST">
+                                    &nbsp;&nbsp;&nbsp;
+                                <div class="submit-field">
+                                    <span>Typ Av ticket</span>
+                                    
+                                <select name = "selection" class="form-control form-control-sm" style="width:200px;" id="sel1">
+                                    <option label="Alla öppna tickets" value="All open tickets">Alla öppna tickets</option>
+                                    <option label="Alla tickets" value="All tickets">Alla tickets</option>
+                                    <option label="Alla tickets användaren är ansvarig för" value="All tickets the user is responsible for">Alla tickets användaren är ansvarig för</option>
+                                    <option label="Alla tickets användaren skapat" value= "All tickets the user created">Alla tickets användaren skapat</option>
+                                    <option label="Lösta tickets" value="Solved tickets">Lösta tickets</option>
+                                  </select>
+                            </div>
+                            &nbsp;
+                            <div class="submit-field">
+                                <span>Sortera</span>
+                                <select name = "sort" class="form-control form-control-sm" style="width:200px;" id="sel1">
+                                    <option label="Datum" value="Date of creation">Datum</option>
+                                    <option label="Prioritet" value="Priority">Prioritet</option>
+                                    <option>Status</option>
+                                    <option label="Senast uppdaterad" value="Last updated">Senast uppdaterad</option>
+                                  </select>
+                            </div>
+                            &nbsp;&nbsp;
+                            <div class="submit-field">
+                                <br>
+                                <button class="button small ripple-effect " style="height:30px;" type="submit" id="dropdownMenuButton" >
+                                    Tillämpa
+                                  </button></div>
+                            </form>
+                            </div>
+                            </div>
+                            
+                        </div>
+                        <br>
+                        
+                        
+                            <% for(var i=0;i<ticket.length;i++){ %>
+                                <div class="dashboard-box margin-top-0">
+                            <div class="content with-padding padding-bottom-10">
+                                <a href="/ticket-view/<%= ticket[i]._id %>" >
+                                <div class="row">
+                                    
+                                <button class="button disabled small text-left" style="height:50px;width:50px;" >
+                                    <% if (ticket[i].Customer_info.name != '') { %>
+                                    <span ><%= ticket[i].Customer_info.name[0].toUpperCase() %></span>
+                                    <% } else { %>
+                                        <span >?</span>
+                                    <% } %>
+                                </button>
+                                &nbsp;&nbsp;&nbsp;
+                                <p id="double-spaced" style="line-height: 135%;font-size:10pt;">
+                                <% if((Math.abs(ticket[i].timestamp - date_today) / 36e5) <=24) { %>
+                                <span><b><font color = "#34eb74">Ny</font></b></span> <% } %>
+                                <br>
+                                <b><%= ticket[i].Subject %></b>&nbsp; # <%= i %>
+                                <br>
+                                <span><%= created[i].email %></span> <font size="1pt;" color="gray">&nbsp;.&nbsp; <%= ticket[i].Description.substr(0, 20) %></font>
+                                </p>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                
+                                
+                                
+                                
+                                
+                                <p id="double-spaced" style="line-height: 200%;font-size:10pt;">
+                                    <span><font color="<%= ticket[i].Priority_color %>"><i class="icon-feather-square"></i></font>&nbsp;<%= ticket[i].Priority %></span>
+                                    <br>
+                                    <span><i class="icon-feather-activity"></i>&nbsp;<%= ticket[i].Status %></span>
+                                    </p>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    
+
+                                <p id="double-spaced" style="line-height: 200%;font-size:10pt;">
+                                    <% if (ticket[i].Customer_info.name != '') { %>
+                                    <span><i class="icon-feather-user"></i>&nbsp;<%= ticket[i].Customer_info.name %></span>
+                                    <% } else { %>
+                                    <span><i class="icon-feather-user"></i>&nbsp;Ingen kund tillagd</span>
+                                    <% } %>
+                                    <br>
+                                    <span><i class="icon-feather-calendar"></i>&nbsp;<%= ticket[i].Type %></span>
+                                    </p>
+                                    
+                                    
+                                  
+                            </div>
+                        </a>
+                            </div>
+                        </div>
+                        <br>
+                            <% } %>
+                            
+                        
+                       </div>
+                       <div class="col-md-4">
+                        <div class="dashboard-box margin-top-0">
+                            <div class="headline">
+                                <H4>FILTER</H4>
+                                 
+                             </div>
+                        <div class="content with-padding padding-bottom-10">
+                            
+                            
+                            <span class="float-left">Egenskaper</span>
+                            <br>
+                            <br>
+                            <div class="row">
+                                <form action="/<% if (editing) { %>support-ticket-list-filter<% } else { %>support-ticket-list-filter<% } %>"
+                                    method="POST">
+                                <div class="submit-field">
+                                 <h5>Ansvarig</h5>
+                                 <select name = "User" class="form-control form-control-sm" style="width:270px;" id="sel1">
+                                     <% for(var i=0;i<users.length;i++) { %>
+                                    <option><%= users[i].email %></option>
+                                     <% } %>
+                                   </select>
+                                </div>
+                                <div class="submit-field">
+                                 <h5>Skapad</h5>
+                                 <select name = "time" class="form-control form-control-sm" style="width:270px;" id="sel1">
+                                     <option label="Senaste veckan" value="last week">Senaste veckan</option>
+                                     <option label="Senaste månaden" value="last 30 days">Senaste månaden</option>
+                                     <option label="Senaste året" value="last year">Senaste året</option>
+                                   </select>
+                                </div>
+                                <div class="submit-field">
+                                    <h5>Typ</h5>
+                                    <select name="Type" class="form-control form-control-sm" style="width:270px;" id="sel1">
+                                        <option>Ekonomi</option>
+                                        <option>RoomMate</option>
+                                        <option>NeatSeat</option>
+                                        <option>Sit&Shower</option>
+                                        <option>Nucleus</option>
+                                        <option>Internetanslutning</option>
+                                        
+                                      </select>
+                                </div>
+                                <div class="submit-field">
+                                    <h5>Status</h5>
+                                    <select name="Status" class="form-control form-control-sm" style="width:270px;" id="sel1">
+                                        <option>Problemsökning</option>
+                                        <option>Bokat besök</option>
+                                        <option>Inväntar svar</option>
+                                        <option>Löst</option>
+                                      </select>
+                                </div>
+                                <div class="submit-field">
+                                    <h5>Prioritet</h5>
+                                    <select name="Priority" class="form-control form-control-sm" style="width:270px;" id="sel1">
+                                        <option>Låg</option>
+                                        <option>Medium</option>
+                                        <option>Hög</option>
+                                        <option>Brådskande</option>
+                                      </select>
+                                </div>
+                                <input name="filter" type="checkbox" hidden/>
+                                <div class="submit-field">
+                                    <button class="button small ripple-effect " type="submit" id="dropdownMenuButton" >
+                                        Tillämpa
+                                      </button>
+                                </div>
+                                        
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
+                       </div>
+                  
+                   <br><br>
+
+
+
+                   </div>
+                   <!-- Row / End -->
+                   
+
+
+</div>
+<!-- Wrapper / End -->
+<!-- Scripts
+================================================== -->
+<!-- dismissible alerts -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+   integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+   crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+   integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+   crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+   integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+   crossorigin="anonymous"></script>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/jquery-migrate-3.0.0.min.js"></script>
+<script src="js/mmenu.min.js"></script>
+<script src="js/tippy.all.min.js"></script>
+<script src="js/simplebar.min.js"></script>
+<script src="js/bootstrap-slider.min.js"></script>
+<script src="js/bootstrap-select.min.js"></script>
+<script src="js/snackbar.js"></script>
+<script src="js/clipboard.min.js"></script>
+<script src="js/counterup.min.js"></script>
+<script src="js/magnific-popup.min.js"></script>
+<script src="js/slick.min.js"></script>
+<script src="js/custom.js"></script>
+<script src="js/chart.min.js"></script>
+<script>function successfunc() {
+    alert("Supportbiljett har lagts till.");
+  }</script>
+
+
+</body>

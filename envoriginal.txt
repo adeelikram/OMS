@@ -1,0 +1,5 @@
+MONGODB_URL=mongodb+srv://internsystem:internsystem@internsystem.jssvk.mongodb.net/internsystem?retryWrites=true&w=majority
+CLIENT_ID=P1QGwtk7jRaBo2725iJT72lG0r0J211C
+AUTHO_DOMAIN=dev-nroxgmw9.us.auth0.com
+CLIENT_SECRET=4QeLCIGw_x6PzA3uw9LgQZvkXdA9pIg_apD6XfMaEZu5KU5_JUS3l_itCyyz0ahJ
+CALLBACK_URL=http://13.53.217.2:3500/callback

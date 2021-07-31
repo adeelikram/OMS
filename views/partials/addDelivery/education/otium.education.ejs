@@ -1,0 +1,91 @@
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Admin utbildnin för RoomMate</h5>
+        <select name="deliveryEducationotiumAdmin_user" id="deliveryEducationotiumAdmin_user"
+        class="browser-default custom-select" data-live-search="true">
+            <%  if (!delivery || !delivery.education || !delivery.education.otium || !delivery.education.otium.admin || delivery.education.otium.admin != undefined) { %>
+                <option value="" selected>Select</option>
+            <% 
+                }
+                for (const user of users) {
+                    if (user.username) {
+            %>
+                        <option value="<%= user.username %>" <%- editing ? delivery.education ? delivery.education.otium ? delivery.education.otium.admin ? delivery.education.otium.admin.user ? 'selected' : '' : '' : '' : '' : '' %>>
+                            <%= user.username %>
+                        </option>
+                <% } else { %>
+                    <h1>No users found</h1>
+                <% 
+                        }
+                    }
+                %>
+        </select>
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Type</h5>
+        <select name="deliveryEducationotiumAdmin_type" id="deliveryEducationotiumAdmin_type"
+            class="browser-default custom-select "
+            data-live-search="true">
+            <% if (editing && delivery.education && delivery.education.otium && delivery.education.otium.admin) { %>
+                <% if (delivery.education.otium.admin.type) { %>
+                    <option value="physical" selected>Physical</option>
+                    <option value="digital">Digital</option>
+                <% } else { %>
+                    <% if (delivery.education.otium.admin.type === undefined) { %>
+                            <option value="" selected>Select</option>
+                            <option value="physical">Physical</option>
+                            <option value="digital">Digital</option>
+                    <% } else { %>
+                            <option value="physical">Physical</option>
+                            <option value="digital" selected>Digital</option>
+                    <% } %>
+                <% } %>
+            <% } else { %>
+                <option value="" selected>Select</option>
+                <option value="physical">Physical</option>
+                <option value="digital">Digital</option>
+            <% } %>
+        </select>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Task Finished</h5>
+        <select name="deliveryEducationotiumAdmin_finished" id="deliveryEducationotiumAdmin_finished"
+            class="browser-default custom-select"
+            data-live-search="true">
+            <% if (editing && delivery.education && delivery.education.otium && delivery.education.otium.admin) { %>
+                <% if (delivery.education.otium.admin.finished) { %>
+                    <option value="true" selected>Yes</option>
+                    <option value="false">No</option>      
+                <% } else { %>
+                    <% if (delivery.education.otium.admin.finished === undefined) { %>
+                            <option value="" selected>Select</option>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                    <% } else { %>
+                            <option value="true">Yes</option>
+                            <option value="false" selected>No</option>
+                    <% } %>
+                <% } %>
+            <% } else { %>
+                <option value="" selected>Select</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            <% } %>
+        </select>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Date</h5>
+        <input type="date" name="deliveryEducationotiumAdmin_date"
+            class="with-border" placeholder="Date"
+            value="<% if (editing && delivery.education && delivery.education.otium && delivery.education.otium.admin && delivery.education.otium.admin.date) { %><%= delivery.education.otium.admin.date.toDateString() %><% } %>">
+    </div>
+</div>

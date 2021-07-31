@@ -1,0 +1,73 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
+
+<%- include('./includes/header.ejs') %>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <%- include('./includes/side-bar.ejs') %>
+            <!-- Dashboard Content
+    ================================================== -->
+            <div class="dashboard-content-container" data-simplebar>
+                <div class="dashboard-content-inner">
+
+                    <!-- Dashboard Headline -->
+                    <div class="dashboard-headline">
+                        <h3></h3>
+
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs" class="dark">
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Orders</a></li>
+                                <li>
+                                    <% if (editing) { %>Update
+                                        Order<% } else { %>Add Order<% } %>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Row -->
+                    <div class="row">
+
+                        <!-- Dashboard Box -->
+                        <div class="col-xl-12">
+                            <div class="dashboard-box margin-top-0">
+
+                                <!-- Headline -->
+                                <div class="headline">
+                                    <h3><i class="icon-feather-flag"></i> Order Submission Form</h3>
+                                </div>
+                                <%- include ("./partials/messages") %>
+
+                                        <div class="content with-padding padding-bottom-10">
+                                            <div class="row">
+                                                <%- include('./partials/addOrder/initial.ejs', { editing, disabled, order: editing ? order : null }) %>
+                                                
+                                                <%- include('./partials/addOrder/room-mate-rent.ejs', { editing, disabled, order: editing ? order : null }) %>
+                                                
+                                                <%- include('./partials/addOrder/room-mate-sold.ejs', { editing, disabled, order: editing ? order : null }) %>
+                                                
+                                                <%- include('./partials/addOrder/nucleus.ejs', { editing, disabled, order: editing ? order : null }) %>
+                                                
+                                                <%- include('./partials/addOrder/neat-seat.ejs', { editing, disabled, order: editing ? order : null }) %>
+                                                
+                                                <%- include('./partials/addOrder/sit-shower-rent.ejs', { editing, disabled, order: editing ? order : null }) %>
+
+                                                <%- include('./partials/addOrder/sit-shower-sold.ejs', { editing, disabled, order: editing ? order : null }) %>
+
+                                                <%- include('./partials/addOrder/otium.ejs', { editing, disabled, order: editing ? order : null }) %>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-12">
+                                            <button onclick="handleSubmitAddOrder(<%= JSON.stringify({ editing, id: editing ? order._id : null }) %>)" class="button ripple-effect big margin-top-30 margin-bottom-30">
+                                                Spara
+                                            </button>
+                                        </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Row / End -->
+                    <%- include('./includes/footer.ejs') %>
+
+                    

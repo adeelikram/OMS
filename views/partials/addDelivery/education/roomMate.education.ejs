@@ -1,0 +1,91 @@
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Admin utbildnin för RoomMate</h5>
+        <select name="deliveryEducationroomMateAdmin_user" id="deliveryEducationroomMateAdmin_user"
+        class="browser-default custom-select" data-live-search="true">
+            <%  if (!delivery || !delivery.education || !delivery.education.roomMate || !delivery.education.roomMate.admin || delivery.education.roomMate.admin != undefined) { %>
+                <option value="" selected>Select</option>
+            <% 
+                }
+                for (const user of users) {
+                    if (user.username) {
+            %>
+                        <option value="<%= user.username %>" <%- editing ? delivery.education ? delivery.education.roomMate ? delivery.education.roomMate.admin ? delivery.education.roomMate.admin.user ? 'selected' : '' : '' : '' : '' : '' %>>
+                            <%= user.username %>
+                        </option>
+                <% } else { %>
+                    <h1>No users found</h1>
+                <% 
+                        }
+                    }
+                %>
+        </select>
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Type</h5>
+        <select name="deliveryEducationroomMateAdmin_type" id="deliveryEducationroomMateAdmin_type"
+            class="browser-default custom-select "
+            data-live-search="true">
+            <% if (editing && delivery.education && delivery.education.roomMate && delivery.education.roomMate.admin) { %>
+                <% if (delivery.education.roomMate.admin.type) { %>
+                    <option value="physical" selected>Physical</option>
+                    <option value="digital">Digital</option>
+                <% } else { %>
+                    <% if (delivery.education.roomMate.admin.type === undefined) { %>
+                            <option value="" selected>Select</option>
+                            <option value="physical">Physical</option>
+                            <option value="digital">Digital</option>
+                    <% } else { %>
+                            <option value="physical">Physical</option>
+                            <option value="digital" selected>Digital</option>
+                    <% } %>
+                <% } %>
+            <% } else { %>
+                <option value="" selected>Select</option>
+                <option value="physical">Physical</option>
+                <option value="digital">Digital</option>
+            <% } %>
+        </select>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Task Finished</h5>
+        <select name="deliveryEducationroomMateAdmin_finished" id="deliveryEducationroomMateAdmin_finished"
+            class="browser-default custom-select"
+            data-live-search="true">
+            <% if (editing && delivery.education && delivery.education.roomMate && delivery.education.roomMate.admin) { %>
+                <% if (delivery.education.roomMate.admin.finished) { %>
+                    <option value="true" selected>Yes</option>
+                    <option value="false">No</option>      
+                <% } else { %>
+                    <% if (delivery.education.roomMate.admin.finished === undefined) { %>
+                            <option value="" selected>Select</option>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                    <% } else { %>
+                            <option value="true">Yes</option>
+                            <option value="false" selected>No</option>
+                    <% } %>
+                <% } %>
+            <% } else { %>
+                <option value="" selected>Select</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            <% } %>
+        </select>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Date</h5>
+        <input type="date" name="deliveryEducationroomMateAdmin_date"
+            class="with-border" placeholder="Date"
+            value="<% if (editing && delivery.education && delivery.education.roomMate && delivery.education.roomMate.admin && delivery.education.roomMate.admin.date) { %><%= delivery.education.roomMate.admin.date.toDateString() %><% } %>">
+    </div>
+</div>

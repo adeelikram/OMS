@@ -1,0 +1,61 @@
+<!--from here -->
+
+<div class="col-xl-12">
+    <div class="submit-field">
+        <h5>Genomfört besök</h5>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5 style="visibility: hidden;">Dasdasd</h5>
+        <select name="genomfort_yes_no">
+                <option value="false" selected>No</option>
+                <option value="true" >Yes</option>
+        </select>
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Datum</h5>
+        <input type="date" name="genomfort_date"
+            class="with-border" placeholder="Date">
+    </div>
+</div>
+<div class="col-xl-12">
+    <div class="submit-field">
+        <hr>
+    </div>
+</div>
+
+
+<!--end here-->
+<div class="col-xl-12">
+    <div class="submit-field">
+        <h3>Installation</h3>
+    </div>
+</div>
+<div class="col-xl-12">
+    <div class="submit-field">
+        <hr>
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Installationsansvarig</h5>
+        <select name="deliveryInstallation_responsible" id="deliveryInstallation_responsible"
+            class="browser-default custom-select" data-live-search="true">
+            <% if (!delivery || !delivery.installation || delivery.installation.responsible !=undefined) { %>
+                <option value="" selected>Select</option>
+                <% } if (users.length) { for (const user of users) { if (user.username) { %>
+                    <option value="<%= user.username %>" <%- editing ? delivery.installation ?
+                        delivery.installation.responsible ? user.username===delivery.installation.responsible
+                        ? 'selected' : '' : '' : '' : '' %>>
+                        <%= user.username %>
+                    </option>
+                    <% } } }else { %>
+                        <h1>No User Found</h1>
+                        <% } %>
+        </select>
+    </div>
+</div>

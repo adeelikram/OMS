@@ -1,0 +1,269 @@
+
+<html lang="en">
+
+<head>
+    <base href="/">
+    <!-- Basic Page Needs
+    ================================================== -->
+    <title>OMS 🚀 </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Favicon
+    ==================================-->
+    <link href="/images/order.png" rel="shortcut icon" type="image/x-icon" />
+
+    <!-- CSS
+    ================================================== -->
+    <meta http-equiv="X-UA-Compatible" content="IE=7" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://bootswatch.com/4/journal/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/colors/theme.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet" />
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
+        <style>.checkbox-1x {
+             transform: scale(0.5);
+            -webkit-transform: scale(0.5);
+            margin-right: 0.5px;
+            margin-left: -10px;
+            
+            display:inline-block;
+        }
+        </style>
+</head>
+
+
+
+
+
+<body class="gray">
+   
+    <!--<%- include('./includes/header.ejs') %>
+   <!-- Dashboard Container -->
+   <div class="dashboard-container">
+    
+        <!--<%- include('./includes/side-bar.ejs') %>
+           <!-- Dashboard Content
+   ================================================== -->
+           <div class="dashboard-content-container" data-simplebar>
+               <div class="dashboard-content-inner">
+                <%- include ("./partials/messages") %>
+                   <!-- Row -->
+                   <div class="row">
+                   
+                       <!-- Dashboard Box -->
+                       <div class="col-xl-5">
+                           <div class="dashboard-box margin-top-0">
+
+                               <!-- Headline -->
+                               <div class="headline">
+                                   <h2> Customer Support</h2>
+                                   <br>
+                                   <br>
+                                   <h4>Editing Deviation Ticket ID : </h4>
+                                   <input type="text" name="ticketid" value = "<%= ticket._id %>" readonly/>
+                               </div>
+                               
+                               
+
+                                   <form action="/<% if (editing) { %>update-deviation-ticket<% } else { %>update-deviation-ticket<% } %>"
+                                       method="POST">
+                                       <div class="content with-padding padding-bottom-50">
+                                           
+                                               <div class="submit-field">
+                                                   <h5>Ämne <font color="red">&nbsp; *</font></h5>
+                                                   <input name="subject" class="form-control form-control-sm" id="inputsm" type="text
+                                           
+                                           " value="<%= ticket.Subject  %>"
+                                           required>
+                                               
+                                       </div>
+                                       
+
+                                       
+                                       <div class="submit-field">
+                                       <h5>Beskrivning <font color="red">&nbsp; *</font></h5>
+                                       <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3" ><%= ticket.Description  %></textarea>
+                                       </div>
+                                       <div class="submit-field">
+                                        <h5>Temporara atgarder <font color="red">&nbsp; *</font></h5>
+                                        <textarea name="temporary_action" class="form-control" id="exampleFormControlTextarea1" rows="3"><%= ticket.Temporary_action  %></textarea>
+                                        </div>
+                                        <div class="submit-field">
+                                        <h5>Rutinförändring <font color="red">&nbsp; *</font></h5>
+                                        <textarea name="routine" class="form-control" id="exampleFormControlTextarea1" rows="3"><%= ticket.Routine  %></textarea>
+                                        </div>
+                                   
+                                   
+                                       <div class="row float-right">
+                                           <a href="#" class="button small gray ripple-effect " role="button" aria-pressed="true">Cancel</a>
+                                           &nbsp;
+                                           <button class="button small ripple-effect " type="submit" id="dropdownMenuButton" >
+                                               Skapa
+                                             </button>
+                                             </div>
+                               </div>
+                                   
+                           </div>
+                       </div>
+                       <div class="col-md-3">
+                           <div class="dashboard-box margin-top-0">
+                               <div class="headline">
+                                   <H2>Oppen</H2>
+                                    
+                                </div>
+                           <div class="content with-padding padding-bottom-10">
+                               
+                               
+                               <span class="float-left">Egenskaper</span>
+                               <br>
+                               <br>
+                               <div class="row">
+                                   <div class="submit-field">
+                                    <h5>Ansvarig</h5>
+                                    <select name="User" class="form-control form-control-sm" style="width:150px;" id="sel1">
+                                        <option selected="selected">
+                                            <%= user.email %>
+                                            </option>
+                                        <% for(var i=0;i<users.length;i++) { %>
+                                            <% if(users[i].email != user.email) { %>
+                                            <option><%= users[i].email %></option>
+                                             <% } %>
+                                             <% } %>
+
+                                      </select>
+                                   </div>
+                                   <div class="submit-field">
+                                       <h5>Typ</h5>
+                                       <select value="<%= ticket.Type %>" name="Type" class="form-control form-control-sm" style="width:150px;" id="sel1">
+                                           <option selected="selected"><%= ticket.Type %></option>
+                                           <option>Ekonomi</option>
+                                           <option>RoomMate</option>
+                                           <option>NeatSeat</option>
+                                           <option>Sit&Shower</option>
+                                           <option>Nucleus</option>
+                                           <option>Internetanslutning</option>
+                                           
+                                         </select>
+                                   </div>
+                                   <div class="submit-field">
+                                       <h5>Status <font color="red">&nbsp; *</font></h5>
+                                       <select name="Status" class="form-control form-control-sm" style="width:150px;" id="sel1">
+                                           <option selected="selected"><%= ticket.Status %></option>
+                                           <option>Problemsökning</option>
+                                           <option>Bokat besök</option>
+                                           <option>Inväntar svar</option>
+                                           <option>Löst</option>
+                                         </select>
+                                   </div>
+                                   <div class="submit-field">
+                                       <h5>Prioritet</h5>
+                                       <select name="Priority" class="form-control form-control-sm" style="width:150px;" id="sel1">
+                                           <option selected="selected"><%= ticket.Priority %></option>
+                                           <option>Låg</option>
+                                           <option> Medium</option>
+                                           <option>Hög</option>
+                                           <option>Brådskande</option>
+                                         </select>
+                                       
+                                           
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       </div>
+                       <div class="col-md-4">
+                           <div class="dashboard-box margin-top-0 navbar-brand">
+                               <H5 style="margin-left:10px;"><b>KONTAKTUPPGIFTER</b></H5>
+                           <div class="content with-padding padding-bottom-10">
+                               <div class="row">
+                                   <div class="submit-field">
+                                       <h5>Namn</h5>
+                                       <input name="name" class="form-control form-control-sm" id="inputsm" type="text
+                                           
+                                           " value="<%= ticket.Customer_info.name %>"
+                                           required>
+                                   </div>
+                                   <div class="submit-field">
+                                       <h5>Kund</h5>
+                                       <input name="organization" class="form-control form-control-sm" id="inputsm" type="text
+                                           
+                                           " value="<%= ticket.Customer_info.organization %>"
+                                           required>
+                                   </div>
+                                   <div class="submit-field">
+                                       <h5>Tele</h5>
+                                       <input name="telephone" class="form-control form-control-sm" id="inputsm" type="text
+                                           
+                                           " value="<%= ticket.Customer_info.telephone %>"
+                                           required>
+                                   </div>
+                                   <div class="submit-field">
+                                       <h5>Mail</h5>
+                                       <input name="mail" class="form-control form-control-sm" id="inputsm" type="email
+                                           
+                                           " value="<%= ticket.Customer_info.mail %>"
+                                           required>
+                                   </div>
+                                   <div class="submit-field">
+                                       <h5>Kontakt Metod</h5>
+                                       <select name="Contact_method" class="form-control form-control-sm" style="width:140px;" id="sel1">
+                                          <option selected="selected"><%= ticket.Customer_info.contact_method %></option>
+                                           <option>Telefon</option>
+                                           <option>Mail</option>
+                                         </select>
+                                   </div>
+                                   <input type="text" name="ticketid" value = "<%= ticket._id %>" hidden/>
+                               </div>
+                           </div>
+                       </div>
+                       </div>
+                       </div>
+                   </form>
+                   <br><br>
+
+
+
+                   </div>
+                   <!-- Row / End -->
+                   
+
+
+</div>
+<!-- Wrapper / End -->
+<!-- Scripts
+================================================== -->
+<!-- dismissible alerts -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+   integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+   crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+   integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+   crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+   integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+   crossorigin="anonymous"></script>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/jquery-migrate-3.0.0.min.js"></script>
+<script src="js/mmenu.min.js"></script>
+<script src="js/tippy.all.min.js"></script>
+<script src="js/simplebar.min.js"></script>
+<script src="js/bootstrap-slider.min.js"></script>
+<script src="js/bootstrap-select.min.js"></script>
+<script src="js/snackbar.js"></script>
+<script src="js/clipboard.min.js"></script>
+<script src="js/counterup.min.js"></script>
+<script src="js/magnific-popup.min.js"></script>
+<script src="js/slick.min.js"></script>
+<script src="js/custom.js"></script>
+<script src="js/chart.min.js"></script>
+<script>function successfunc() {
+    alert("Supportbiljett har lagts till.");
+  }</script>
+
+
+</body>

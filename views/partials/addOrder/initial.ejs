@@ -1,0 +1,144 @@
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Customer (required)</h5>
+        <input type="text" name="order_customer" class="with-border"
+            placeholder="Customer"
+            value="<% if (editing) { %><%= order.customer %><% } %>"
+            required <%- disabled ? (' disabled') : '' %>>
+    </div>
+</div>
+<input type="hidden" name="customerOrderNumber" <%- disabled ? (' disabled') : '' %>>
+
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Contact Name</h5>
+        <input type="text" name="order_clientName"
+            class="with-border" placeholder="Contact name"
+            value="<% if (editing) { %><%= order.clientName %><% } %>"
+            required <%- disabled ? (' disabled') : '' %>>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Phone nr</h5>
+        <input type="text" name="order_contact" class="with-border"
+            placeholder="Phone nr"
+            value="<% if (editing) { %><%= order.contact %><% } %>"
+            required <%- disabled ? (' disabled') : '' %>>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Email</h5>
+        <h6><br></h6>
+        <input type="text" name="order_email" class="with-border"
+            placeholder="Email"
+            value="<% if (editing) { %><%= order.email %><% } %>"
+            required <%- disabled ? (' disabled') : '' %>>
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Order Date</h5>
+        <% if (editing) { %>
+            <h6>(Current: <% if (editing && order.orderDate) { %>
+                    <%= order.orderDate.toDateString() %>
+                        <% } %>)</h6>
+            <% }%>
+                <% if (editing) { %>
+                    <input <%- disabled ? (' disabled') : '' %> <% if
+                        (order.orderDate !=null) { %>
+                    type="text"
+                    <% } else { %>
+                        type= "date"
+                        <% }%>
+                            name="order_orderDate" class="with-border"
+                            placeholder="Deadline"
+                            <% if (editing && order.orderDate
+                                !=null) { %>
+                                value="<%=
+                                    order.orderDate.toDateString()
+                                    %>
+                                    "
+                                    <% } %>>
+                                        <% } %>
+                                            <% if (!editing) { %>
+                                                <input
+                                                    <%- disabled ? (' disabled') : '' %>
+                                                    type="date"
+                                                    name="order_orderDate"
+                                                    class="with-border"
+                                                    placeholder="Deadline">
+                                                <% } %>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Deadline</h5>
+        <% if (editing) { %>
+            <h6>(Current: <% if (editing && order.orderDeadline) { %>
+                    <%= order.orderDeadline.toDateString() %>
+                        <% } %>)</h6>
+            <% }%>
+                <% if (editing) { %>
+                    <input <%- disabled ? (' disabled') : '' %> <% if
+                        (order.orderDeadline !=null) { %>
+                    type="text"
+                    <% } else { %>
+                        type= "date"
+                        <% }%>
+                            name="order_orderDeadline" class="with-border"
+                            placeholder="Deadline"
+                            <% if (editing && order.orderDeadline
+                                !=null) { %>
+                                value="<%=
+                                    order.orderDeadline.toDateString()
+                                    %>
+                                    "
+                                    <% } %>>
+                                        <% } %>
+                                            <% if (!editing) { %>
+                                                <input
+                                                    <%- disabled ? (' disabled') : '' %>
+                                                    type="date"
+                                                    name="order_orderDeadline"
+                                                    class="with-border"
+                                                    placeholder="Deadline">
+                                                <% } %>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Fakturainformation</h5>
+        <h6><br></h6>
+        <input <%- disabled ? (' disabled') : '' %> type="text" name="order_invoiceInfo"
+            class="with-border"
+            value="<% if (editing) { %><%= order.invoiceInfo %><% } %>"
+            required></input>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Faktura nummer</h5>
+        <h6><br></h6>
+        <input <%- disabled ? (' disabled') : '' %> type="text"
+            name="order_invoiceNumber" class="with-border" value="0" required
+            disabled></input>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Fakturerat</h5>
+        <h6><br></h6>
+        <input <%- disabled ? (' disabled') : '' %> type="text"
+            name="order_isInvoiceGenerated" class="with-border" value="0"
+            required disabled></input>
+    </div>
+</div>

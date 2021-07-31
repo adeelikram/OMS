@@ -1,0 +1,261 @@
+<%- include('./includes/header.ejs') %>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <%- include('./includes/side-bar.ejs') %>
+            <!-- Dashboard Content
+    ================================================== -->
+            <div class="dashboard-content-container" data-simplebar>
+                <div class="dashboard-content-inner">
+
+                    <!-- Dashboard Headline -->
+                    <div class="dashboard-headline">
+                        <h3>Manage Archived Orders</h3>
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs" class="dark">
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Dashboard</a></li>
+                                <li>Manage Archived Orders</li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Row -->
+                    <div class="row">
+
+                        <!-- Dashboard Box -->
+                        <!-- <div class="col-xl-12"> -->
+                        <div class="dashboard-box margin-top-0" style="overflow-x:auto;">
+
+                            <!-- Headline -->
+                            <div class="headline">
+                                <h3><i class="icon-feather-pocket"></i>
+                                    <%= ordersCount %>
+                                        Archived Orders
+                                </h3>
+                            </div>
+
+                            <div class="container-fluid">
+                                <main>
+                                    <div>
+                                        <%- include ("./partials/messages") %>
+                                    </div>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th style="vertical-align:top">Customer</th>
+                                                <th style="vertical-align:top">Customer Order Number</th>
+                                                <th style="vertical-align:top">Accomplished</th>
+                                                <th style="vertical-align:top">Order Date</th>
+                                                <th style="vertical-align:top">Order Deadline</th>
+                                                <th style="vertical-align:top"></th>
+                                                <th style="vertical-align:top"></th>
+                                                <th style="vertical-align:top"></th>
+                                                <!-- <th style="vertical-align:top"></th> -->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% if (orders.length> 0) { %>
+                                                <% for (let order of orders) { %>
+                                                    <tr>
+                                                        <td>
+                                                            <%=order.customer%>
+                                                        </td>
+                                                        <td>
+                                                            <%= order.number%>
+                                                        </td>
+                                                        <td>
+                                                            <%= order.accomplished%>
+                                                        </td>
+                                                        <td>
+                                                            <% if (order.orderDate ) { %>
+                                                                <%= order.orderDate.toDateString() %>
+                                                                    <% } %>
+                                                        </td>
+
+                                                        <td>
+                                                            <% if (order.orderDeadline ) { %>
+                                                                <%= order.orderDeadline.toDateString() %>
+                                                                    <% } %>
+                                                        </td>
+                                                        <td>
+                                                            <form action="/restore-order/<%= order._id %>"
+                                                                method="post">
+                                                                <button type="submit" class="btn btn-success"
+                                                                    onclick="return confirm('Are you sure you want to restore the order?')">
+                                                                    Restore
+                                                                </button>
+                                                            </form>
+                                                        </td>
+                                                        <td>
+
+                                                            <button class="btn btn-info">
+                                                                <a href="/archived-order/<%= order._id %>?edit=true">
+                                                                    View</a>
+                                                            </button>
+
+                                                        </td>
+                                                        <td>
+
+                                                            <form action="/delete-order/<%= order._id %>?_method=DELETE"
+                                                                method="post">
+                                                                <button type="submit" class="btn btn-danger"
+                                                                    onclick="return confirm('Are you sure you want to delete the order?')">
+                                                                    Delete
+                                                                </button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                    <% } %>
+                                                        <% } else { %>
+                                                            <h1>No Orders Found!</h1>
+                                                            <% } %>
+                                        </tbody>
+
+                                    </table>
+                                    <!-- ================================= -->
+                                    <!-- Row -->
+                                    <div class="row">
+                                        <!-- Dashboard Box -->
+                                        <div class="col-xl-12">
+                                            <div class="dashboard-box margin-top-0">
+                                                <div>
+                                                    <%- include ("./partials/messages") %>
+                                                </div>
+                                                <!-- Headline -->
+                                                <div class="headline">
+                                                    <h3><i class="icon-feather-pocket"></i>
+                                                        Archived Ongoing Projects
+                                                    </h3>
+                                                </div>
+
+                                                <div class="content">
+                                                    <main style="overflow-x:auto;">
+                                                        <table class="table table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th style="vertical-align:top">Customer</th>
+                                                                    <th style="vertical-align:top">Customer Order Number
+                                                                    </th>
+                                                                    <th style="vertical-align:top">Accomplished</th>
+                                                                    <th style="vertical-align:top">Order Date</th>
+                                                                    <th style="vertical-align:top">Order Deadline</th>
+                                                                    <th style="vertical-align:top">Status</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <% if (orders.length> 0) { %>
+                                                                    <% for (let order of orders) { %>
+                                                                        <tr>
+
+                                                                            <td>
+                                                                                <!-- <a href="/get-order-status/<%= order._id %>?edit=true">
+                                                                    <%=order.customer%>
+                                                                </a> -->
+                                                                                <%=order.customer%>
+
+                                                                                    <!-- <a href="">
+                                                                    <%=order.customer%>
+                                                                </a> -->
+                                                                            </td>
+                                                                            <td>
+                                                                                <%= order.number%>
+                                                                            </td>
+                                                                            <td>
+                                                                                <%= order.accomplished%>
+                                                                            </td>
+                                                                            <td>
+                                                                                <% if (order.orderDate !=null) { %>
+                                                                                    <%= order.orderDate.toDateString()
+                                                                                        %>
+                                                                                        <% } %>
+                                                                            </td>
+
+                                                                            <td>
+                                                                                <% if (order.orderDeadline !=null) { %>
+                                                                                    <%= order.orderDeadline.toDateString()
+                                                                                        %>
+                                                                                        <% } %>
+                                                                            </td>
+                                                                            <td>
+                                                                                <%= order.status %>
+                                                                            </td>
+                                                                            <td><a class="btn btn-info"
+                                                                                    href="/get-ongoing-project/<%= order._id %>"
+                                                                                    class="button ripple-effect">
+                                                                                    <!-- <i class="icon-line-awesome-pencil"></i> -->
+                                                                                    View Details
+                                                                                </a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <% } %>
+                                                                            <% } else { %>
+                                                                                <h1>No Orders Found!</h1>
+                                                                                <% } %>
+                                                            </tbody>
+                                                        </table>
+                                                        <div class="headline">
+                                                            <h3><i class="icon-feather-pocket"></i>
+                                                                Archived Send Delivery
+                                                            </h3>
+                                                        </div>
+                                                        <table class="table table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th style="vertical-align:top">Customers</th>
+                                                                    <th style="vertical-align:top">Delivery place</th>
+                                                                    <th style="vertical-align:top">Date of order</th>
+                                                                    <th style="vertical-align:top">Deadline</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <% if (deliveries.length> 0) { %>
+                                                                    <% for (let delivery of deliveries) { %>
+                                                                        <tr>
+
+                                                                            <td>
+                                                                                <%=delivery.customer%>
+                                                                            </td>
+                                                                            <td>
+                                                                                <%= delivery.placeOfDelivery%>
+                                                                            </td>
+                                                                            <td>
+                                                                                <% if (delivery.orderDate !=null) { %>
+                                                                                    <%= delivery.orderDate.toDateString()
+                                                                                        %>
+                                                                                        <% } %>
+                                                                            </td>
+                                                                            <td>
+                                                                                <% if (delivery.deliveryDateDeadline
+                                                                                    !=null) { %>
+                                                                                    <%= delivery.deliveryDateDeadline.toDateString()
+                                                                                        %>
+                                                                                        <% } %>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <% } %>
+                                                                            <% } else { %>
+                                                                                <h1>No Deliveries Found!</h1>
+                                                                                <% } %>
+                                                            </tbody>
+
+                                                        </table>
+                                                    </main>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- Row / End -->
+                                </main>
+
+                            </div>
+                        </div>
+                        <!-- </div> -->
+
+                    </div>
+                    <!-- Row / End -->
+                </div>
+            </div>
+
+            <%- include('./includes/footer.ejs') %>

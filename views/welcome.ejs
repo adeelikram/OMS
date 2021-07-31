@@ -1,0 +1,209 @@
+<%- include('./includes/header.ejs') %>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <%- include('./includes/side-bar.ejs') %>
+            <!-- Dashboard Content
+	================================================== -->
+            <div class="dashboard-content-container" data-simplebar>
+                <!-- <div class="dashboard-content-inner"> -->
+                <!-- <br> -->
+
+                <div class="row">
+                    <div class="col s12">
+                        <div class="card">
+                            <div class="card-content white-text">
+                                <div class="row">
+                                    <div class="col s5">
+                                        <form>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <label>Customers :
+                                                        <!-- <label class="red-text">*</label> -->
+                                                    </label>
+                                                    <input type="text" name="name" placeholder="Customers"
+                                                        required>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <label>Contact Name :</label>
+                                                    <input type="text" name="position"
+                                                        placeholder="Contact Name">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <label>Phone nr :</label>
+                                                    <input type="text" name="office"
+                                                        placeholder="Phone nr">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <label>Email :</label>
+                                                    <input type="text" name="salary" placeholder="Email">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <label>Date of Delivery :</label>
+                                                    <input type="text" name="salary" placeholder="Date of Delivery">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <label>RoomMate, hyra :</label>
+                                                    <input type="number" name="salary" placeholder="Salary per annum">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <label>Huresperiod :</label>
+                                                    <input type="number" name="salary" placeholder="Huresperiod">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <label>RoomMate, såld :</label>
+                                                    <input type="number" name="salary" placeholder="RoomMate, såld">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <label>Licence period :</label>
+                                                    <input type="number" name="salary" placeholder="Licence period">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <label>Nucleus :</label>
+                                                    <input type="number" name="salary" placeholder="Nucleus">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <label>Nucleus, gamma :</label>
+                                                    <input type="number" name="salary" placeholder="Nucleus, gamma">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <label>Hyresperiod :</label>
+                                                    <input type="number" name="salary" placeholder="Hyresperiod">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <label>Neatseat, large :</label>
+                                                    <input type="number" name="salary" placeholder="Neatseat, large">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <label>Neatseat, medium :</label>
+                                                    <input type="number" name="salary" placeholder="Neatseat, medium">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <label>Sit&Shower med hygienstol, såld :</label>
+                                                    <input type="number" name="salary" placeholder="Sit&Shower med hygienstol, såld">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <label>Sit&Shower med hygienstol, uthyrning, hyra :</label>
+                                                    <input type="number" name="salary" placeholder="Sit&Shower med hygienstol, uthyrning, hyra">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <label>Sit&Shower, såld :</label>
+                                                    <input type="number" name="salary" placeholder="Sit&Shower, såld">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <label>Sit&Shower, hyra :</label>
+                                                    <input type="number" name="salary" placeholder="Sit&Shower, hyra">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <label>Hyresperiod :</label>
+                                                    <input type="number" name="salary" placeholder="Hyresperiod">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <button class="btn btn-custom right"
+                                                        type="button">Nollställ</button>
+                                                    <button class="btn btn-custom right" type="submit">Spara</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col s7">
+                                        <table class="responsive-table highlight">
+                                            <thead>
+                                                <tr>
+                                                    <th>Customer</th>
+                                                    <th>Contact name</th>
+                                                    <th>Phone nr</th>
+                                                    <th>Email</th>
+                                                    <th>Date of delivery</th>
+                                                    <th>RoomMate, hyra</th>
+                                                    <th>Huresperiod</th>
+                                                    <th>RoomMate, såld</th>
+                                                    <th>Licence period</th>
+                                                    <th>Nucleus</th>
+                                                    <th>Nucleus, gammal</th>
+                                                    <th>Hyresperiod</th>
+                                                    <th>Neatseat, large</th>
+                                                    <th>Neatseat, medium</th>
+                                                    <th>Sit&Shower med hygienstol, såld</th>
+                                                    <th>Sit&Shower med hygienstol, uthyrning, hyra</th>
+                                                    <th>Sit&Shower, såld</th>
+                                                    <th>Sit&Shower, hyra</th>
+                                                    <th>Hyresperiod</th>
+                                                </tr>
+                                            </thead>
+                                            <tr *ngFor="let emp of employeeService.employees">
+                                                <td>1234</td>
+                                                <td>4321</td>
+                                                <td>3412</td>
+                                                <td>3412</td>
+                                                <td>3412</td>
+                                                <td>3412</td>
+                                                <td>3412</td>
+                                                <td>3412</td>
+                                                <td>3412</td>
+                                                <td>3412</td>
+                                                <td>3412</td>
+                                                <td>3412</td>
+                                                <td>3412</td>
+                                                <td>3412</td>
+                                                <td>3412</td>
+                                                <td>3412</td>
+                                                <td>3412</td>
+                                                <td>3412</td>
+                                                <td>3412</td>
+                                                <td>3412</td>
+                                                <td>
+                                                    <a class="action-btn" (click)="onEdit(emp)">
+                                                        <i class="material-icons">edit</i>
+                                                    </a>
+                                                    <a class="action-btn" (click)="onDelete(emp._id,employeeForm)">
+                                                        <i class="material-icons">delete</i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <%- include('./includes/footer.ejs') %>

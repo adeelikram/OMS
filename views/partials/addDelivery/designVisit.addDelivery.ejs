@@ -1,0 +1,122 @@
+<div class="col-xl-12">
+    <div class="submit-field">
+        <h3>Projekteringsbesök</h3>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Internet access fungerar</h5>
+        <select name="deliveryDesignVisit_internetAccessWorks" id="deliveryDesignVisit_internetAccessWorks"
+            class="browser-default custom-select "
+            data-live-search="true">
+            <% if (editing && delivery.designVisit && delivery.designVisit.internetAccessWorks) { %>
+                <% if (delivery.designVisit.internetAccessWorks) { %>
+                    <option value="true" selected>Yes</option>
+                    <option value="false">No</option>      
+                <% } else { %>
+                    <option value="true">Yes</option>
+                    <option value="false" selected>No</option>
+                <% } %>
+            <% } else { %>
+                <option value="true">Yes</option>
+                <option value="false" selected>No</option>
+            <% } %>
+        </select>
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Undersök alla rum</h5>
+        <select name="deliveryDesignVisitExamineAllRooms_examined" id="deliveryDesignVisitExamineAllRooms_examined"
+            class="browser-default custom-select "
+            data-live-search="true">
+            <% if (editing && delivery.designVisit && delivery.designVisit.examineAllRooms && delivery.designVisit.examineAllRooms.examined) { %>
+                <% if (delivery.designVisit.examineAllRooms.examined) { %>
+                    <option value="true" selected>Yes</option>
+                    <option value="false">No</option>      
+                <% } else { %>
+                    <option value="true">Yes</option>
+                    <option value="false" selected>No</option>
+                <% } %>
+            <% } else { %>
+                <option value="true">Yes</option>
+                <option value="false" selected>No</option>
+            <% } %>
+        </select>
+        
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Är ordern fullständig</h5>
+        <select name="deliveryDesignVisitCompleted_examined" id="deliveryDesignVisitCompleted_examined"
+            class="browser-default custom-select "
+            data-live-search="true">
+            <% if (editing && delivery.designVisit && delivery.designVisit.completed && delivery.designVisit.completed.completed) { %>
+                <% if (delivery.designVisit.completed.completed) { %>
+                    <option value="true" selected>Yes</option>
+                    <option value="false">No</option>      
+                <% } else { %>
+                    <option value="true">Yes</option>
+                    <option value="false" selected>No</option>
+                <% } %>
+            <% } else { %>
+                <option value="true">Yes</option>
+                <option value="false" selected>No</option>
+            <% } %>
+        </select>
+        
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Funkar telefonerna</h5>
+        <select name="deliveryDesignVisitPhoneWorks_works" id="deliveryDesignVisitPhoneWorks_works"
+            class="browser-default custom-select "
+            data-live-search="true">
+            <% if (editing && delivery.designVisit && delivery.designVisit.phoneWorks && delivery.designVisit.phoneWorks.works) { %>
+                <% if (delivery.designVisit.phoneWorks.works) { %>
+                    <option value="true" selected>Yes</option>
+                    <option value="false">No</option>      
+                <% } else { %>
+                    <option value="true">Yes</option>
+                    <option value="false" selected>No</option>
+                <% } %>
+            <% } else { %>
+                <option value="true">Yes</option>
+                <option value="false" selected>No</option>
+            <% } %>
+        </select>
+        
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Preparera Nucleus</h5>
+        <select name="deliveryPlumbingFitter_nucleus" id="deliveryPlumbingFitter_nucleus"
+            class="browser-default custom-select "
+            data-live-search="true">
+            <% if (editing && delivery.plumbingFitter) { %>
+                <% if (delivery.plumbingFitter.nucleus) { %>
+                    <option value="true" selected>Yes</option>
+                    <option value="false">No</option>      
+                <% } else { %>
+                    <% if (delivery.plumbingFitter.nucleus === undefined) { %>
+                            <option value="" selected>Select</option>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                    <% } else { %>
+                            <option value="true">Yes</option>
+                            <option value="false" selected>No</option>
+                    <% } %>
+                <% } %>
+            <% } else { %>
+                <option value="" selected>Select</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            <% } %>
+        </select>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Installer</h5>
+        <select name="delivery_installer" id="delivery_installer"
+        class="browser-default custom-select" data-live-search="true">
+            <%  if (!delivery || !delivery.installer || delivery.installer.responsible != undefined) { %>
+                <option value="" selected>Select</option>
+            <% 
+                }
+                for (const user of users) {
+                    if (user.username) {
+            %>
+                        <option value="<%= user.username %>" <%- editing && delivery.installer ? user.username === delivery.installer ? 'selected' : '' : '' %>>
+                            <%= user.username %>
+                        </option>
+                <% } else { %>
+                    <h1>No users found</h1>
+                <% 
+                        }
+                    }
+                %>
+        </select>
+    </div>
+</div>

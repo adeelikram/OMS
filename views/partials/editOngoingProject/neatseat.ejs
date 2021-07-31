@@ -1,0 +1,54 @@
+<% if (product && (product.large || product.medium)) { %>
+    <% if (product.large) { %>
+        <tr>
+            <td>Neatseat - Large</td>
+            <td><%= product.large.bought %></td>
+            <td><%= product.large.left %></td>
+        </tr>
+    <% } else if (product.medium) { %>
+        <tr>
+            <td>Neatseat</td>
+            <td><%= product.medium.bought %></td>
+            <td><%= product.medium.left %></td>
+        </tr>
+    <% } %>
+    <% if (product.accessories) { %>
+        <tr>
+            <td colspan="4" style="width:100%">Neatseat, Accessories<button
+                    onclick="toggleCollapse('hide_neatseat_div')"><i
+                        class="icon-feather-chevron-down"></i></button></td>
+        </tr>
+        <tr>
+            <td colspan="4" style="width:100%">
+                <div class="container-fluid" id="hide_neatseat_div"
+                    style="display:none">
+                    <div class="row">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Accessory:</th>
+                                    <th>Units</th>
+                                    <th>Left to implement</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%
+                                    const accessoryKeys = Object.keys(product.accessories);
+                                    for (let accessoryIndex = 0; accessoryIndex < accessoryKeys.length; accessoryIndex++) {
+                                        const accessoryKey = accessoryKeys[accessoryIndex];
+                                        const accessory = { key: accessoryKey, value: product.accessories[accessoryKey] };
+                                %>
+                                        <tr>
+                                            <td><%= accessory.key %></td>
+                                            <td><%= accessory.value.bought %></td>
+                                            <td><%= accessory.value.left %></td>
+                                        </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    <% } %>
+<% } %>

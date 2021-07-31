@@ -1,0 +1,125 @@
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Place of Delivery</h5>
+        <input type="text" name="delivery_title" class="with-border"
+            placeholder="Place of Delivery"
+            value="<% if (editing) { %><%= delivery.title %><% } %>">
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Address</h5>
+        <input type="text" name="delivery_address" class="with-border"
+            placeholder="Address"
+            value="<% if (editing) { %><%= delivery.address %><% } %>">
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Postal Code</h5>
+        <input type="text" name="delivery_zip" class="with-border"
+            placeholder="Postal Code"
+            value="<% if (editing) { %><%= delivery.zip %><% } %>">
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Contact Person</h5>
+        <input type="text" name="delivery_customer" class="with-border"
+            placeholder="Contact Person"
+            value="<% if (editing) { %><%= delivery.customer %><% } %>">
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Phone nr</h5>
+        <input type="text" name="delivery_contact"
+            class="with-border" placeholder="Phone nr"
+            value="<% if (editing) { %><%= delivery.contact %><% } %>">
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Email</h5>
+        <input type="email" name="delivery_email'"
+            class="with-border" placeholder="Email" value="<% if (editing) { %><%= delivery.email
+                %><% } %>">
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Arbetsterapeut</h5>
+        <input type="text" name="delivery_occupationalTherapist" class="with-border"
+            placeholder="Arbetsterapeut"
+            value="<% if (editing) { %><%= delivery.occupationalTherapist %><% } %>">
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Phone nr(AT Phone)</h5>
+        <input type="text" name="delivery_contactTherapist"
+            class="with-border" placeholder="Phone nr(AT Phone)"
+            value="<% if (editing) { %><%= delivery.contactTherapist %><% } %>">
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Email(AT Email)</h5>
+        <input type="email" name="delivery_emailTherapist"
+            class="with-border" placeholder="Email(AT Email)"
+            value="<% if (editing) { %><%= delivery.emailTherapist %><% } %>">
+    </div>
+</div>
+
+<!--FROM HERE-->
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Biståndshandläggare</h5>
+        <input type="text" class="with-border"
+            placeholder="Biståndshandläggare"
+            value="<% if (editing) { %><%= delivery.occupationalTherapist %><% } %>">
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Phone nr(AT Phone)</h5>
+        <input type="text"
+            class="with-border" placeholder="Phone nr(AT Phone)"
+            value="<% if (editing) { %><%= delivery.contactTherapist %><% } %>">
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Email(AT Email)</h5>
+        <input type="email"
+            class="with-border" placeholder="Email(AT Email)"
+            value="<% if (editing) { %><%= delivery.emailTherapist %><% } %>">
+    </div>
+</div>
+<!--end here-->
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Order creation</h5>
+        <h6>(Current: <% if (editing && delivery.date) { %>
+                <%= delivery.date.toDateString() %>
+                    <% } %>)</h6>
+        <input type="text" name="delivery_date" class="with-border"
+            placeholder="Order Creation"
+            value="<% if (editing) { %><%= delivery.date.toDateString() %><% }else{ %> <%= new Date().toDateString() %><%} %>"
+            readonly>
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Deadline</h5>
+        <h6>(Current: <% if (editing && delivery.deadline) { %>
+                <%= delivery.deadline.toDateString() %>
+        <% } %>)</h6>
+        <input type="date" name="delivery_deadline"
+            class="with-border" placeholder="Deadline"
+            value="<% if (editing) { %><%= delivery.deadline %><% } %>">
+    </div>
+</div>

@@ -1,0 +1,54 @@
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Utprovning</h5>
+        <select name="deliveryTesting_user" id="deliveryTesting_user"
+        class="browser-default custom-select" data-live-search="true">
+            <%  if (!delivery || !delivery.testing || delivery.testing.responsible != undefined) { %>
+                <option value="" selected>Select</option>
+            <% 
+                }
+                for (const user of users) {
+                    if (user.username) { 
+            %>
+                        <option value="<%= user.username %>" <%- editing ? delivery.testing ? user.username === delivery.testing.user ? 'selected' : '' : '' : '' %>>
+                            <%= user.username %>
+                        </option>
+                <% } else { %>
+                    <h1>No users found</h1>
+                <% 
+                        }
+                    }
+                %>
+        </select>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Task Finished</h5>
+        <select name="deliveryTesting_finished" id="deliveryTesting_finished"
+            class="browser-default custom-select "
+            data-live-search="true">
+            <% if (editing && delivery.testing) { %>
+                <% if (delivery.testing.finished) { %>
+                    <option value="true" selected>Yes</option>
+                    <option value="false">No</option>      
+                <% } else { %>
+                    <% if (delivery.testing.finished === undefined) { %>
+                            <option value="" selected>Select</option>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                    <% } else { %>
+                            <option value="true">Yes</option>
+                            <option value="false" selected>No</option>
+                    <% } %>
+                <% } %>
+            <% } else { %>
+                <option value="" selected>Select</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            <% } %>
+        </select>
+    </div>
+</div>

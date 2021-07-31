@@ -1,0 +1,34 @@
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>VVS-montör</h5>
+        <input type="text" name="deliveryPlumbingFitter_name" class="with-border"
+            placeholder="Name"
+            value="<% if (editing && delivery.plumbingFitter) { %><%= delivery.plumbingFitter.name %><% } %>">
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Phone nr</h5>
+        <input type="text" name="deliveryPlumbingFitter_contact" class="with-border"
+            placeholder="Phone nr"
+            value="<% if (editing && delivery.plumbingFitter) { %><%= delivery.plumbingFitter.contact %><% } %>">
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Email</h5>
+        <input type="text" name="deliveryPlumbingFitter_email" class="with-border"
+            placeholder="Email"
+            value="<% if (editing && delivery.plumbingFitter) { %><%= delivery.plumbingFitter.email %><% } %>">
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Date</h5>
+        <input type="date" name="deliveryPlumbingFitter_date"
+            class="with-border" placeholder="Date"
+            value="<% if (editing && delivery.plumbingFitter && delivery.plumbingFitter.date) { %><%= delivery.plumbingFitter.date.toDateString() %><% } %>">
+    </div>
+</div>

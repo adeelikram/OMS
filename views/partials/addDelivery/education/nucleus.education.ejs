@@ -1,0 +1,91 @@
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Admin utbildning för Nucleus</h5>
+        <select name="deliveryEducationnucleusAdmin_user" id="deliveryEducationnucleusAdmin_user"
+        class="browser-default custom-select" data-live-search="true">
+            <%  if (!delivery || !delivery.education || !delivery.education.nucleus || !delivery.education.nucleus.admin || delivery.education.nucleus.admin != undefined) { %>
+                <option value="" selected>Select</option>
+            <% 
+                }
+                for (const user of users) {
+                    if (user.username) {
+            %>
+                        <option value="<%= user.username %>" <%- editing ? delivery.education ? delivery.education.nucleus ? delivery.education.nucleus.admin ? delivery.education.nucleus.admin.user ? 'selected' : '' : '' : '' : '' : '' %>>
+                            <%= user.username %>
+                        </option>
+                <% } else { %>
+                    <h1>No users found</h1>
+                <% 
+                        }
+                    }
+                %>
+        </select>
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Type</h5>
+        <select name="deliveryEducationnucleusAdmin_type" id="deliveryEducationnucleusAdmin_type"
+            class="browser-default custom-select "
+            data-live-search="true">
+            <% if (editing && delivery.education && delivery.education.nucleus && delivery.education.nucleus.admin) { %>
+                <% if (delivery.education.nucleus.admin.type) { %>
+                    <option value="physical" selected>Physical</option>
+                    <option value="digital">Digital</option>
+                <% } else { %>
+                    <% if (delivery.education.nucleus.admin.type === undefined) { %>
+                            <option value="" selected>Select</option>
+                            <option value="physical">Physical</option>
+                            <option value="digital">Digital</option>
+                    <% } else { %>
+                            <option value="physical">Physical</option>
+                            <option value="digital" selected>Digital</option>
+                    <% } %>
+                <% } %>
+            <% } else { %>
+                <option value="" selected>Select</option>
+                <option value="physical">Physical</option>
+                <option value="digital">Digital</option>
+            <% } %>
+        </select>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Task Finished</h5>
+        <select name="deliveryEducationnucleusAdmin_finished" id="deliveryEducationnucleusAdmin_finished"
+            class="browser-default custom-select"
+            data-live-search="true">
+            <% if (editing && delivery.education && delivery.education.nucleus && delivery.education.nucleus.admin) { %>
+                <% if (delivery.education.nucleus.admin.finished) { %>
+                    <option value="true" selected>Yes</option>
+                    <option value="false">No</option>      
+                <% } else { %>
+                    <% if (delivery.education.nucleus.admin.finished === undefined) { %>
+                            <option value="" selected>Select</option>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                    <% } else { %>
+                            <option value="true">Yes</option>
+                            <option value="false" selected>No</option>
+                    <% } %>
+                <% } %>
+            <% } else { %>
+                <option value="" selected>Select</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            <% } %>
+        </select>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Date</h5>
+        <input type="date" name="deliveryEducationnucleusAdmin_date"
+            class="with-border" placeholder="Date"
+            value="<% if (editing && delivery.education && delivery.education.nucleus && delivery.education.nucleus.admin && delivery.education.nucleus.admin.date) { %><%= delivery.education.nucleus.admin.date.toDateString() %><% } %>">
+    </div>
+</div>

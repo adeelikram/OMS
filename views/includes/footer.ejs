@@ -1,0 +1,332 @@
+<!-- Footer -->
+<div class="dashboard-footer-spacer"></div>
+<div class="small-footer margin-top-15">
+    <div class="small-footer-copyrights"> &copy;
+        <script>  document.write(new Date().getFullYear());</script>
+        <strong>OMS 🚀</strong>. All Rights Reserved.
+    </div>
+    <div class="clearfix"></div>
+</div>
+<!-- Footer / End -->
+
+<!-- </div> -->
+</div>
+<!-- Dashboard Content / End -->
+
+</div>
+<!-- Dashboard Container / End -->
+
+</div>
+<!-- Wrapper / End -->
+<!-- Scripts
+================================================== -->
+
+<!-- dismissible alerts -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+    integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+    crossorigin="anonymous"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/jquery-migrate-3.0.0.min.js"></script>
+<script src="/js/mmenu.min.js"></script>
+<script src="/js/tippy.all.min.js"></script>
+<script src="/js/simplebar.min.js"></script>
+<script src="/js/bootstrap-slider.min.js"></script>
+<script src="/js/bootstrap-select.min.js"></script>
+<script src="/js/snackbar.js"></script>
+<script src="/js/clipboard.min.js"></script>
+<script src="/js/counterup.min.js"></script>
+<script src="/js/magnific-popup.min.js"></script>
+<script src="/js/slick.min.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/chart.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<script>
+    function printPopUp() {
+        alert("Send shipment?")
+        // window.print();
+    }
+</script>
+<script>
+    function hideRoomateHyraDivFunc() {
+        var x = document.getElementById("hide_roomate_hyra_div");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+    function hideRoomateSaldDivFunc() {
+        var x = document.getElementById("hide_roomate_sald_div");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+    function hideNucleusOngoingProjectDivFunc() {
+        var x = document.getElementById("hide_nucleus_ongoing_project_div");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+    function hideNeatSeatOngoingProjectDivFunc() {
+        var x = document.getElementById("hide_neatseat_ongoing_project_div");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+    function hideSitShowerSaldDivFunc() {
+        var x = document.getElementById("hide_sit_shower_sald_div");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+    function hideSitShowerHyraDivFunc() {
+        var x = document.getElementById("hide_sit_shower_hyra_div");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+    function hideRoomatePlaceOfDeliverydDivFunc() {
+        var x = document.getElementById("hide_roomate_place_div");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+    function hideRoomatePlaceOfDeliverydDivFuncSold() {
+        var x = document.getElementById("hide_roomate_place_div_sold");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+    function hideNucleusPlaceDivFunc() {
+        var x = document.getElementById("hide_nucleus_place_div");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+    function hideSitShowerRentPlaceDivFunc() {
+        var x = document.getElementById("hide_sit_shower_rent_place_div");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+    function hideSitShowerSoldPlaceDivFunc() {
+        var x = document.getElementById("hide_sit_shower_sold_place_div");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+    function hideNeatSeatLPlaceDivFunc() {
+        var x = document.getElementById("hide_neatseat_l_place_div");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+    function hideNeatSeatMPlaceDivFunc() {
+        var x = document.getElementById("hide_neatseat_m_place_div");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
+    function toggleCollapse(id) {
+        var x = document.getElementById(id);
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
+    function hasLength (obj) {
+        if (!obj) return null;
+        return Object.keys(obj).length > 0;
+    }
+
+    function getFormValues(id, params = { debug: false, accessories: true } ) {
+        const elems = document.querySelectorAll(`[name^="${id}_"]`);
+
+        const accessoryEntries = [];
+        const entries = [];
+
+        elems.forEach(e => {
+            let arr = entries, split = `${id}_`;
+            
+            if (params.accessories && e.name.includes('_accessories_')) {
+                arr = accessoryEntries;
+                split = '_accessories_';
+            }
+            
+            const name = e.name.split(split)[1];
+
+            if (e.value === "") return;
+
+            arr.push([name, e.value])
+        })
+
+
+        const accessories = Object.fromEntries(accessoryEntries);
+        const object = { ...Object.fromEntries(entries) };
+
+        if (Object.keys(accessories).length) object.accessories = accessories;
+
+        return object;
+    }
+
+    async function handleSubmitAddOrder({ editing, id }) {
+        const body = getFormValues('order');
+
+        const roomMate = getFormValues('roomMate'),
+            roomMateRent = getFormValues('roomMateRent'),
+            roomMateSold = getFormValues('roomMateSold'),
+            nucleus = getFormValues('nucleus'),
+            neatseat = getFormValues('neatseat'),
+            sitShowerRent = getFormValues('sitShowerRent'),
+            sitShowerSold = getFormValues('sitShowerSold');
+            otium = getFormValues('otium'),
+            assistant = getFormValues('orderAssistant');
+
+            if (roomMate) body.roomMate = roomMate;
+            if (roomMateRent) body.roomMateRent = roomMateRent;
+            if (roomMateSold) body.roomMateSold = roomMateSold;
+            if (nucleus) body.nucleus = nucleus;
+            if (neatseat) body.neatseat = neatseat;
+            if (sitShowerRent) body.sitShowerRent = sitShowerRent;
+            if (sitShowerSold) body.sitShowerSold = sitShowerSold;
+            if (otium) body.otium = otium;
+
+            if (hasLength(assistant)) body.assistant = assistant;
+
+        try {
+            let path = '/add-order';
+
+            if (editing) {
+                path = '/post-edit-order';
+                body.id = id;
+            }
+
+            await axios.post(path, body);
+
+            window.location = "/";
+        } catch (err) {
+            alert('Please fill all the required fields')
+            console.error(err.response.data);
+        }
+    }
+
+    const educationProductNames = ['roomMate', 'nucleus', 'sitShower', 'neatseat'];
+
+    async function handleSubmitDelivery({ editing, order, deliveryId }) {
+        const body = getFormValues('delivery');
+        
+        body.orderId = order._id;
+
+        const roomMateRent = getFormValues('roomMateRent');
+        if (roomMateRent.units) body.roomMateRent = roomMateRent;
+
+        const roomMateSold = getFormValues('roomMateSold');
+        if (roomMateSold.units) body.roomMateSold = roomMateSold;
+
+        const nucleus = getFormValues('nucleus');
+        if (nucleus.units) body.nucleus = nucleus;
+
+        const neatseat = getFormValues('neatseat');
+        if (neatseat.large || neatseat.medium) body.neatseat = neatseat;
+
+        const sitShowerRent = getFormValues('sitShowerRent');
+        if (sitShowerRent.units) body.sitShowerRent = sitShowerRent;
+
+        const sitShowerSold = getFormValues('sitShowerSold');
+        if (sitShowerSold.units) body.sitShowerSold = sitShowerSold;
+
+        const otium = getFormValues('otium');
+        if (otium.units) body.otium = otium;
+
+        body.testing = getFormValues('deliveryTesting', { accessories: false });
+
+        const otherInstaller = getFormValues('deliveryOtherInstaller', { accessories: false });
+        if (hasLength(otherInstaller)) body.otherInstaller = otherInstaller;
+
+        const plumbingFitter = getFormValues('deliveryPlumbingFitter', { accessories: false });
+        if (hasLength(plumbingFitter)) body.plumbingFitter = plumbingFitter;
+
+        const electrician = getFormValues('deliveryElectrician', { accessories: false });
+        if (hasLength(electrician)) body.electrician = electrician;
+
+        educationProductNames.forEach((p) => {
+            const product = getFormValues(`deliveryEducation${p}`);
+            const admin = getFormValues(`deliveryEducation${p}Admin`);
+            if (admin) product.admin = admin;
+            if (hasLength(product)) {
+                if (!body.education) body.education = {};
+                body.education[p] = product;
+            }
+        })
+
+        const designVisit = getFormValues('deliveryDesignVisit');
+
+        const examineAllRooms = getFormValues('deliveryDesignVisitExamineAllRooms');
+        if (hasLength(examineAllRooms)) designVisit.examineAllRooms = examineAllRooms;
+
+        const completed = getFormValues('deliveryDesignVisitCompleted');
+        if (hasLength(examineAllRooms)) designVisit.completed = completed;
+
+        const phoneWorks = getFormValues('deliveryDesignVisitPhoneWorks');
+        if (hasLength(phoneWorks)) designVisit.phoneWorks = phoneWorks;
+
+        if (hasLength(designVisit)) body.designVisit = designVisit;
+
+        const installation = getFormValues('deliveryInstallation');
+        if (hasLength(installation)) body.installation = installation;
+        
+        let url = '/post-add-place-of-delivery';
+
+        if (editing) {
+            url = '/post-edit-place-of-delivery';
+            body.deliveryId = deliveryId;
+        }
+
+        console.log('footer', body);
+
+        await axios.post(url, body).catch(err => console.error(err))
+
+        window.location = "/";
+    }
+
+    
+</script>
+</body>
+
+</html>

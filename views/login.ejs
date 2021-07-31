@@ -1,0 +1,51 @@
+<%- include('./includes/login-header.ejs') %>
+
+    <h1>OMS 🚀 </h1>
+    <!-- main -->
+    <div class="main">
+        <!--login-profile-->
+
+        <!--login-profile-->
+        <!--signin-form-->
+        <div>
+            <div class="signin-form profile">
+                <h3>Login</h3>
+                <div>
+                    <%- include ("./partials/messages") %>
+                        <form action="/login" method="post">
+                            <input type="text" name="email" placeholder="E-mail" required="">
+                            <input type="password" name="password" placeholder="Password" required="">
+                            <!-- <input type="hidden" name="_csrf" value="csrfToken"> -->
+                            <div class="tp">
+                                <input type="submit" value="LOGIN NOW">
+                                <p><a href="/reset">Forgot Password?</a></p>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="agile">
+			<div class="signin-form profile">
+				<h3>Register</h3>
+				
+				<div class="login-form">
+					<form id="login" action="/" method="post" onsubmit="event.preventDefault(); validateMyForm();">
+						<input type="text" name="email" placeholder="E-mail" required="">
+						<input type="text" name="username" placeholder="Username" required="">
+						<input type="password" name="password" placeholder="Password" id="password" required="" >
+						<input type="password" name="passwordConf" placeholder="Confirm Password" id="password_conf" required="">
+						<input type="submit" value="REGISTER">
+					</form>
+				</div>
+				<p><a href="#"> By clicking register, I agree to your terms</a></p>
+			</div>
+		</div> -->
+        <div class="clear"></div>
+        <!--//signin-form-->
+    </div>
+    <div class="copyright">
+        <p> &copy;
+            <script>document.write(new Date().getFullYear());</script>. All rights reserved | Design by <a
+                href="https://karokojnr.github.io/" target="_blank">karokojnr</a>
+        </p>
+    </div>

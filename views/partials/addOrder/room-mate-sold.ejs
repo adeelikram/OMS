@@ -1,0 +1,314 @@
+<div class="col-xl-12">
+    <div class="submit-field">
+        <hr>
+    </div>
+</div>
+<div class="col-xl-12">
+    <div class="submit-field">
+        <h3><b>Roomate, sold</b></h3>
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Number of units</h5>
+        <input <%- disabled ? (' disabled') : '' %> type="number"
+            name="roomMateSold_units" class="with-border"
+            placeholder="Number of units"
+            value="<% if (editing) { %><%= order.roomMateSold.units.bought %><% } %>">
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Period(months)</h5>
+        <input <%- disabled ? (' disabled') : '' %> type="number"
+            name="roomMateSold_period" class="with-border"
+            placeholder="Period(months), sold"
+            value="<% if (editing) { %><%= order.roomMateSold.period %><% } %>">
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Installation</h5>
+        <select name="roomMateSold_installation"
+            id="roomMateSold_installation"
+            class="browser-default custom-select "
+            data-live-search="true">
+            <% if (editing) { %>
+                <% if (order.roomMateSold.installation) { %>
+                    <option value="true" selected>Yes</option>
+                    <option value="false">No</option>      
+                <% } else { %>
+                    <% if (order.roomMateSold.installation === undefined) { %>
+                            <option value="" selected>Select</option>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                    <% } else { %>
+                            <option value="true">Yes</option>
+                            <option value="false" selected>No</option>
+                    <% } %>
+                <% } %>
+            <% } else { %>
+                <option value="" selected>Select</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            <% } %>
+        </select>
+    </div>
+</div>
+<!-- ;;; -->
+<div class="col-xl-12">
+    <div class="submit-field">
+        <h4>Roomate, Sold Accessories<button type="button"
+                onclick="toggleCollapse('hide_roommate_sold_div')"><i
+                    class="icon-feather-chevron-down"></i></button>
+        </h4>
+    </div>
+</div>
+<div class="container-fluid" id="hide_roommate_sold_div"
+    style="display:none">
+    <div class="row">
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Alarmsmycke WTRZ 869 F1</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="roomMateSold_accessories_alarmWTRZ869F1" class="with-border"
+                    placeholder="Alarmsmycke WTRZ 869 F1"
+                    value="<% if (editing && order.roomMateSold.accessories.alarmWTRZ869F1) { %><%= order.roomMateSold.accessories.alarmWTRZ869F1.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Alarmsmycke WTRS-WHITE F1 865</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="roomMateSold_accessories_alarmWTRSF1865" class="with-border"
+                    placeholder="Alarmsmycke WTRS-WHITE F1 865"
+                    value="<% if (editing && order.roomMateSold.accessories.alarmWTRSF1865) { %><%= order.roomMateSold.accessories.alarmWTRSF1865.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Alarmsmycke WTRQ3</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="roomMateSold_accessories_alarmWTQR3" class="with-border"
+                    placeholder="Alarmsmycke WTRQ3"
+                    value="<% if (editing && order.roomMateSold.accessories.alarmWTQR3) { %><%= order.roomMateSold.accessories.alarmWTQR3.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Alarmsmycke WTRS2-WHITE</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="roomMateSold_accessories_alarmWTRS2" class="with-border"
+                    placeholder="Alarmsmycke WTRS2-WHITE"
+                    value="<% if (editing && order.roomMateSold.accessories.alarmWTRS2) { %><%= order.roomMateSold.accessories.alarmWTRS2.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Alarmsmycke JLPD-Marble</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="roomMateSold_accessories_alarmJLPD" class="with-border"
+                    placeholder="Alarmsmycke JLPD-Marble"
+                    value="<% if (editing && order.roomMateSold.accessories.alarmJLPD) { %><%= order.roomMateSold.accessories.alarmJLPD.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Dragsnöre PCU-3 F1 865</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="roomMateSold_accessories_drawstringPCU3F1865" class="with-border"
+                    placeholder="Dragsnöre PCU-3 F1 865"
+                    value="<% if (editing && order.roomMateSold.accessories.drawstringPCU3F1865) { %><%= order.roomMateSold.accessories.drawstringPCU3F1865.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Panikknapp PB-23 F1 869</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="roomMateSold_accessories_panikknappBP23F1869" class="with-border"
+                    placeholder="Panikknapp PB-23 F1 869"
+                    value="<% if (editing && order.roomMateSold.accessories.panikknappBP23F1869) { %><%= order.roomMateSold.accessories.panikknappBP23F1869.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Dörrkontakt DC-23 869 F1</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="roomMateSold_accessories_doorContactDC23869F1" class="with-border"
+                    placeholder="Dörrkontakt DC-23 869 F1"
+                    value="<% if (editing && order.roomMateSold.accessories.doorContactDC23869F1) { %><%= order.roomMateSold.accessories.doorContactDC23869F1.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Dörrkontakt SDC-1</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="roomMateSold_accessories_doorContactSDC1" class="with-border"
+                    placeholder="Dörrkontakt SDC-1"
+                    value="<% if (editing && order.roomMateSold.accessories.doorContactSDC1) { %><%= order.roomMateSold.accessories.doorContactSDC1.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Dörrkontakt DC-15SL F1 869M</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="roomMateSold_accessories_doorContactDC15SLF1869M" class="with-border"
+                    placeholder="Dörrkontakt DC-15SL F1 869M"
+                    value="<% if (editing && order.roomMateSold.accessories.doorContactDC15SLF1869M) { %><%= order.roomMateSold.accessories.doorContactDC15SLF1869M.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>I/O enhet UT-15 869 F1</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="roomMateSold_accessories_ioEnhetUT15869F1" class="with-border"
+                    placeholder="I/O enhet UT-15 869 F1"
+                    value="<% if (editing && order.roomMateSold.accessories.ioEnhetUT15869F1) { %><%= order.roomMateSold.accessories.ioEnhetUT15869F1.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Rörelsesensor IR-29SL 869 F1</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="roomMateSold_accessories_motionSensorIR29SL869F1" class="with-border"
+                    placeholder="Rörelsesensor IR-29SL 869 F1"
+                    value="<% if (editing && order.roomMateSold.accessories.motionSensorIR29SL869F1) { %><%= order.roomMateSold.accessories.motionSensorIR29SL869F1.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Värmedetektor (brandlarm) HD-9 869 F1</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="roomMateSold_accessories_heatDetectorHD9869F1" class="with-border"
+                    placeholder="Värmedetektor (brandlarm) HD-9 869 F1"
+                    value="<% if (editing && order.roomMateSold.accessories.heatDetectorHD9869F1) { %><%= order.roomMateSold.accessories.heatDetectorHD9869F1.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Rökdetektor (brandlarm) SD-8EL 869 F1</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="roomMateSold_accessories_smokeDetectorSD8EL869F1" class="with-border"
+                    placeholder="Rökdetektor (brandlarm) SD-8EL 869 F1"
+                    value="<% if (editing && order.roomMateSold.accessories.smokeDetectorSD8EL869F1) { %><%= order.roomMateSold.accessories.smokeDetectorSD8EL869F1.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Vattendetektor WLS-15 869M F1</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="roomMateSold_accessories_waterDetectorWLS15869MF1" class="with-border"
+                    placeholder="Vattendetektor WLS-15 869M F1"
+                    value="<% if (editing && order.roomMateSold.accessories.waterDetectorWLS15869MF1) { %><%= order.roomMateSold.accessories.waterDetectorWLS15869MF1.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>RoomMate dongle RF-DGL-P2-F1 </h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="roomMateSold_accessories_dongleRFDGLP2F1" class="with-border"
+                    placeholder="RoomMate dongle RF-DGL-P2-F1 "
+                    value="<% if (editing && order.roomMateSold.accessories.dongleRFDGLP2F1) { %><%= order.roomMateSold.accessories.dongleRFDGLP2F1.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Digitalt lås</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="roomMateSold_accessories_digitalLock" class="with-border"
+                    placeholder="Digitalt lås"
+                    value="<% if (editing && order.roomMateSold.accessories.digitalLock) { %><%= order.roomMateSold.accessories.digitalLock.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Medicinskåp med lås</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="roomMateSold_accessories_medicineCabnetWithLock" class="with-border"
+                    placeholder="Medicinskåp med lås"
+                    value="<% if (editing && order.roomMateSold.accessories.medicineCabnetWithLock) { %><%= order.roomMateSold.accessories.medicineCabnetWithLock.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Lås till medicinskåp</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="roomMateSold_accessories_lockForMedicineCabnet" class="with-border"
+                    placeholder="Lås till medicinskåp"
+                    value="<% if (editing && order.roomMateSold.accessories.lockForMedicineCabnet) { %><%= order.roomMateSold.accessories.lockForMedicineCabnet.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>NFC-läsare</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="roomMateSold_accessories_nfcReaders" class="with-border"
+                    placeholder="NFC-läsare"
+                    value="<% if (editing && order.roomMateSold.accessories.nfcReaders) { %><%= order.roomMateSold.accessories.nfcReaders.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Meshsystem Tp-Link M9</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="roomMateSold_accessories_meshSystemTPLinkM9" class="with-border"
+                    placeholder="Meshsystem Tp-Link M9"
+                    value="<% if (editing && order.roomMateSold.accessories.meshSystemTPLinkM9) { %><%= order.roomMateSold.accessories.meshSystemTPLinkM9.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Väggfäste, Tp-Link M9</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="roomMateSold_accessories_wallBracketTPLinkM9" class="with-border"
+                    placeholder="Väggfäste, Tp-Link M9"
+                    value="<% if (editing && order.roomMateSold.accessories.wallBracketTPLinkM9) { %><%= order.roomMateSold.accessories.wallBracketTPLinkM9.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Router, RUT950</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="roomMateSold_accessories_router950" class="with-border"
+                    placeholder="Router, RUT950"
+                    value="<% if (editing && order.roomMateSold.accessories.router950) { %><%= order.roomMateSold.accessories.router950.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Router, RUT240</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="roomMateSold_accessories_router240" class="with-border"
+                    placeholder="Router, RUT240"
+                    value="<% if (editing && order.roomMateSold.accessories.router240) { %><%= order.roomMateSold.accessories.router240.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Väggfäste, RUT240</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="roomMateSold_accessories_wallBracket240" class="with-border"
+                    placeholder="Väggfäste, RUT240"
+                    value="<% if (editing && order.roomMateSold.accessories.wallBracket240) { %><%= order.roomMateSold.accessories.wallBracket240.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Telenor Simkort, 3GB</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="roomMateSold_accessories_telenorSIMCard3GB" class="with-border"
+                    placeholder="Telenor Simkort, 3GB"
+                    value="<% if (editing && order.roomMateSold.accessories.telenorSIMCard3GB) { %><%= order.roomMateSold.accessories.telenorSIMCard3GB.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Telenor Simkort, 600GB</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="roomMateSold_accessories_telenorSIMCard600GB" class="with-border"
+                    placeholder="Telenor Simkort, 600GB"
+                    value="<% if (editing && order.roomMateSold.accessories.telenorSIMCard600GB) { %><%= order.roomMateSold.accessories.telenorSIMCard600GB.bought %><% } %>">
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,88 @@
+<!-- ;;;; -->
+<div class="col-xl-12">
+    <div class="submit-field">
+        <hr>
+    </div>
+</div>
+<div class="col-xl-12">
+    <div class="submit-field">
+        <h3><b>Nucleus</b></h3>
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>New units:</h5>
+        <input <%- disabled ? (' disabled') : '' %> type="number" name="nucleus_units"
+            class="with-border" placeholder="New units"
+            value="<% if (editing) { %><%= order.nucleus.units.bought %><% } %>">
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Period (months):</h5>
+        <input <%- disabled ? (' disabled') : '' %> type="number"
+            name="nucleus_period" class="with-border"
+            placeholder="Period"
+            value="<% if (editing) { %><%= order.nucleus.period %><% } %>">
+    </div>
+</div>
+<!-- ;;; -->
+<div class="col-xl-12">
+    <div class="submit-field">
+        <h4>Nucleus Accessories<button type="button"
+                onclick="toggleCollapse('hide_nucleus_div')"><i
+                    class="icon-feather-chevron-down"></i></button>
+        </h4>
+    </div>
+</div>
+<div class="container-fluid" id="hide_nucleus_div"
+    style="display:none">
+    <div class="row">
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Hållare</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="nucleus_accessories_holder" class="with-border"
+                    placeholder="Hållare"
+                    value="<% if (editing && order.nucleus.accessories.holder) { %><%= order.nucleus.accessories.holder.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Router, RUT950</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="nucleus_accessories_router950" class="with-border"
+                    placeholder="Router, RUT950"
+                    value="<% if (editing && order.nucleus.accessories.router950) { %><%= order.nucleus.accessories.router950.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Router, RUT240</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="nucleus_accessories_router240" class="with-border"
+                    placeholder="Router, RUT240"
+                    value="<% if (editing && order.nucleus.accessories.router240) { %><%= order.nucleus.accessories.router240.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Telenor Simkort, 3GB</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="nucleus_accessories_telenorSimCard3GB" class="with-border"
+                    placeholder="Telenor Simkort, 3GB"
+                    value="<% if (editing && order.nucleus.accessories.telenorSimCard3GB) { %><%= order.nucleus.accessories.telenorSimCard3GB.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Telenor Simkort, 600GB</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="nucleus_accessories_telenorSimCard600GB" class="with-border"
+                    placeholder="Telenor Simkort, 600GB"
+                    value="<% if (editing && order.nucleus.accessories.telenorSimCard600GB) { %><%= order.nucleus.accessories.telenorSimCard600GB.bought %><% } %>">
+            </div>
+        </div>
+    </div>
+</div>

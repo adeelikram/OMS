@@ -1,0 +1,8 @@
+<% function getDelivery() { return editing ? delivery : null } %>
+<% if (productName === 'roomMate') { %>
+<%- include('./roomMate.education.ejs', { delivery: getDelivery() }) %>
+<% } else if (productName === 'nucleus') { %>
+<%- include('./nucleus.education.ejs', { delivery: getDelivery() }) %>
+<% } else if (productName === 'otium') { %>
+<%- include('./otium.education.ejs', { delivery: getDelivery() }) %>
+<% } %>

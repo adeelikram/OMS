@@ -1,0 +1,286 @@
+<%- include('./includes/header.ejs') %>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <%- include('./includes/side-bar.ejs') %>
+            <!-- Dashboard Content
+    ================================================== -->
+            <div class="dashboard-content-container" data-simplebar>
+                <div class="dashboard-content-inner">
+                    <!-- Dashboard Headline -->
+                    <div class="dashboard-headline">
+                        <h3></h3>
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs" class="dark">
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Orders</a></li>
+                                <li>
+                                    Send Shipment
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <!-- Row -->
+                    <div class="row">
+                        <!-- Dashboard Box -->
+                        <div class="col-xl-12">
+                            <div class="dashboard-box margin-top-0">
+
+                                <!-- Headline -->
+                                <div class="headline">
+                                    <h3><i class="icon-feather-flag"></i> Send Shipment</h3>
+                                </div>
+                                <main style="overflow-x:auto;">
+                                    <div>
+                                        <%- include ("./partials/messages") %>
+                                    </div>
+                                    <hr style="height:1px;border:none;color:#86AAC2;background-color:#86AAC2;" />
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <!-- <th>
+                                                Shipment:
+                                            </th> -->
+
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                Place of delivery
+                                            </td>
+                                            <td>
+                                                <%=order.placeOfDelivery%>
+                                            </td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td>
+                                                Adress
+                                            </td>
+                                            <td>
+                                                <%=order.adress%>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Postal code
+                                            </td>
+                                            <td>
+                                                <%=order.zip%>
+                                            </td>
+
+                                        </tr>
+
+                                        <tr>
+                                            <td>Deadline</td>
+                                            <td>
+                                                <%=order.deliveryDateDeadline%>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                Contact person
+                                            </td>
+                                            <td>
+                                                <%=order.deliveryContact%>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Phone nr</td>
+                                            <td>
+                                                <%=order.deliveryContactPhone%>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                Email
+                                            </td>
+                                            <td>
+                                                <%=order.deliveryContactEmail%>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                Arbetsterapeut
+                                            </td>
+                                            <td>
+                                                <%=order.deliveryContactATP%>
+                                            </td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td>
+                                                Phone nr(AT Phone)
+                                            </td>
+                                            <td>
+                                                <%=order.deliveryContactATPhone%>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                Email(AT Email)
+                                            </td>
+                                            <td>
+                                                <%=order.deliveryContactATEmail%>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                Date of delivery
+                                            </td>
+                                            <td>
+                                                <%=order.deliveryPlaceDateDeadline%>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                Has the unit been sen?
+                                            </td>
+                                            <td>
+                                                <%=order.sent%>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Education regarding RoomMate
+                                            </td>
+                                            <td>
+                                                <%=order.educationRoomMate%>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Education regarding Nucleus
+                                            </td>
+                                            <td>
+                                                <%=order.educationNucleus%>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Education regarding Sit&Shower
+                                            </td>
+                                            <td>
+                                                <%=order.educationSitandShower%>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Education regarding Neatseat
+                                            </td>
+                                            <td>
+                                                <%=order.educationNeatseat%>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Installation RoomMate
+                                            </td>
+                                            <td>
+                                                <%=order.installationRoomMate%>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Installation Sit&Shower
+                                            </td>
+                                            <td>
+                                                <%=order.installationSitandShower%>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Assistance in installation
+                                            </td>
+                                            <td>
+                                                <%=order.installationAssistance%>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Contact(Assistance)
+                                            </td>
+                                            <td>
+                                                <%=order.installationAssistanceContact%>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Phone nr(Assistance)
+                                            </td>
+                                            <td>
+                                                <%=order.installationAssistancePhone%>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email(Assistance)
+                                            </td>
+                                            <td>
+                                                <%=order.installationAssistanceEmail%>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Installation Neatseat
+                                            </td>
+                                            <td>
+                                                <%=order.installationNeatseat%>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pre-installation setting RoomMate
+                                            </td>
+                                            <td>
+                                                <%=order.preInstallationRoomMate%>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pre-installation setting Nucleus
+                                            </td>
+                                            <td>
+                                                <%=order.preInstallationNucleus%>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Electrician
+                                            </td>
+                                            <td>
+                                                <%=order.electrician%>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Contact(Electrician)
+                                            </td>
+                                            <td>
+                                                <%=order.electricianContact%>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Contact nr(Electrician)
+                                            </td>
+                                            <td>
+                                                <%=order.electricianPhone%>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Contact email(Electrician)
+                                            </td>
+                                            <td>
+                                                <%=order.electricianEmail%>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                </main>
+                                <form action="/post-shipment/<%= order._id %>" method="POST">
+                                    <button class="btn btn-info"
+                                        onclick="return confirm('Do you want to send this delivery?')">
+                                        Send
+                                    </button>
+                                </form>
+                                <hr style="height:1px;border:none;color:#86AAC2;background-color:#86AAC2;" />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Row / End -->
+
+                    <%- include('./includes/footer.ejs') %>

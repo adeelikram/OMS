@@ -1,0 +1,110 @@
+<%- include('./includes/header.ejs') %>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <%- include('./includes/side-bar.ejs') %>
+            <!-- Dashboard Content
+    ================================================== -->
+            <div class="dashboard-content-container" data-simplebar>
+                <div class="dashboard-content-inner">
+
+                    <!-- Dashboard Headline -->
+                    <div class="dashboard-headline">
+                        <h3>
+                            Order Status
+                        </h3>
+
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs" class="dark">
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Dashboard</a></li>
+                                <li>
+                                    Status
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Row -->
+                    <div class="row">
+
+                        <!-- Dashboard Box -->
+                        <div class="col-xl-12">
+                            <div class="dashboard-box margin-top-0">
+                                <!-- Headline -->
+                                <div class="headline">
+                                    <h3><i class="icon-feather-award"></i> Order Status Form</h3>
+                                </div>
+                                <%- include ("./partials/messages") %>
+                                    <form action="/post-edit-order-status" method="POST">
+                                        <div class="content with-padding padding-bottom-10">
+                                            <div class="row">
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>Customer</h5>
+                                                        <input type="text" name="customer" class="with-border"
+                                                            placeholder="Customer" value="<%= order.customer %>"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>Customer Order Number</h5>
+                                                        <input type="text" name="customer" class="with-border"
+                                                            placeholder="Customer Order Number"
+                                                            value="<%= order.customerOrderNumber %>" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>Accomplished</h5>
+                                                        <input type="text" name="accomplished" class="with-border"
+                                                            placeholder="Accomplished" value="<%= order.accomplished %>"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>Status</h5>
+                                                        <input type="text" name="status" class="with-border"
+                                                            placeholder="Status" value="<%= order.status %>" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>Date</h5>
+                                                        <input type="text" name="orderDate" class="with-border"
+                                                            placeholder="Date"
+                                                            value="<%= order.orderDate.toDateString() %>" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>Deadline</h5>
+                                                        <input type="date" name="customer" class="with-border"
+                                                            placeholder="Deadline" value="<%= order.dateDelivery %>"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                                <% if (editing) { %>
+                                                    <input type="hidden" value="<%= order._id %>" name="orderId">
+                                                    <% } %>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-12">
+                                            <button type="submit"
+                                                class="button ripple-effect big margin-top-30 margin-bottom-30"><i
+                                                    class=""></i>
+                                                Edit
+                                            </button>
+                                            <br>
+                                        </div>
+                                    </form>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <!-- Row / End -->
+                    <%- include('./includes/footer.ejs') %>
