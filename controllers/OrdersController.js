@@ -54,10 +54,7 @@ exports.postAddOrder = async (req, res) => {
             'orderDeadline',
             'otium',
             'roomMate',
-            'roomMateRent',
-            'roomMateSold',
-            'sitShowerRent',
-            'sitShowerSold',
+            'sitShower',
             'manager',
         ]);
 
@@ -76,12 +73,9 @@ exports.postAddOrder = async (req, res) => {
 
         const products = _.pick(body, [
             'roomMate',
-            'roomMateRent',
-            'roomMateSold',
             'nucleus',
             'neatseat',
-            'sitShowerRent',
-            'sitShowerSold',
+            'sitShower',
             'otium',
         ]);
 
@@ -162,10 +156,7 @@ exports.postEditOrder = async (req, res, next) => {
             'orderDeadline',
             'otium',
             'roomMate',
-            'roomMateRent',
-            'roomMateSold',
-            'sitShowerRent',
-            'sitShowerSold',
+            'sitShower',
             'manager',
             'assistant',
             'planningMeeting',
@@ -210,12 +201,9 @@ exports.postEditOrder = async (req, res, next) => {
 
         const products = _.pick(body, [
             'roomMate',
-            'roomMateRent',
-            'roomMateSold',
             'nucleus',
             'neatseat',
-            'sitShowerRent',
-            'sitShowerSold',
+            'sitShower',
             'otium',
         ]);
 

@@ -55,6 +55,23 @@
         </select>
     </div>
 </div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Type</h5>
+        <select name="otium_type"
+            id="otium_type"
+            class="browser-default custom-select "
+            data-live-search="true">
+            <% if (editing) { %>
+                <option value="rent" <%- order.otium.type === 'rent' ? 'selected' : '' %>>Rent</option>
+                <option value="sold" <%- order.otium.type === 'sold' ? 'selected' : '' %>>Sold</option>
+            <% } else { %>
+                <option value="rent" selected>Rent</option>
+                <option value="sold">Sold</option>
+            <% } %>
+        </select>
+    </div>
+</div>
 <!-- ;;; -->
 <div class="col-xl-12">
     <div class="submit-field">

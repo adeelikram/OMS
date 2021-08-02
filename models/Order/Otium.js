@@ -3,6 +3,7 @@ module.exports = {
     period: Number,
     installation: Boolean,
     date: Date,
+    type: { type: String },
     accessories: {
         bleBeacon: { bought: Number, left: Number },
         meshSystemTPLinkM9: { bought: Number, left: Number },

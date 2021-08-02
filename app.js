@@ -13,10 +13,7 @@ const path = require('path');
 
 const app = express();
 
-let envPath = path.resolve(process.cwd(), '.production.env');
-
-if (process.env.NODE_ENV === 'development')
-    envPath = path.resolve(process.cwd(), '.local.env');
+const envPath = path.resolve(process.cwd(), `.${process.env.NODE_ENV}.env`);
 
 dotenv.config({ path: envPath });
 

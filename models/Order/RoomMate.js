@@ -3,6 +3,7 @@ module.exports = {
     period: Number,
     installation: Boolean,
     date: Date,
+    type: { type: String },
     accessories: {
         alarmJLPD: { bought: Number, left: Number },
         alarmWTQR3: { bought: Number, left: Number },

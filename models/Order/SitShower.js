@@ -3,6 +3,7 @@ module.exports = {
     period: Number,
     installation: Boolean,
     date: Date,
+    type: { type: String },
     accessories: {
         hygeinstol: { bought: Number, left: Number },
         golvslist: { bought: Number, left: Number },

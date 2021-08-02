@@ -209,22 +209,16 @@
         const body = getFormValues('order');
 
         const roomMate = getFormValues('roomMate'),
-            roomMateRent = getFormValues('roomMateRent'),
-            roomMateSold = getFormValues('roomMateSold'),
             nucleus = getFormValues('nucleus'),
             neatseat = getFormValues('neatseat'),
-            sitShowerRent = getFormValues('sitShowerRent'),
-            sitShowerSold = getFormValues('sitShowerSold');
+            sitShower = getFormValues('sitShower'),
             otium = getFormValues('otium'),
             assistant = getFormValues('orderAssistant');
 
             if (roomMate) body.roomMate = roomMate;
-            if (roomMateRent) body.roomMateRent = roomMateRent;
-            if (roomMateSold) body.roomMateSold = roomMateSold;
             if (nucleus) body.nucleus = nucleus;
             if (neatseat) body.neatseat = neatseat;
-            if (sitShowerRent) body.sitShowerRent = sitShowerRent;
-            if (sitShowerSold) body.sitShowerSold = sitShowerSold;
+            if (sitShower) body.sitShower = sitShower;
             if (otium) body.otium = otium;
 
             if (hasLength(assistant)) body.assistant = assistant;
@@ -253,11 +247,8 @@
         
         body.orderId = order._id;
 
-        const roomMateRent = getFormValues('roomMateRent');
-        if (roomMateRent.units) body.roomMateRent = roomMateRent;
-
-        const roomMateSold = getFormValues('roomMateSold');
-        if (roomMateSold.units) body.roomMateSold = roomMateSold;
+        const roomMate = getFormValues('roomMate');
+        if (roomMate.units) body.roomMate = roomMate;
 
         const nucleus = getFormValues('nucleus');
         if (nucleus.units) body.nucleus = nucleus;
@@ -265,11 +256,8 @@
         const neatseat = getFormValues('neatseat');
         if (neatseat.large || neatseat.medium) body.neatseat = neatseat;
 
-        const sitShowerRent = getFormValues('sitShowerRent');
-        if (sitShowerRent.units) body.sitShowerRent = sitShowerRent;
-
-        const sitShowerSold = getFormValues('sitShowerSold');
-        if (sitShowerSold.units) body.sitShowerSold = sitShowerSold;
+        const sitShower = getFormValues('sitShower');
+        if (sitShower.units) body.sitShower = sitShower;
 
         const otium = getFormValues('otium');
         if (otium.units) body.otium = otium;

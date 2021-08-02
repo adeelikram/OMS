@@ -4,6 +4,7 @@ module.exports = {
     period: Number,
     installation: Boolean,
     date: Date,
+    type: { type: String },
     accessories: {
         armRest: { bought: Number, left: Number },
         elevation4L: { bought: Number, left: Number },
