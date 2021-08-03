@@ -1,20 +1,20 @@
 <% if (product && (product.large || product.medium)) { %>
     <% if (product.large) { %>
         <tr>
-            <td>Neatseat - Large</td>
+            <td>Neatseat - Large <%= product.type %></td>
             <td><%= product.large.bought %></td>
             <td><%= product.large.left %></td>
         </tr>
     <% } else if (product.medium) { %>
         <tr>
-            <td>Neatseat</td>
+            <td>Neatseat <%= product.type %></td>
             <td><%= product.medium.bought %></td>
             <td><%= product.medium.left %></td>
         </tr>
     <% } %>
     <% if (product.accessories) { %>
         <tr>
-            <td colspan="4" style="width:100%">Neatseat, Accessories<button
+            <td colspan="4" style="width:100%">Neatseat <%= product.type %>, Accessories<button
                     onclick="toggleCollapse('hide_neatseat_div')"><i
                         class="icon-feather-chevron-down"></i></button></td>
         </tr>
