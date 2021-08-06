@@ -47,6 +47,7 @@ exports.postAddOrder = async (req, res) => {
             'invoiceInfo',
             'invoiceNumber',
             'isInvoiceGenerated',
+            'houseAdaptation',
             'neatseat',
             'nucleus',
             'number',

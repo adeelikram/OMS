@@ -21,6 +21,7 @@ const OrderSchema = new mongoose.Schema({
         required: [true, 'Is Invoice Generated is required'],
     },
     number: { type: String, required: [true, 'Order Number is required'] },
+    houseAdaptation: Boolean,
     orderDate: Date,
     orderDeadline: Date,
     accomplished: { type: Boolean, default: false },

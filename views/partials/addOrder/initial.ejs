@@ -142,3 +142,23 @@
             required disabled></input>
     </div>
 </div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Bostadsanpasaning</h5>
+        <select name="order_housingAdaption"
+            id="order_housingAdaption"
+            class="browser-default custom-select "
+            data-live-search="true">
+            <% if (editing) { %>
+                <% if (order.housingAdaption) { %>
+                    <option value="true" <%- order.housingAdaption ? 'selected' : '' %>>Yes</option>
+                    <option value="false" <%- order.housingAdaption ? 'selected' : '' %>>No</option>
+                <% } %>
+            <% } else { %>
+                <option value="true">Yes</option>
+                <option value="false" selected>No</option>
+            <% } %>
+        </select>
+    </div>
+</div>
