@@ -7,6 +7,7 @@ const schema = new mongoose.Schema({
         ref: 'Delivery',
     },
     roomMate: {
+        units: Number,
         serialNumber: String,
         wifiNetwork: String,
         password: String,
@@ -16,6 +17,7 @@ const schema = new mongoose.Schema({
         roomNumber: String,
     },
     nucleus: {
+        units: Number,
         unit: String,
         wifiOr4G: String,
         wifiNetwork: String,
@@ -23,9 +25,11 @@ const schema = new mongoose.Schema({
         simCard: String,
     },
     sitShower: {
+        units: Number,
         serialNumber: String,
     },
     otium: {
+        units: Number,
         serialNumber: String,
         wifiNetwork: String,
         password: String,

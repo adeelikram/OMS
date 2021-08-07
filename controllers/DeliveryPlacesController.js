@@ -11,9 +11,9 @@ exports.getAddPlaceOfDelivery = async (req, res, next) => {
     const order = await Order.findById(orderId);
     const users = await User.find();
     const username = await User.findOne({ email: req.user.emails[0].value });
-    var ticket$ = await DevTicket.findOne({ User: username._id });
+    let ticket$ = await DevTicket.findOne({ User: username._id });
     if (!ticket$) {
-        ticket$ = { _id: "dummy" }
+        ticket$ = { _id: 'dummy' };
     }
     // const editMode = req.query.edit;
     // if (!editMode) {
@@ -139,11 +139,12 @@ exports.getEditPlaceOfDelivery = async (req, res) => {
 
         if (!delivery) return res.redirect('/');
 
-
-        const username = await User.findOne({ email: req.user.emails[0].value });
-        var ticket$ = await DevTicket.findOne({ User: username._id });
+        const username = await User.findOne({
+            email: req.user.emails[0].value,
+        });
+        let ticket$ = await DevTicket.findOne({ User: username._id });
         if (!ticket$) {
-            ticket$ = { _id: "dummy" }
+            ticket$ = { _id: 'dummy' };
         }
 
         res.render('add-place-of-delivery', {
@@ -155,7 +156,7 @@ exports.getEditPlaceOfDelivery = async (req, res) => {
             delivery,
             user: username,
             ticket: ticket$,
-            user$: req.user
+            user$: req.user,
         });
     } catch (error) {
         console.log(error);

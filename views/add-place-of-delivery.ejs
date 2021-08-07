@@ -36,9 +36,6 @@
                                     <h3><i class="icon-feather-award"></i> Place of Delivery Form</h3>
                                 </div>
                                 <%- include ("./partials/messages") %>
-                                    <form
-                                        action="/<% if (editing) { %>post-edit-place-of-delivery<% } else { %>post-add-place-of-delivery <% } %>"
-                                        method="POST">
                                         <div class="content with-padding padding-bottom-10">
                                             <div class="row">
 
@@ -68,6 +65,9 @@
                                                                 <th style="vertical-align:top">Left to Implement</th>
                                                                 <th style="vertical-align:top">Installed</th>
                                                                 <th style="vertical-align:top">Date</th>
+                                                                <% if (editing) { %>
+                                                                    <th style="vertical-align:top">Active Units</th>
+                                                                <% } %>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -173,6 +173,14 @@
                                                                                                         class="with-border"
                                                                                                         name="<%= productName.value %>_date">
                                                                                         </td>
+                                                                                        <% if (editing) {  %>
+                                                                                            <td>
+                                                                                                    <a href="/get-configure-active-units/<%= productName.value %>/<%= delivery._id %>"
+                                                                                                        class="button ripple-effect big">
+                                                                                                        Configure
+                                                                                                    </a> 
+                                                                                            </td>
+                                                                                        <% } %>
                                                                                     </tr>
                                                                                     <% } %>
                                                                                         <% } %>
@@ -264,7 +272,6 @@
                                             </button>
                                             <br>
                                         </div>
-                                    </form>
                             </div>
                         </div>
                     </div>

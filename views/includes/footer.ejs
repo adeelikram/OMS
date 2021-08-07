@@ -306,11 +306,22 @@
             body.deliveryId = deliveryId;
         }
 
-        console.log('footer', body);
-
         await axios.post(url, body).catch(err => console.error(err))
 
         window.location = "/";
+    }
+
+    function handleSubmitConfigureActiveUnits({ deliveryId, product }) {
+        const activeUnits = getFormValues('activeUnits');
+        function redirect() {
+            window.location = `/get-edit-place-of-delivery/${deliveryId}?edit=true`;
+        }
+        if (!hasLength(activeUnits) || (Object.keys(activeUnits).length === 1 && activeUnits.enabled === "false"))
+            return redirect();
+
+        await axios.post(`/post-active-units/${product}/${deliveryId}`)
+
+        redirect();
     }
 
     
