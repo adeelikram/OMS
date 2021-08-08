@@ -311,7 +311,7 @@
         window.location = "/";
     }
 
-    function handleSubmitConfigureActiveUnits({ deliveryId, product }) {
+    async function handleSubmitConfigureActiveUnits({ deliveryId, product }) {
         const activeUnits = getFormValues('activeUnits');
         function redirect() {
             window.location = `/get-edit-place-of-delivery/${deliveryId}?edit=true`;

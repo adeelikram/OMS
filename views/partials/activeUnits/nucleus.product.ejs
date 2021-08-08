@@ -1,0 +1,85 @@
+<div class="col-xl-12">
+    <div class="submit-field">
+        <h5><%= product.label %> <%= product.type %> - <%= product.units.left %> units</h5>
+    </div>
+</div>
+
+<div class="col-xl-12">
+    <div class="col-xl-4 pl-0">
+        <div class="submit-field">
+            <h5>Active Units</h5>
+            <% if (typeof activeUnits.units === 'number') { %>
+                <input type="text" class="with-border"
+                    name="activeUnits_units"
+                    placeholder="Serienummer"
+                    value="<% if (editing) { %><%= activeUnits.units %><% } %>">
+            <% } else { %>
+                <select name="activeUnits_enabled">
+                    <option value="" <%- editing ? activeUnits.units === undefined || activeUnits.units === null ? 'selected' : '' : '' %>>Select</option>
+                    <option value="false" <%- editing ? activeUnits.units === false ? 'selected' : '' : '' %>>No</option>
+                    <option value="true" <%- editing ? activeUnits.units ? 'selected' : '' : '' %>>Yes</option>
+                </select>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Enhetsbeteckning</h5>
+        <input type="text" class="with-border"
+            name="activeUnits_unit"
+            placeholder="Enhetsbeteckning"
+            value="<% if (editing) { %><%= activeUnits.unit %><% } %>">
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Wifi eller 4G?</h5>
+        <select name="activeUnits_wifiOr4G">
+            <option value="" <%- editing ? activeUnits.wifiOr4G === undefined || activeUnits.wifiOr4G === null ? 'selected' : '' : '' %>>Select</option>
+            <option value="wifi" <%- editing ? activeUnits.wifiOr4G === 'wifi' ? 'selected' : '' : '' %>>WiFi</option>
+            <option value="4g" <%- editing ? activeUnits.wifiOr4G === '4g' ? 'selected' : '' : '' %>>4G</option>
+        </select>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Wifi närverk(SSID)</h5>
+        <input type="text" class="with-border"
+            name="activeUnits_wifiNetwork"
+            placeholder="Wifi närverk(SSID)"
+            value="<% if (editing) { %><%= activeUnits.wifiNetwork %><% } %>">
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Lösenord</h5>
+        <input type="text" class="with-border"
+            name="activeUnits_password"
+            placeholder="Lösenord"
+            value="<% if (editing) { %><%= activeUnits.password %><% } %>">
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Sim-kort nr</h5>
+        <input type="text" class="with-border"
+            name="activeUnits_simCard"
+            placeholder="Sim-kort nr"
+            value="<% if (editing) { %><%= activeUnits.simCard %><% } %>">
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Fakturanummer</h5>
+        <input type="text" class="with-border" disabled
+            name="activeUnits_invoiceNumber"
+            value="<%= activeUnits.invoiceNumber %>">
+    </div>
+</div>

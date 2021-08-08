@@ -78,9 +78,10 @@
                                                                 label: 'Sit&Shower' }, { value: 'otium' ,
                                                                 label: 'Otium' }, ]; for (const productName of
                                                                 productNames) { const product=order[productName.value];
-                                                                const d=editing ? delivery[productName.value] : null; if
-                                                                (product) { if (productName.value==='neatseat' ) { if
-                                                                (product.large && product.large.bought) { %>
+                                                                const d=editing ? delivery[productName.value] : null;
+                                                                console.log(product, productName);
+                                                                if (product) { if (productName.value==='neatseat' ) { if
+                                                                (product.large && product.large.bought) {  %>
                                                                 <tr>
                                                                     <td><b>Neatseat Large <%= product.type %></b></td>
                                                                     <td>
@@ -102,6 +103,14 @@
                                                                                 <input type="date" class="with-border"
                                                                                     name="large_date">
                                                                     </td>
+                                                                    <% if (editing) {  %>
+                                                                        <td>
+                                                                                <a href="/get-configure-active-units/neatseat-large/<%= delivery._id %>"
+                                                                                    class="button ripple-effect big">
+                                                                                    Configure
+                                                                                </a> 
+                                                                        </td>
+                                                                    <% } %>
                                                                 </tr>
                                                                 <% } %>
                                                                     <% if (product.medium && product.medium.bought) { %>
@@ -129,6 +138,14 @@
                                                                                             class="with-border"
                                                                                             name="medium_date">
                                                                             </td>
+                                                                            <% if (editing) {  %>
+                                                                                <td>
+                                                                                        <a href="/get-configure-active-units/neatseat-medium/<%= delivery._id %>"
+                                                                                            class="button ripple-effect big">
+                                                                                            Configure
+                                                                                        </a> 
+                                                                                </td>
+                                                                            <% } %>
                                                                         </tr>
                                                                         <% } %>
                                                                             <% } else { %>

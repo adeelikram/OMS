@@ -1,0 +1,44 @@
+<div class="col-xl-12">
+    <div class="submit-field">
+        <h5><%= product.label %> <%= product.type %> - <%= product.units.left %> units</h5>
+    </div>
+</div>
+
+<div class="col-xl-12">
+    <div class="col-xl-4 pl-0">
+        <div class="submit-field">
+            <h5>Active Units</h5>
+            <% if (typeof activeUnits.units === 'number') { %>
+                <input type="text" class="with-border"
+                    name="activeUnits_units"
+                    placeholder="Serienummer"
+                    value="<% if (editing) { %><%= activeUnits.units %><% } %>">
+            <% } else { %>
+                <select name="activeUnits_enabled">
+                    <option value="" <%- editing ? activeUnits.units === undefined || activeUnits.units === null ? 'selected' : '' : '' %>>Select</option>
+                    <option value="false" <%- editing ? activeUnits.units === false ? 'selected' : '' : '' %>>No</option>
+                    <option value="true" <%- editing ? activeUnits.units ? 'selected' : '' : '' %>>Yes</option>
+                </select>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Serienummer</h5>
+        <input type="text" class="with-border"
+            name="activeUnits_serialNumber"
+            placeholder="Serienummer"
+            value="<% if (editing) { %><%= activeUnits.serialNumber %><% } %>">
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Fakturanummer</h5>
+        <input type="text" class="with-border" disabled
+            name="activeUnits_invoiceNumber"
+            value="<%= activeUnits.invoiceNumber %>">
+    </div>
+</div>

@@ -23,7 +23,16 @@ exports.getConfigureActiveUnits = async (req, res, next) => {
 
     const { product, deliveryId } = req.params;
 
-    if (!productValues.includes(product))
+    let p = product;
+    let unitType = null;
+
+    if (p.includes('neatseat')) {
+        const [key, type] = p.split('-');
+        unitType = type;
+        p = key;
+    }
+
+    if (!productValues.includes(p))
         return res.redirect(
             `/get-edit-place-of-delivery/${deliveryId}?edit=true`
         );
@@ -37,9 +46,12 @@ exports.getConfigureActiveUnits = async (req, res, next) => {
             `/get-edit-place-of-delivery/${deliveryId}?edit=true`
         );
 
-    const activeUnits = await ActiveUnit({ delivery: delivery._id });
+    const activeUnits =
+        (await ActiveUnit.findOne({
+            delivery: delivery._id,
+        }).lean()) || {};
 
-    const currentProduct = products.find((p) => p.value === product);
+    const currentProduct = products.find((e) => e.value === p);
 
     const productInActiveUnits = activeUnits[currentProduct.value];
 
@@ -49,12 +61,24 @@ exports.getConfigureActiveUnits = async (req, res, next) => {
             ...currentProduct,
             ...delivery.orderId[currentProduct.value],
         },
+        activeUnits,
         editing: false,
         delivery,
     };
 
+    if (['nucleus', 'sitShower', 'neatseat'].includes(p))
+        response.activeUnits = {
+            ...response.activeUnits,
+            invoiceNumber: delivery.orderId.invoiceNumber,
+        };
+
+    if (unitType) response.type = unitType;
+
     if (productInActiveUnits) {
-        response.activeUnits = productInActiveUnits;
+        response.activeUnits = {
+            ...response.activeUnits,
+            productInActiveUnits,
+        };
         response.editing = true;
     }
 

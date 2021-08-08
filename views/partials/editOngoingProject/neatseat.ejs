@@ -5,9 +5,9 @@
             <td><%= product.large.bought %></td>
             <td><%= product.large.left %></td>
         </tr>
-    <% } else if (product.medium) { %>
+    <% } if (product.medium) { %>
         <tr>
-            <td>Neatseat <%= product.type %></td>
+            <td>Neatseat - Medium <%= product.type %></td>
             <td><%= product.medium.bought %></td>
             <td><%= product.medium.left %></td>
         </tr>
