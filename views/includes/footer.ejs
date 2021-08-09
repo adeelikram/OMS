@@ -311,15 +311,19 @@
         window.location = "/";
     }
 
-    async function handleSubmitConfigureActiveUnits({ deliveryId, product, unit }) {
-        const activeUnits = getFormValues('activeUnits');
+    async function handleSubmitConfigureActiveUnits({ deliveryId, product, unit, activeUnits }) {
+        const count = product[unit || 'units'].bought;
+        const body = [];
+
+        for (let i = 0; i < count; i++) {
+            body.push(getFormValues(`activeUnits${i}`))
+        }
+
         function redirect() {
             window.location = `/get-edit-place-of-delivery/${deliveryId}?edit=true`;
         }
-        if (!hasLength(activeUnits) || (Object.keys(activeUnits).length === 1 && activeUnits.enabled === "false"))
-            return redirect();
 
-        await axios.post(`/post-configure-active-units/${product}${unit ? `-${unit}` : ''}/${deliveryId}`, activeUnits);
+        await axios.post(`/post-configure-active-units/${product.value}${unit ? `-${unit}` : ''}/${deliveryId}`, body);
 
         redirect();
     }

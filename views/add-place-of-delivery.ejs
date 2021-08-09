@@ -102,7 +102,7 @@
                                                                                 <input type="date" class="with-border"
                                                                                     name="large_date">
                                                                     </td>
-                                                                    <% if (editing) {  %>
+                                                                    <% if (editing && d.large && d.large.bought) {  %>
                                                                         <td>
                                                                                 <a href="/get-configure-active-units/neatseat-large/<%= delivery._id %>"
                                                                                     class="button ripple-effect big">
@@ -137,7 +137,7 @@
                                                                                             class="with-border"
                                                                                             name="medium_date">
                                                                             </td>
-                                                                            <% if (editing) {  %>
+                                                                            <% if (editing && d.medium && d.medium.bought) {  %>
                                                                                 <td>
                                                                                         <a href="/get-configure-active-units/neatseat-medium/<%= delivery._id %>"
                                                                                             class="button ripple-effect big">
@@ -176,7 +176,7 @@
                                                                                                 <option value="false"
                                                                                                     selected>No</option>
                                                                                             </select>
-                                                                                        </td>
+                                                                                        </td> 
                                                                                         <td>
                                                                                             <% if (editing && d.date) {
                                                                                                 %>
@@ -189,7 +189,7 @@
                                                                                                         class="with-border"
                                                                                                         name="<%= productName.value %>_date">
                                                                                         </td>
-                                                                                        <% if (editing) {  %>
+                                                                                        <% if (editing && d.units && d.units.bought) {  %>
                                                                                             <td>
                                                                                                     <a href="/get-configure-active-units/<%= productName.value %>/<%= delivery._id %>"
                                                                                                         class="button ripple-effect big">

@@ -1,78 +1,86 @@
 <div class="col-xl-12">
     <div class="submit-field">
-        <h5><%= product.label %> <%= product.type %> - <%= product.units.left %> units</h5>
+        <h5><%= product.label %> <%= product.type %> - <%= product.units.bought %> units</h5>
     </div>
 </div>
 
-<div class="col-xl-12">
-    <div class="col-xl-4 pl-0">
+<% for (let i = 0; i < product.units.bought; i++) { %>
+
+    <div class="col-xl-12">
         <div class="submit-field">
-            <h5>Active Units</h5>
-            <select name="activeUnits_enabled">
-                <option value="" <%- editing ? activeUnits.enabled === undefined || activeUnits.enabled === null ? 'selected' : '' : '' %>>Select</option>
-                <option value="false" <%- editing ? activeUnits.enabled === false ? 'selected' : '' : '' %>>No</option>
-                <option value="true" <%- editing ? activeUnits.enabled ? 'selected' : '' : '' %>>Yes</option>
+            <h5>Unit <%= i + 1 %></h5>
+        </div>
+    </div>
+
+    <div class="col-xl-12">
+        <div class="col-xl-4 pl-0">
+            <div class="submit-field">
+                <h5>Active Units</h5>
+                <select name="activeUnits<%= i %>_enabled">
+                    <option value="" <%- editing ? activeUnits[i] && activeUnits[i].enabled === undefined || activeUnits[i] && activeUnits[i].enabled === null ? 'selected' : '' : '' %>>Select</option>
+                    <option value="false" <%- editing ? activeUnits[i] && activeUnits[i].enabled === false ? 'selected' : '' : '' %>>No</option>
+                    <option value="true" <%- editing ? activeUnits[i] && activeUnits[i].enabled ? 'selected' : '' : '' %>>Yes</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-4">
+        <div class="submit-field">
+            <h5>Enhetsbeteckning</h5>
+            <input type="text" class="with-border"
+                name="activeUnits<%= i %>_unit"
+                placeholder="Enhetsbeteckning"
+                value="<% if (editing) { %><%= activeUnits[i] && activeUnits[i].unit %><% } %>">
+        </div>
+    </div>
+
+    <div class="col-xl-4">
+        <div class="submit-field">
+            <h5>Wifi eller 4G?</h5>
+            <select name="activeUnits<%= i %>_wifiOr4G">
+                <option value="" <%- editing ? activeUnits[i] && activeUnits[i].wifiOr4G === undefined || activeUnits[i] && activeUnits[i].wifiOr4G === null ? 'selected' : '' : '' %>>Select</option>
+                <option value="wifi" <%- editing ? activeUnits[i] && activeUnits[i].wifiOr4G === 'wifi' ? 'selected' : '' : '' %>>WiFi</option>
+                <option value="4g" <%- editing ? activeUnits[i] && activeUnits[i].wifiOr4G === '4g' ? 'selected' : '' : '' %>>4G</option>
             </select>
         </div>
     </div>
-</div>
 
-<div class="col-xl-4">
-    <div class="submit-field">
-        <h5>Enhetsbeteckning</h5>
-        <input type="text" class="with-border"
-            name="activeUnits_unit"
-            placeholder="Enhetsbeteckning"
-            value="<% if (editing) { %><%= activeUnits.unit %><% } %>">
+    <div class="col-xl-4">
+        <div class="submit-field">
+            <h5>Wifi närverk(SSID)</h5>
+            <input type="text" class="with-border"
+                name="activeUnits<%= i %>_wifiNetwork"
+                placeholder="Wifi närverk(SSID)"
+                value="<% if (editing) { %><%= activeUnits[i] && activeUnits[i].wifiNetwork %><% } %>">
+        </div>
     </div>
-</div>
 
-<div class="col-xl-4">
-    <div class="submit-field">
-        <h5>Wifi eller 4G?</h5>
-        <select name="activeUnits_wifiOr4G">
-            <option value="" <%- editing ? activeUnits.wifiOr4G === undefined || activeUnits.wifiOr4G === null ? 'selected' : '' : '' %>>Select</option>
-            <option value="wifi" <%- editing ? activeUnits.wifiOr4G === 'wifi' ? 'selected' : '' : '' %>>WiFi</option>
-            <option value="4g" <%- editing ? activeUnits.wifiOr4G === '4g' ? 'selected' : '' : '' %>>4G</option>
-        </select>
+    <div class="col-xl-4">
+        <div class="submit-field">
+            <h5>Lösenord</h5>
+            <input type="text" class="with-border"
+                name="activeUnits<%= i %>_password"
+                placeholder="Lösenord"
+                value="<% if (editing) { %><%= activeUnits[i] && activeUnits[i].password %><% } %>">
+        </div>
     </div>
-</div>
 
-<div class="col-xl-4">
-    <div class="submit-field">
-        <h5>Wifi närverk(SSID)</h5>
-        <input type="text" class="with-border"
-            name="activeUnits_wifiNetwork"
-            placeholder="Wifi närverk(SSID)"
-            value="<% if (editing) { %><%= activeUnits.wifiNetwork %><% } %>">
+    <div class="col-xl-4">
+        <div class="submit-field">
+            <h5>Sim-kort nr</h5>
+            <input type="text" class="with-border"
+                name="activeUnits<%= i %>_simCard"
+                placeholder="Sim-kort nr"
+                value="<% if (editing) { %><%= activeUnits[i] && activeUnits[i].simCard %><% } %>">
+        </div>
     </div>
-</div>
 
-<div class="col-xl-4">
-    <div class="submit-field">
-        <h5>Lösenord</h5>
-        <input type="text" class="with-border"
-            name="activeUnits_password"
-            placeholder="Lösenord"
-            value="<% if (editing) { %><%= activeUnits.password %><% } %>">
+    <div class="col-xl-4">
+        <div class="submit-field">
+            <h5>Fakturanummer</h5>
+            <input type="text" class="with-border" disabled
+                value="<%= invoiceNumber %>">
+        </div>
     </div>
-</div>
-
-<div class="col-xl-4">
-    <div class="submit-field">
-        <h5>Sim-kort nr</h5>
-        <input type="text" class="with-border"
-            name="activeUnits_simCard"
-            placeholder="Sim-kort nr"
-            value="<% if (editing) { %><%= activeUnits.simCard %><% } %>">
-    </div>
-</div>
-
-<div class="col-xl-4">
-    <div class="submit-field">
-        <h5>Fakturanummer</h5>
-        <input type="text" class="with-border" disabled
-            name="activeUnits_invoiceNumber"
-            value="<%= activeUnits.invoiceNumber %>">
-    </div>
-</div>
+<% } %>

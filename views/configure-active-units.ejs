@@ -39,13 +39,13 @@
                                         <div class="content with-padding padding-bottom-10">
                                             <div class="row">
 
-                                                <%- include('./partials/activeUnits/product.ejs', { product, editing, activeUnits }) %>
+                                                <%- include('./partials/activeUnits/product.ejs', { unit: product.value === 'neatseat' ? unit : null, delivery, product, editing, activeUnits }) %>
 
                                             </div>
                                         </div>
                                         <div class="col-xl-12">
                                             <button type="button"
-                                                onclick="handleSubmitConfigureActiveUnits(<%= JSON.stringify({ deliveryId: delivery._id, product: product.value, unit: product.value === 'neatseat' ? unit : null }) %>)"
+                                                onclick="handleSubmitConfigureActiveUnits(<%= JSON.stringify({ deliveryId: delivery._id, product, unit: product.value === 'neatseat' ? unit : null, activeUnits }) %>)"
                                                 class="button ripple-effect big margin-top-30 margin-bottom-30">
                                                 Save
                                             </button>

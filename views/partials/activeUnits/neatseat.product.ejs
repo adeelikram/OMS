@@ -1,27 +1,35 @@
 <div class="col-xl-12">
     <div class="submit-field">
-        <h5><%= product.label %> <%= unit %> <%= product.type %> - <%= product[unit].left %> units</h5>
+        <h5><%= product.label %> <%= unit %> <%= product.type %> - <%= product[unit].bought %> units</h5>
     </div>
 </div>
 
-<div class="col-xl-12">
-    <div class="col-xl-4 pl-0">
+<% for (let i = 0; i < product[unit].bought; i++) { %>
+
+    <div class="col-xl-12">
         <div class="submit-field">
-            <h5>Active Units</h5>
-            <select name="activeUnits_enabled">
-                <option value="" <%- editing ? activeUnits[unit] === undefined || activeUnits[unit] === null ? 'selected' : '' : '' %>>Select</option>
-                <option value="false" <%- editing ? activeUnits[unit] === false ? 'selected' : '' : '' %>>No</option>
-                <option value="true" <%- editing ? activeUnits[unit] ? 'selected' : '' : '' %>>Yes</option>
-            </select>
+            <h5>Unit <%= i + 1 %></h5>
         </div>
     </div>
-</div>
 
-<div class="col-xl-4">
-    <div class="submit-field">
-        <h5>Fakturanummer</h5>
-        <input type="text" class="with-border" disabled
-            name="activeUnits_invoiceNumber"
-            value="<%= activeUnits.invoiceNumber %>">
+    <div class="col-xl-12">
+        <div class="col-xl-4 pl-0">
+            <div class="submit-field">
+                <h5>Active Units</h5>
+                <select name="activeUnits<%= i %>_enabled">
+                    <option value="" <%- editing ? activeUnits && activeUnits[i] && activeUnits[i][unit] === undefined || activeUnits[i] && activeUnits[i][unit] === null ? 'selected' : '' : '' %>>Select</option>
+                    <option value="false" <%- editing ? activeUnits && activeUnits[i] && activeUnits[i][unit] === false ? 'selected' : '' : '' %>>No</option>
+                    <option value="true" <%- editing ? activeUnits && activeUnits[i] && activeUnits[i][unit] ? 'selected' : '' : '' %>>Yes</option>
+                </select>
+            </div>
+        </div>
     </div>
-</div>
+
+    <div class="col-xl-4">
+        <div class="submit-field">
+            <h5>Fakturanummer</h5>
+            <input type="text" class="with-border" disabled
+                value="<%= invoiceNumber %>">
+        </div>
+    </div>
+<% } %>

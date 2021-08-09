@@ -5,7 +5,10 @@ const { secured } = require('../middlewares/secured');
 const {
     getConfigureActiveUnits,
     postConfigureActiveUnits,
+    getActiveUnits,
 } = require('../controllers/ActiveUnitsController');
+
+router.get('/active-units', secured, getActiveUnits);
 
 router.get(
     '/get-configure-active-units/:product/:deliveryId',

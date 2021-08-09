@@ -60,7 +60,7 @@ exports.getConfigureActiveUnits = async (req, res, next) => {
         name: userProfile.nickname,
         product: {
             ...currentProduct,
-            ...delivery.orderId[currentProduct.value],
+            ...delivery[currentProduct.value],
         },
         activeUnits,
         editing: false,
@@ -73,12 +73,10 @@ exports.getConfigureActiveUnits = async (req, res, next) => {
         response.activeUnits = productInActiveUnits;
         response.editing = true;
     }
-
-    if (['nucleus', 'sitShower', 'neatseat'].includes(p))
-        response.activeUnits = {
-            ...response.activeUnits,
-            invoiceNumber: delivery.orderId.invoiceNumber,
-        };
+    // response.activeUnits = {
+    //     ...response.activeUnits,
+    //     invoiceNumber: delivery.orderId.invoiceNumber,
+    // };
 
     res.render('configure-active-units', response);
 };
@@ -152,222 +150,68 @@ exports.postConfigureActiveUnits = async (req, res, next) => {
     res.status(200).json();
 };
 
-exports.postAddPlaceOfDelivery = async (req, res, next) => {
+exports.getActiveUnits = async (req, res, next) => {
+    const { _raw, _json, ...userProfile } = req.user;
     try {
-        const { _raw, _json, ...userProfile } = req.user;
+        const activeUnits = await ActiveUnit.find().populate('delivery').lean();
 
-        const body = _.pick(req.body, [
-            'orderId',
-            'title',
-            'address',
-            'zip',
-            'customer',
-            'contact',
-            'email',
-            'occupationalTherapist',
-            'contactTherapist',
-            'emailTherapist',
-            'date',
-            'deadline',
-            'sent',
-            'testing',
-            'installer',
-            'otherInstaller',
-            'plumbingFitter',
-            'electrician',
-            'education',
-            ...productValues,
-        ]);
+        const processedActiveUnits = [];
 
-        const order = await Order.findById(body.orderId).lean();
+        // each distint customer will have all the units in all products in all deliveries summed up
 
-        const productsInBody = _.pick(body, productValues);
+        activeUnits.forEach((unit) => {
+            // same customer exists
+            const indexOfExistingCustomer = processedActiveUnits.indexOf(
+                (e) => e.customer === unit.customer
+            );
+            if (indexOfExistingCustomer !== -1) {
+                const currUnit = processedActiveUnits[indexOfExistingCustomer];
 
-        Object.keys(order).forEach((key) => {
-            if (productValues.includes(key)) {
-                const productInBody = productsInBody[key];
-                if (productInBody) {
-                    const o = order[key];
-                    if (o.medium || o.large) {
-                        if (productInBody.medium)
-                            o.medium.left -= productInBody.medium;
-                        else o.large.left -= productInBody.large;
-                    } else if (o.units) {
-                        o.units.left -= productInBody.units;
-                        o.installation = productInBody.installation;
-                    }
-                }
+                currUnit.deliveryPlaces++;
+
+                [
+                    'roomMate',
+                    'nucleus',
+                    'neatseat',
+                    'sitShower',
+                    'otium',
+                ].forEach((productGroup) => {
+                    currUnit[productGroup].forEach((p, index) => {
+                        if (p.medium) currUnit.units += 1;
+                        if (p.large) currUnit.units += 1;
+                        if (p.units) currUnit.units += 1;
+                    });
+                });
+            } else {
+                let units = 0;
+                [
+                    'roomMate',
+                    'nucleus',
+                    'neatseat',
+                    'sitShower',
+                    'otium',
+                ].forEach((productGroup) => {
+                    unit[productGroup].forEach((p) => {
+                        console.log(p);
+                        if (p.medium) units += 1;
+                        if (p.large) units += 1;
+                        if (p.enabled) units += 1;
+                    });
+                });
+
+                processedActiveUnits.push({
+                    customer: unit.customer,
+                    units,
+                    deliveryPlaces: 1,
+                });
             }
         });
 
-        Object.keys(body).forEach((key) => {
-            if (productValues.includes(key)) {
-                const p = body[key];
-                if (p.units) p.units = { bought: p.units, left: p.units };
-                else if (p.medium)
-                    p.medium = { bought: p.medium, left: p.medium };
-                else if (p.large) p.large = { bought: p.large, left: p.large };
-            }
-        });
-
-        const accomplished = Object.entries(order).every(([key, value]) => {
-            if (!productValues.includes(key)) return true;
-            if (value.large && value.medium)
-                return value.large.left <= 0 && value.mediuum.left <= 0;
-            if (value.large) return value.large.left <= 0;
-            if (value.medium) return value.medium.left <= 0;
-            if (value.units) return value.units.left <= 0;
-            return true;
-        });
-
-        order.accomplished = accomplished;
-
-        await Order.findByIdAndUpdate(body.orderId, order);
-
-        await DeliveryPlace.create(body);
-
-        res.status(200).send();
-    } catch (error) {
-        console.log(error);
-    }
-};
-
-exports.getEditPlaceOfDelivery = async (req, res) => {
-    try {
-        const { _raw, _json, ...userProfile } = req.user;
-        const users = await User.find();
-        const editMode = req.query.edit;
-
-        if (!editMode) return res.redirect('/');
-
-        const { deliveryId } = req.params;
-        const delivery = await await DeliveryPlace.findById(
-            deliveryId
-        ).populate('orderId');
-        const order = await Order.findById(delivery.orderId._id);
-
-        if (!delivery) return res.redirect('/');
-
-        const username = await User.findOne({
-            email: req.user.emails[0].value,
-        });
-        let ticket$ = await DevTicket.findOne({ User: username._id });
-        if (!ticket$) {
-            ticket$ = { _id: 'dummy' };
-        }
-
-        res.render('add-place-of-delivery', {
-            name: userProfile.nickname,
-            order,
-            editing: true,
-            users,
-            userLength: users.length,
-            delivery,
-            user: username,
-            ticket: ticket$,
-            user$: req.user,
+        res.render('active-units', {
+            name: userProfile.displayName.delivery,
+            activeUnits: processedActiveUnits,
         });
     } catch (error) {
         console.log(error);
-    }
-};
-
-exports.postEditPlaceOfDelivery = async (req, res, next) => {
-    try {
-        const { _raw, _json, ...userProfile } = req.user;
-
-        const body = _.pick(req.body, [
-            'orderId',
-            'title',
-            'address',
-            'zip',
-            'customer',
-            'contact',
-            'email',
-            'occupationalTherapist',
-            'contactTherapist',
-            'emailTherapist',
-            'date',
-            'deadline',
-            'sent',
-            'deliveryId',
-            'testing',
-            'installer',
-            'otherInstaller',
-            'plumbingFitter',
-            'electrician',
-            'education',
-            'designVisit',
-            'installation',
-            ...productValues,
-        ]);
-
-        const order = await Order.findById(body.orderId).lean();
-
-        const delivery = await DeliveryPlace.findById(body.deliveryId).lean();
-
-        Object.keys(delivery).forEach((key) => {
-            if (productValues.includes(key)) {
-                const o = order[key];
-                const d = delivery[key];
-                if (o) {
-                    if (o.medium) o.medium.left += d.medium.left;
-                    else if (o.large) o.large.left += d.large.left;
-                    else if (o.units) {
-                        o.units.left += d.units.left;
-                        o.installation = undefined;
-                    }
-                }
-            }
-        });
-
-        const productsInBody = _.pick(body, productValues);
-
-        Object.keys(order).forEach((key) => {
-            if (productValues.includes(key)) {
-                const productInBody = productsInBody[key];
-                if (productInBody) {
-                    const o = order[key];
-                    if (o.medium || o.large) {
-                        if (productInBody.medium)
-                            o.medium.left -= productInBody.medium;
-                        else o.large.left -= productInBody.large;
-                    } else if (o.units) {
-                        o.units.left -= productInBody.units;
-                        o.installation = productInBody.installation;
-                    }
-                }
-            }
-        });
-
-        Object.keys(body).forEach((key) => {
-            if (productValues.includes(key)) {
-                const p = body[key];
-                if (p.units) p.units = { bought: p.units, left: p.units };
-                else if (p.medium)
-                    p.medium = { bought: p.medium, left: p.medium };
-                else if (p.large) p.large = { bought: p.large, left: p.large };
-            }
-        });
-
-        const accomplished = Object.entries(order).every(([key, value]) => {
-            if (!productValues.includes(key)) return true;
-            if (value.large && value.medium)
-                return value.large.left <= 0 && value.mediuum.left <= 0;
-            if (value.large) return value.large.left <= 0;
-            if (value.medium) return value.medium.left <= 0;
-            if (value.units) return value.units.left <= 0;
-            return true;
-        });
-
-        order.accomplished = accomplished;
-
-        await Order.findByIdAndUpdate(body.orderId, order);
-
-        await DeliveryPlace.findByIdAndUpdate(body.deliveryId, body);
-
-        res.status(200).send();
-    } catch (error) {
-        console.log('Edit delivery error', error);
     }
 };

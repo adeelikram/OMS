@@ -4,34 +4,41 @@
     </div>
 </div>
 
-<div class="col-xl-12">
-    <div class="col-xl-4 pl-0">
+<% for (let i = 0; i < product.type.left; i++) { %>
+    <div class="col-xl-12">
         <div class="submit-field">
-            <h5>Active Units</h5>
-            <select name="activeUnits_enabled">
-                <option value="" <%- editing ? activeUnits.enabled === undefined || activeUnits.enabled === null ? 'selected' : '' : '' %>>Select</option>
-                <option value="false" <%- editing ? activeUnits.enabled === false ? 'selected' : '' : '' %>>No</option>
-                <option value="true" <%- editing ? activeUnits.enabled ? 'selected' : '' : '' %>>Yes</option>
-            </select>
+            <h5>Unit <%= i + 1 %></h5>
         </div>
     </div>
-</div>
 
-<div class="col-xl-4">
-    <div class="submit-field">
-        <h5>Serienummer</h5>
-        <input type="text" class="with-border"
-            name="activeUnits_serialNumber"
-            placeholder="Serienummer"
-            value="<% if (editing) { %><%= activeUnits.serialNumber %><% } %>">
+    <div class="col-xl-12">
+        <div class="col-xl-4 pl-0">
+            <div class="submit-field">
+                <h5>Active Units</h5>
+                <select name="activeUnits<%= i %>_enabled">
+                    <option value="" <%- editing ? activeUnits[i] && activeUnits[i].enabled === undefined || activeUnits[i] && activeUnits[i].enabled === null ? 'selected' : '' : '' %>>Select</option>
+                    <option value="false" <%- editing ? activeUnits[i] && activeUnits[i].enabled === false ? 'selected' : '' : '' %>>No</option>
+                    <option value="true" <%- editing ? activeUnits[i] && activeUnits[i].enabled ? 'selected' : '' : '' %>>Yes</option>
+                </select>
+            </div>
+        </div>
     </div>
-</div>
-
-<div class="col-xl-4">
-    <div class="submit-field">
-        <h5>Fakturanummer</h5>
-        <input type="text" class="with-border" disabled
-            name="activeUnits_invoiceNumber"
-            value="<%= activeUnits.invoiceNumber %>">
+    
+    <div class="col-xl-4">
+        <div class="submit-field">
+            <h5>Serienummer</h5>
+            <input type="text" class="with-border"
+                name="activeUnits<%= i %>_serialNumber"
+                placeholder="Serienummer"
+                value="<% if (editing) { %><%= activeUnits[i] && activeUnits[i].serialNumber %><% } %>">
+        </div>
     </div>
-</div>
+    
+    <div class="col-xl-4">
+        <div class="submit-field">
+            <h5>Fakturanummer</h5>
+            <input type="text" class="with-border" disabled
+                value="<%= invoiceNumber %>">
+        </div>
+    </div>
+<% } %>

@@ -1,11 +1,11 @@
 <% if (product.value === 'roomMate') { %>
-    <%- include('./roomMate.product.ejs', { product, editing, activeUnits }) %>
+    <%- include('./roomMate.product.ejs', { product, editing, activeUnits, invoiceNumber: delivery.orderId.invoiceNumber }) %>
 <% } else if (product.value === 'nucleus') { %>
-    <%- include('./nucleus.product.ejs', { product, editing, activeUnits }) %>
+    <%- include('./nucleus.product.ejs', { product, editing, activeUnits, invoiceNumber: delivery.orderId.invoiceNumber }) %>
 <% } else if (product.value === 'neatseat') { %>
-    <%- include('./neatseat.product.ejs', { unit, product, editing, activeUnits }) %>
+    <%- include('./neatseat.product.ejs', { unit, product, editing, activeUnits, invoiceNumber: delivery.orderId.invoiceNumber }) %>
 <% } else if (product.value === 'sitShower') { %>
-    <%- include('./sitShower.product.ejs', { product, editing, activeUnits }) %>
+    <%- include('./sitShower.product.ejs', { product, editing, activeUnits, invoiceNumber: delivery.orderId.invoiceNumber }) %>
 <% } else if (product.value === 'otium') { %>
-    <%- include('./otium.product.ejs', { product, editing, activeUnits }) %>
+    <%- include('./otium.product.ejs', { product, editing, activeUnits, invoiceNumber: delivery.orderId.invoiceNumber }) %>
 <% } %>
