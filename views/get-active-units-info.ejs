@@ -55,16 +55,19 @@
                                                                 <%=activeUnit.customer%>
                                                             </td>
                                                             <td>
-                                                                <%= activeUnit.units%>
+                                                                <%= activeUnit.deliveryPlace %>
                                                             </td>
                                                             <td>
-                                                                <%= activeUnit.activeUnits%>
+                                                                <%= activeUnit.product.label %>
                                                             </td>
                                                             <td>
-                                                                <%= activeUnit.deliveryPlaces %>
+                                                                <%= activeUnit.units %>
+                                                            </td>
+                                                            <td>
+                                                                <%= activeUnit.units %>
                                                             </td>
                                                             <td><a class="btn btn-info"
-                                                                    href="/get-active-units-details/<%= activeUnit.customer %>"
+                                                                    href="/get-configure-active-units/<%= activeUnit.product.value %>/<%= activeUnit.deliveryId %>"
                                                                     class="button ripple-effect"><i
                                                                         class="icon-line-awesome-pencil"></i>
                                                                     Info</a>

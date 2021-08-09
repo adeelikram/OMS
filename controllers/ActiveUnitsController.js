@@ -215,3 +215,55 @@ exports.getActiveUnits = async (req, res, next) => {
         console.log(error);
     }
 };
+
+exports.getActiveUnitsByCustomer = async (req, res, next) => {
+    const { _raw, _json, ...userProfile } = req.user;
+    const { customer } = req.params;
+    try {
+        const activeUnits = await ActiveUnit.find({ customer })
+            .populate('delivery')
+            .lean();
+
+        const processedActiveUnits = [];
+
+        // each distint customer will have all the units in all products in all deliveries summed up
+
+        activeUnits.forEach((unit) => {
+            // same customer exists
+            productValues.forEach((productGroup) => {
+                let units = 0;
+                unit[productGroup].forEach((p) => {
+                    if (p.medium) {
+                        // console.log(unit.delivery);
+                        units += unit.delivery[productGroup].medium.bought;
+                    }
+
+                    if (p.large) {
+                        // console.log(unit.delivery);
+                        units += unit.delivery[productGroup].large.bought;
+                    }
+
+                    if (p.enabled) {
+                        // console.log(unit.delivery);
+                        units += unit.delivery[productGroup].units.bought;
+                    }
+                });
+                if (units)
+                    processedActiveUnits.push({
+                        customer: unit.customer,
+                        units,
+                        product: products.find((e) => e.value === productGroup),
+                        deliveryPlace: unit.delivery.title,
+                        deliveryId: unit.delivery._id,
+                    });
+            });
+        });
+
+        res.render('get-active-units-info', {
+            name: userProfile.displayName.delivery,
+            activeUnits: processedActiveUnits,
+        });
+    } catch (error) {
+        console.log(error);
+    }
+};

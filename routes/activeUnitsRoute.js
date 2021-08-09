@@ -6,6 +6,7 @@ const {
     getConfigureActiveUnits,
     postConfigureActiveUnits,
     getActiveUnits,
+    getActiveUnitsByCustomer,
 } = require('../controllers/ActiveUnitsController');
 
 router.get('/active-units', secured, getActiveUnits);
@@ -20,6 +21,12 @@ router.post(
     '/post-configure-active-units/:product/:deliveryId',
     secured,
     postConfigureActiveUnits
+);
+
+router.get(
+    '/get-active-units-details/:customer',
+    secured,
+    getActiveUnitsByCustomer
 );
 
 module.exports = router;
