@@ -26,8 +26,6 @@ exports.editOngoingProject = async (req, res, next) => {
         const users = await User.find({});
         const deliveries = await DeliveryPlace.find({ orderId });
 
-        console.log('rahil ', orderId);
-
         // const delivery = await DeliveryPlace.findById(
         //     orderId
         // ).populate('orderId');

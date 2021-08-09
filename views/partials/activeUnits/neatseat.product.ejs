@@ -8,18 +8,11 @@
     <div class="col-xl-4 pl-0">
         <div class="submit-field">
             <h5>Active Units</h5>
-            <% if (typeof activeUnits[unit] === 'number') { %>
-                <input type="text" class="with-border"
-                    name="activeUnits_units"
-                    placeholder="Serienummer"
-                    value="<% if (editing) { %><%= activeUnits[unit] %><% } %>">
-            <% } else { %>
-                <select name="activeUnits_enabled">
-                    <option value="" <%- editing ? activeUnits[unit] === undefined || activeUnits[unit] === null ? 'selected' : '' : '' %>>Select</option>
-                    <option value="false" <%- editing ? activeUnits[unit] === false ? 'selected' : '' : '' %>>No</option>
-                    <option value="true" <%- editing ? activeUnits[unit] ? 'selected' : '' : '' %>>Yes</option>
-                </select>
-            <% } %>
+            <select name="activeUnits_enabled">
+                <option value="" <%- editing ? activeUnits[unit] === undefined || activeUnits[unit] === null ? 'selected' : '' : '' %>>Select</option>
+                <option value="false" <%- editing ? activeUnits[unit] === false ? 'selected' : '' : '' %>>No</option>
+                <option value="true" <%- editing ? activeUnits[unit] ? 'selected' : '' : '' %>>Yes</option>
+            </select>
         </div>
     </div>
 </div>

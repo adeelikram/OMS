@@ -45,7 +45,7 @@
                                         </div>
                                         <div class="col-xl-12">
                                             <button type="button"
-                                                onclick="handleSubmitConfigureActiveUnits(<%= JSON.stringify({ deliveryId: delivery._id, product: product.value }) %>)"
+                                                onclick="handleSubmitConfigureActiveUnits(<%= JSON.stringify({ deliveryId: delivery._id, product: product.value, unit: product.value === 'neatseat' ? unit : null }) %>)"
                                                 class="button ripple-effect big margin-top-30 margin-bottom-30">
                                                 Save
                                             </button>

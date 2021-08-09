@@ -49,6 +49,7 @@ exports.getConfigureActiveUnits = async (req, res, next) => {
     const activeUnits =
         (await ActiveUnit.findOne({
             delivery: delivery._id,
+            customer: delivery.orderId.customer,
         }).lean()) || {};
 
     const currentProduct = products.find((e) => e.value === p);
@@ -66,23 +67,89 @@ exports.getConfigureActiveUnits = async (req, res, next) => {
         delivery,
     };
 
+    if (unitType) response.unit = unitType;
+
+    if (productInActiveUnits) {
+        response.activeUnits = productInActiveUnits;
+        response.editing = true;
+    }
+
     if (['nucleus', 'sitShower', 'neatseat'].includes(p))
         response.activeUnits = {
             ...response.activeUnits,
             invoiceNumber: delivery.orderId.invoiceNumber,
         };
 
-    if (unitType) response.type = unitType;
+    res.render('configure-active-units', response);
+};
 
-    if (productInActiveUnits) {
-        response.activeUnits = {
-            ...response.activeUnits,
-            productInActiveUnits,
-        };
-        response.editing = true;
+exports.postConfigureActiveUnits = async (req, res, next) => {
+    const { _raw, _json, ...userProfile } = req.user;
+    const { product, deliveryId } = req.params;
+
+    let p = product;
+    let unitType = null;
+
+    if (p.includes('neatseat')) {
+        const [key, type] = p.split('-');
+        unitType = type;
+        p = key;
     }
 
-    res.render('configure-active-units', response);
+    if (!productValues.includes(p))
+        return res.redirect(
+            `/get-edit-place-of-delivery/${deliveryId}?edit=true`
+        );
+
+    const delivery = await DeliveryPlace.findById(deliveryId)
+        .populate('orderId')
+        .lean();
+
+    if (!delivery || !delivery.orderId)
+        return res.redirect(
+            `/get-edit-place-of-delivery/${deliveryId}?edit=true`
+        );
+
+    const currentProduct = products.find((e) => e.value === p);
+
+    const activeUnits = await ActiveUnit.findOne({
+        delivery: deliveryId,
+        customer: delivery.orderId.customer,
+    });
+
+    if (activeUnits) {
+        // update the activeUnits
+        // eslint-disable-next-line no-inner-declarations
+        function getUpdate() {
+            let b = { [currentProduct.value]: req.body };
+            if (unitType)
+                b = {
+                    [currentProduct.value]: {
+                        ...activeUnits[currentProduct.value],
+                        [unitType]: req.body.enabled,
+                    },
+                };
+            return b;
+        }
+        await ActiveUnit.updateOne(
+            { delivery: deliveryId, customer: delivery.orderId.customer },
+            getUpdate()
+        );
+    } else {
+        // create new
+        const newUnit = {
+            customer: delivery.orderId.customer,
+            delivery: deliveryId,
+            [currentProduct.value]: req.body,
+        };
+        if (unitType)
+            newUnit[currentProduct.value] = {
+                [unitType]: req.body.enabled,
+            };
+        await ActiveUnit.create(newUnit);
+    }
+
+    res.status(200).json();
 };
 
 exports.postAddPlaceOfDelivery = async (req, res, next) => {

@@ -3,7 +3,7 @@
 <% } else if (product.value === 'nucleus') { %>
     <%- include('./nucleus.product.ejs', { product, editing, activeUnits }) %>
 <% } else if (product.value === 'neatseat') { %>
-    <%- include('./neatseat.product.ejs', { unit: 'large', product, editing, activeUnits }) %>
+    <%- include('./neatseat.product.ejs', { unit, product, editing, activeUnits }) %>
 <% } else if (product.value === 'sitShower') { %>
     <%- include('./sitShower.product.ejs', { product, editing, activeUnits }) %>
 <% } else if (product.value === 'otium') { %>

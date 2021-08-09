@@ -8,18 +8,11 @@
     <div class="col-xl-4 pl-0">
         <div class="submit-field">
             <h5>Active Units</h5>
-            <% if (typeof activeUnits.units === 'number') { %>
-                <input type="text" class="with-border"
-                    name="activeUnits_units"
-                    placeholder="Serienummer"
-                    value="<% if (editing) { %><%= activeUnits.units %><% } %>">
-            <% } else { %>
-                <select name="activeUnits_enabled">
-                    <option value="" <%- editing ? activeUnits.units === undefined || activeUnits.units === null ? 'selected' : '' : '' %>>Select</option>
-                    <option value="false" <%- editing ? activeUnits.units === false ? 'selected' : '' : '' %>>No</option>
-                    <option value="true" <%- editing ? activeUnits.units ? 'selected' : '' : '' %>>Yes</option>
-                </select>
-            <% } %>
+            <select name="activeUnits_enabled">
+                <option value="" <%- editing ? activeUnits.enabled === undefined || activeUnits.enabled === null ? 'selected' : '' : '' %>>Select</option>
+                <option value="false" <%- editing ? activeUnits.enabled === false ? 'selected' : '' : '' %>>No</option>
+                <option value="true" <%- editing ? activeUnits.enabled ? 'selected' : '' : '' %>>Yes</option>
+            </select>
         </div>
     </div>
 </div>
@@ -56,42 +49,9 @@
 
 <div class="col-xl-4">
     <div class="submit-field">
-        <h5>Online?</h5>
-        <select name="activeUnits_online">
-            <option value="" <%- editing ? activeUnits.online === undefined || activeUnits.online === null ? 'selected' : '' : '' %>>Select</option>
-            <option value="false" <%- editing ? activeUnits.online === false ? 'selected' : '' : '' %>>No</option>
-            <option value="true" <%- editing ? activeUnits.online ? 'selected' : '' : '' %>>Yes</option>
-        </select>
-    </div>
-</div>
-
-<div class="col-xl-4">
-    <div class="submit-field">
-        <h5>Uppkopplingsproblem</h5>
-        <select name="activeUnits_connectionProblems">
-            <option value="" <%- editing ? activeUnits.connectionProblems === undefined || activeUnits.connectionProblems === null ? 'selected' : '' : '' %>>Select</option>
-            <option value="false" <%- editing ? activeUnits.connectionProblems === false ? 'selected' : '' : '' %>>No</option>
-            <option value="true" <%- editing ? activeUnits.connectionProblems ? 'selected' : '' : '' %>>Yes</option>
-        </select>
-    </div>
-</div>
-
-<div class="col-xl-4">
-    <div class="submit-field">
-        <h5>Brukarbetecknin</h5>
-        <input type="text" class="with-border"
-            name="activeUnits_patient"
-            placeholder="Brukarbetecknin"
-            value="<% if (editing) { %><%= activeUnits.patient %><% } %>">
-    </div>
-</div>
-
-<div class="col-xl-4">
-    <div class="submit-field">
-        <h5>Rumsbeteckning</h5>
-        <input type="text" class="with-border"
-            name="activeUnits_roomNumber"
-            placeholder="Rumsbeteckning"
-            value="<% if (editing) { %><%= activeUnits.roomNumber %><% } %>">
+        <h5>Fakturanummer</h5>
+        <input type="text" class="with-border" disabled
+            name="activeUnits_invoiceNumber"
+            value="<%= activeUnits.invoiceNumber %>">
     </div>
 </div>
