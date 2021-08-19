@@ -9,7 +9,7 @@ const { ArchivedDelivery } = require('../models/DeliveryPlaces');
 const Shipment = require('../models/Shipment');
 const OrderDeleted = require('../models/OrderDeleted');
 const DeletedDeliveryPlace = require('../models/DeliveriesDeleted');
-
+const request = require('request');
 module.exports.getOrders = (req, res) => {
     const { _raw, _json, ...userProfile } = req.user;
     Order.find({})
@@ -110,15 +110,23 @@ exports.postAddOrder = async (req, res) => {
             if (accessories) {
                 Object.entries(accessories).forEach(
                     ([k, v]) =>
-                        (accessories[k] = {
-                            bought: accessories[k],
-                            left: accessories[k],
-                        })
+                    (accessories[k] = {
+                        bought: accessories[k],
+                        left: accessories[k],
+                    })
                 );
             }
         });
 
         await Order.create(body);
+
+        request.post("https://api.fortnox.se/api/warehouse/purchaseorders-v1", body, function (err, resp, body) {
+            if (err) console.log(err);
+            else console.log(body);
+        })
+
+
+
         req.flash('success_msg', 'Order added successfully...');
         res.status(200).send();
     } catch (error) {
@@ -232,10 +240,10 @@ exports.postEditOrder = async (req, res, next) => {
             if (accessories) {
                 Object.entries(accessories).forEach(
                     ([k, v]) =>
-                        (accessories[k] = {
-                            bought: accessories[k],
-                            left: accessories[k],
-                        })
+                    (accessories[k] = {
+                        bought: accessories[k],
+                        left: accessories[k],
+                    })
                 );
             }
         });
