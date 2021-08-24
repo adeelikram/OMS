@@ -33,6 +33,7 @@ const projectsRoute = require('./routes/projectsRoute');
 const ticketsRoute = require('./routes/ticketsRoute');
 const userRoute = require('./routes/userRoute');
 const activeUnitsRoute = require('./routes/activeUnitsRoute');
+const workOrdersRoute = require('./routes/workOrdersRoute');
 
 const PORT = process.env.PORT || 3000;
 
@@ -125,6 +126,7 @@ app.use('/', projectsRoute);
 app.use('/', ticketsRoute);
 app.use('/', userRoute);
 app.use('/', activeUnitsRoute);
+app.use('/', workOrdersRoute);
 
 app.all('*', (req, res) => {
     res.status(404).json({

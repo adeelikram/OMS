@@ -1,0 +1,313 @@
+<%- include('./includes/header.ejs') %>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <%- include('./includes/side-bar.ejs') %>
+            <!-- Dashboard Content
+    ================================================== -->
+            <div class="dashboard-content-container" data-simplebar>
+                <div class="dashboard-content-inner">
+
+                    <!-- Dashboard Headline -->
+                    <div class="dashboard-headline">
+                        <h3>Manage Work Orders</h3>
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs" class="dark">
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Dashboard</a></li>
+                                <li>Work Orders</li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Row -->
+                    <div class="row">
+
+                        <!-- Dashboard Box -->
+                        <div class="col-xl-12">
+                            <div class="dashboard-box margin-top-0">
+                                <div>
+                                    <%- include ("./partials/messages") %>
+                                </div>
+                                <!-- Headline -->
+                                <div class="headline">
+                                    <h3><i class="icon-feather-award"></i><%= workOrders.length %> Work Order(s)</h3>
+                                </div>
+
+                                <div class="">
+                                    <main style="overflow-x:auto;">
+                                        <table class="table table-bordered mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th style="vertical-align:top" style="max-width: 200px;">Beskrivning</th>
+                                                    <th style="vertical-align:top">Kund</th>
+                                                    <th style="vertical-align:top">Beställare</th>
+                                                    <th style="vertical-align:top">Utförare</th>
+                                                    <th style="vertical-align:top">Datum</th>
+                                                    <th style="vertical-align:top">Deadline</th>
+                                                    <th style="vertical-align:top">Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% if (workOrders && workOrders.length> 0) { %>
+                                                    <% for (let order of workOrders) { %>
+                                                        <tr>
+
+                                                            <td>
+                                                                <%=order.description%>
+                                                            </td>
+                                                            <td>
+                                                                <%= order.customer.name%>
+                                                            </td>
+                                                            <td>
+                                                                <%= order.user %>
+                                                            </td>
+                                                            <td>
+                                                                <%= order.responsible.name%>
+                                                            </td>
+                                                            <td>
+                                                                <% if (order.date !=null) { %>
+                                                                    <%= order.date.toDateString() %>
+                                                                        <% } %>
+                                                            </td>
+                                                            <td>
+                                                                <% if (order.deadline !=null) { %>
+                                                                    <%= order.deadline.toDateString() %>
+                                                                        <% } %>
+                                                            </td>
+                                                            <td>
+                                                                <%= order.status %>
+                                                            </td>
+                                                            
+                                                        </tr>
+                                                        <% } %>
+                                                            <% } else { %>
+                                                                <tr>
+                                                                    <td>No Work Orders found</td>
+                                                                </tr>
+                                                                <% } %>
+                                            </tbody>
+                                        </table>
+
+                                        
+                                    </main>
+
+                                    <form action="/post-edit-order-management" method="POST">
+                                        <div class="content padding-bottom-10">
+                                            <!-- <div class="submit-field"> -->
+
+                                                <div class="row mx-2 mt-4">
+                                                    <div class="col-xl-4">
+                                                        <div class="submit-field">
+                                                            <h5>Beskrivning</h5>
+                                                            <input type="text" class="with-border"
+                                                                name="workOrderCustomerAddress_address"
+                                                                placeholder="Beskrivning">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xl-4">
+                                                        <div class="submit-field">
+                                                            <h5>Datum</h5>
+                                                            <input type="date" class="with-border"
+                                                            name="large_date">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xl-4">
+                                                        <div class="submit-field">
+                                                            <h5>Deadline</h5>
+                                                            <input type="date" class="with-border"
+                                                            name="large_date">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xl-4">
+                                                        <div class="submit-field">
+                                                            <h5>Status</h5>
+                                                            <input type="text" class="with-border"
+                                                                name="workOrderCustomerAddress_address"
+                                                                placeholder="Description">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-12">
+                                                    <div class="submit-field">
+                                                        <h3 class="mt-4">Kund</h3>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mx-2">
+                                                
+                                                    <div class="col-xl-4">
+                                                        <div class="submit-field">
+                                                            <h5>Name</h5>
+                                                            <input type="text" class="with-border"
+                                                                name="workOrderCustomer_name"
+                                                                placeholder="Name">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xl-4">
+                                                        <div class="submit-field">
+                                                            <h5>Phone Nr</h5>
+                                                            <input type="text" class="with-border"
+                                                                name="workOrderCustomer_contact"
+                                                                placeholder="Phone Nr">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xl-4">
+                                                        <div class="submit-field">
+                                                            <h5>Email</h5>
+                                                            <input type="text" class="with-border"
+                                                                name="workOrderCustomer_email"
+                                                                placeholder="Email">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xl-4">
+                                                        <div class="submit-field">
+                                                            <h5>Title</h5>
+                                                            <input type="text" class="with-border"
+                                                                name="workOrderCustomer_title"
+                                                                placeholder="Title">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-xl-12">
+                                                    <div class="submit-field">
+                                                        <h3 class="mt-4">Utförare</h3>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mx-2">
+                                                
+                                                    <div class="col-xl-4">
+                                                        <div class="submit-field">
+                                                            <h5>Name</h5>
+                                                            <input type="text" class="with-border"
+                                                                name="workOrderCustomer_name"
+                                                                placeholder="Name">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xl-4">
+                                                        <div class="submit-field">
+                                                            <h5>Phone Nr</h5>
+                                                            <input type="text" class="with-border"
+                                                                name="workOrderCustomer_contact"
+                                                                placeholder="Phone Nr">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xl-4">
+                                                        <div class="submit-field">
+                                                            <h5>Email</h5>
+                                                            <input type="text" class="with-border"
+                                                                name="workOrderCustomer_email"
+                                                                placeholder="Email">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xl-4">
+                                                        <div class="submit-field">
+                                                            <h5>Title</h5>
+                                                            <input type="text" class="with-border"
+                                                                name="workOrderCustomer_title"
+                                                                placeholder="Title">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-xl-12">
+                                                    <div class="submit-field">
+                                                        <h3 class="mt-4">Customer Address</h3>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mx-2">
+                                                    <div class="col-xl-4">
+                                                        <div class="submit-field">
+                                                            <h5>Address</h5>
+                                                            <input type="text" class="with-border"
+                                                                name="workOrderCustomerAddress_address"
+                                                                placeholder="Address">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-4">
+                                                        <div class="submit-field">
+                                                            <h5>Zipcode</h5>
+                                                            <input type="text" class="with-border"
+                                                                name="workOrderCustomerAddress_zip"
+                                                                placeholder="Zipcode">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-4">
+                                                        <div class="submit-field">
+                                                            <h5>Area Name</h5>
+                                                            <input type="text" class="with-border"
+                                                                name="workOrderCustomerAddress_area"
+                                                                placeholder="Area Name">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-12">
+                                                    <div class="submit-field">
+                                                        <h3 class="mt-4">Responsible Address</h3>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mx-2">
+                                                    <div class="col-xl-4">
+                                                        <div class="submit-field">
+                                                            <h5>Address</h5>
+                                                            <input type="text" class="with-border"
+                                                                name="workOrderResponsibleAddress_address"
+                                                                placeholder="Address">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-4">
+                                                        <div class="submit-field">
+                                                            <h5>Zipcode</h5>
+                                                            <input type="text" class="with-border"
+                                                                name="workOrderResponsibleAddress_zip"
+                                                                placeholder="Zipcode">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-4">
+                                                        <div class="submit-field">
+                                                            <h5>Area Name</h5>
+                                                            <input type="text" class="with-border"
+                                                                name="workOrderResponsibleAddress_area"
+                                                                placeholder="Area Name">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            <div class="col-xl-12">
+                                                <div class="submit-field">
+                                                    <hr>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="submit-field">
+                                                    <a href="/get-add-place-of-delivery"
+                                                        class="btn btn-info">Add Work Order</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Row / End -->
+                    
+                    <%- include('./includes/footer.ejs') %>
