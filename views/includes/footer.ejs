@@ -328,6 +328,26 @@
         redirect();
     }
 
+    async function handleSubmitWorkOrder() {
+        const body = getFormValues('workOrder');
+
+        const responsible = getFormValues('workOrderResponsible');
+        if (hasLength(responsible)) body.responsible = responsible;
+
+        const customer = getFormValues('workOrderCustomer');
+        if (hasLength(customer)) body.customer = customer;
+
+        const customerAddress = getFormValues('workOrderCustomerAddress');
+        if (hasLength(customerAddress)) body.customerAddress = customerAddress;
+
+        const responsibleAddress = getFormValues('workOrderResponsibleAddress');
+        if (hasLength(responsibleAddress)) body.responsibleAddress = responsibleAddress;
+
+        await axios.post('/work-orders', body).catch(err => console.error(err))
+
+        window.location = "/work-orders";
+    }
+
     
 </script>
 </body>
