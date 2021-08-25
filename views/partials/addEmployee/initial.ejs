@@ -1,0 +1,137 @@
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Username (required)</h5>
+        <input type="text" name="employee_username" class="with-border"
+            placeholder="Username"
+            value="<% if (editing) { %><%= employee.username %><% } %>"
+            required <%- disabled ? (' disabled') : '' %>>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Name (required)</h5>
+        <input type="text" name="employee_name"
+            class="with-border" placeholder="Name"
+            value="<% if (editing) { %><%= employee.name %><% } %>"
+            required <%- disabled ? (' disabled') : '' %>>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Address</h5>
+        <input type="text" name="employee_address" class="with-border"
+            placeholder="Address "
+            value="<% if (editing) { %><%= employee.address %><% } %>"
+            required <%- disabled ? (' disabled') : '' %>>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Post Number</h5>
+        <h6><br></h6>
+        <input type="text" name="employee_postnumber" class="with-border"
+            placeholder="Post Number"
+            value="<% if (editing) { %><%= employee.postNumber %><% } %>"
+            required <%- disabled ? (' disabled') : '' %>>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Post Address</h5>
+        <h6><br></h6>
+        <input type="text" name="employee_postaddress" class="with-border"
+            placeholder="Post Address"
+            value="<% if (editing) { %><%= employee.postAddress %><% } %>"
+            required <%- disabled ? (' disabled') : '' %>>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Phone</h5>
+        <h6><br></h6>
+        <input type="text" name="employee_phonenumber" class="with-border"
+            placeholder="Phone"
+            value="<% if (editing) { %><%= employee.phoneNumber %><% } %>"
+            required <%- disabled ? (' disabled') : '' %>>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Account Number</h5>
+        <h6><br></h6>
+        <input type="text" name="employee_accountnumber" class="with-border"
+            placeholder="Account Number"
+            value="<% if (editing) { %><%= employee.accountNumber% %><% } %>"
+            required <%- disabled ? (' disabled') : '' %>>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Bank</h5>
+        <h6><br></h6>
+        <input type="text" name="employee_bank" class="with-border"
+            placeholder="Bank"
+            value="<% if (editing) { %><%= employee.bank% %><% } %>"
+            required <%- disabled ? (' disabled') : '' %>>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Clearing</h5>
+        <h6><br></h6>
+        <input type="text" name="employee_clearing" class="with-border"
+            placeholder="Clearing"
+            value="<% if (editing) { %><%= employee.clearing% %><% } %>"
+            required <%- disabled ? (' disabled') : '' %>>
+    </div>
+</div>
+
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Full/Half Time</h5>
+        <select name="employee_jobtype"
+            id="employee_jobtype"
+            class="browser-default custom-select "
+            data-live-search="true">
+            <% if (editing) { %>
+                <% if (employee.jobType) { %>
+                    <option value="true" selected>Yes</option>
+                    <option value="false">No</option>      
+                <% } else { %>
+                    <% if (employee.jobType === undefined) { %>
+                            <option value="" selected>Select</option>
+                            <option value="full">Full Time</option>
+                            <option value="half">Half Time</option>
+                    <% } else { %>
+                        <option value="full">Full Time</option>
+                        <option value="half">Half Time</option>
+                    <% } %>
+                <% } %>
+            <% } else { %>
+                <option value="" selected>Select</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            <% } %>
+        </select>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Vaccations</h5>
+        <h6><br></h6>
+        <input type="text" name="employee_vaccations" class="with-border"
+            placeholder="Vaccations"
+            value="<% if (editing) { %><%= employee.vaccations% %><% } %>"
+            required <%- disabled ? (' disabled') : '' %>>
+    </div>
+</div>

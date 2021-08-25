@@ -1,0 +1,99 @@
+<%- include('../includes/header.ejs') %>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <%- include('../includes/side-bar.ejs') %>
+            <!-- Dashboard Content
+    ================================================== -->
+            <div class="dashboard-content-container" data-simplebar>
+                <div class="dashboard-content-inner">
+
+                    <!-- Dashboard Headline -->
+                    <div class="dashboard-headline">
+                        <h3>Customers</h3>
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs" class="dark">
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Dashboard</a></li>
+                                <li>Customers</li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Row -->
+                    <div class="row" style="display:''">
+
+                        <!-- Dashboard Box -->
+                        <div class="col-xl-12">
+                        <div class="dashboard-box margin-top-0" style="overflow-x:auto;">
+                            <div class="headline">
+                                <h3><i class="icon-feather-flag"></i>
+                                    <%= customersCount %>
+                                        Customers
+                                </h3>
+                            </div>
+
+                            <div class="container-fluid">
+                             <%- include ("../partials/messages") %>
+                                <main>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th style="vertical-align:top">Name</th>
+                                                <th style="vertical-align:top">Owner</th>
+                                                <th style="vertical-align:top">Sync</th>
+                                                <th style="vertical-align:top">In Hubspot</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% if (customers.length> 0) { %>
+                                                <% for (let customer of customers) { %>
+                                                    <tr>
+                                                        <td id="customer_name">
+                                                            <%=customer.properties.name.value %>
+                                                        </td>
+                                                        <td id="customer_owner">
+                                                            <%=customer.owner%>
+                                                        </td>
+                                                        <td>
+                                                            <% if (customer.synced) { %>
+                                                                <input  id="customer_synced" type="checkbox" class="form-control" style="box-shadow:none;height:20px;" checked value="<%=customer.synced%>">
+                                                            <% } else { %>
+                                                                <input  id="customer_synced" type="checkbox" class="form-control" style="box-shadow:none;height:20px;" value="<%=customer.synced%>">
+                                                            <% } %>
+                                                        </td>
+                                                        <td id="customer_isdeleted">
+                                                            <% if (customer.isDeleted) { %>
+                                                                Not Present
+                                                            <% } else { %>
+                                                                Present
+                                                            <% } %>
+                                                        </td>
+                                                    </tr>
+                                                <% } %>
+                                                
+                                            <% } else { %>
+                                                <h1>No Customers Found!</h1>
+                                                <% } %>
+                                                            
+                                        </tbody>
+
+                                    </table>
+                                </main>
+
+                            <% if (customers.length> 0) { %>
+                                <button onclick="handleSubmitSyncCustomers(<%= JSON.stringify({ customers }) %>)" class="button ripple-effect big margin-top-30 margin-bottom-30">
+                                    Spara
+                                </button>
+                            <% } %>
+                            </div>
+                            
+                        </div>
+                        </div> 
+
+                    </div>
+                    <!-- Row / End -->
+                </div>
+            </div>
+
+            <%- include('../includes/footer.ejs') %>

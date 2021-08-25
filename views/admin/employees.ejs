@@ -1,0 +1,91 @@
+<%- include('../includes/header.ejs') %>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <%- include('../includes/side-bar.ejs') %>
+            <!-- Dashboard Content
+    ================================================== -->
+            <div class="dashboard-content-container" data-simplebar>
+                <div class="dashboard-content-inner">
+
+                    <!-- Dashboard Headline -->
+                    <div class="dashboard-headline">
+                        <h3>Employees</h3>
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs" class="dark">
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Dashboard</a></li>
+                                <li>Employees</li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Row -->
+                    <div class="row" style="display:''">
+
+                        <!-- Dashboard Box -->
+                        <div class="col-xl-12">
+                        <div class="dashboard-box margin-top-0" style="overflow-x:auto;">
+                            <div class="headline">
+                                <h3><i class="icon-feather-flag"></i>
+                                    <%= employeesCount %>
+                                        Employees
+                                </h3>
+                            </div>
+
+                            <div class="container-fluid">
+                                <main>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th style="vertical-align:top">Name</th>
+                                                <th style="vertical-align:top">Job Type</th>
+                                                <th style="vertical-align:top">Absents</th>
+                                                <th style="vertical-align:top">Milages</th>
+                                                <th style="vertical-align:top">Hours</th>
+                                                <th style="vertical-align:top">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% if (employees.length> 0) { %>
+                                                <% for (let employee of employees) { %>
+                                                    <tr>
+                                                        <td>
+                                                            <%=employee.username%>
+                                                        </td>
+                                                        <td>
+                                                            <%=employee.jobType%>
+                                                        </td>
+                                                        <td>
+                                                            <%=employee.absents%>
+                                                        </td>
+                                                        <td>
+                                                            <%=employee.milages%>
+                                                        </td>
+                                                        <td>
+                                                            <%=employee.hours%>
+                                                        </td>
+                                                        <td>
+                                                            <a href="/admin/employee-history/<%=employee._id%>">Edit</a>
+                                                        </td>
+                                                    </tr>
+                                                    <% } %>
+                                                        <% } else { %>
+                                                            <h1>No Empoyees Found!</h1>
+                                                            <% } %>
+                                        </tbody>
+
+                                    </table>
+                                </main>
+
+                            </div>
+                            
+                        </div>
+                        </div> 
+
+                    </div>
+                    <!-- Row / End -->
+                </div>
+            </div>
+
+            <%- include('../includes/footer.ejs') %>

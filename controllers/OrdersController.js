@@ -9,6 +9,7 @@ const { ArchivedDelivery } = require('../models/DeliveryPlaces');
 const Shipment = require('../models/Shipment');
 const OrderDeleted = require('../models/OrderDeleted');
 const DeletedDeliveryPlace = require('../models/DeliveriesDeleted');
+const Customer = require('../models/Hubspot/customer');
 
 module.exports.getOrders = (req, res) => {
     const { _raw, _json, ...userProfile } = req.user;
@@ -28,11 +29,15 @@ exports.getAddOrder = async (req, res) => {
     const { _raw, _json, ...userProfile } = req.user;
     const orders = await Order.find({});
     const ordersCount = orders.length;
+    let customers = await Customer.find({});
+    customers = customers.map(i => i.properties.name.value);
+
     res.render('add-order', {
         disabled: false,
         editing: false,
         name: userProfile.nickname,
         ordersCount,
+        customers
     });
 };
 

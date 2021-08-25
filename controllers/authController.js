@@ -160,18 +160,24 @@ exports.getCallback = async (req, res, next) => {
     })(req, res, next);
 };
 exports.getLogout = (req, res) => {
-    req.logOut();
+    req.logout();
+    
+    var returnTo = req.protocol + '://' + req.hostname;
+    var port = req.connection.localPort;
+    if (port !== undefined && port !== 80 && port !== 443) {
+        returnTo += ':' + port;
+    }
+    var logoutURL = new URL(
+        util.format('https://%s/v2/logout', process.env.AUTHO_DOMAIN)
+        // util.format('https://%s/v2/logout', "dev-nroxgmw9.us.auth0.com")
+    );
 
-    const returnTo = `${req.protocol}://${req.hostname}/`;
-    const port = req.connection.localPort;
-
-    const logoutURL = new URL(`https://${process.env.AUTHO_DOMAIN}/v2/logout`);
-
-    const searchString = querystring.stringify({
+    
+    var searchString = querystring.stringify({
         client_id: process.env.CLIENT_ID,
-        returnTo,
+        returnTo: returnTo
     });
     logoutURL.search = searchString;
-
+    
     res.redirect(logoutURL);
 };

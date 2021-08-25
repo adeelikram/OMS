@@ -1,0 +1,76 @@
+<%- include('./includes/header.ejs') %>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <%- include('./includes/side-bar.ejs') %>
+            <!-- Dashboard Content
+    ================================================== -->
+            <div class="dashboard-content-container" data-simplebar>
+                <div class="dashboard-content-inner">
+
+                    <!-- Dashboard Headline -->
+                    <div class="dashboard-headline">
+                        <h3>Customers</h3>
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs" class="dark">
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Dashboard</a></li>
+                                <li>Customers</li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Row -->
+                    <div class="row" style="display:''">
+
+                        <!-- Dashboard Box -->
+                        <div class="col-xl-12">
+                        <div class="dashboard-box margin-top-0" style="overflow-x:auto;">
+                            <div class="headline">
+                                <h3><i class="icon-feather-flag"></i>
+                                    <%= customersCount %>
+                                        Customers
+                                </h3>
+                            </div>
+
+                            <div class="container-fluid">
+                                <main>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th style="vertical-align:top">Name</th>
+                                                <th style="vertical-align:top">Owner</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% if (customers.length> 0) { %>
+                                                <% for (let customer of customers) { %>
+                                                    <tr>
+                                                        <td id="customer_name">
+                                                            <%=customer.properties.name.value %>
+                                                        </td>
+                                                        <td id="customer_owner">
+                                                            <%=customer.owner%>
+                                                        </td>
+                                                    </tr>
+                                                <% } %>
+                                                
+                                            <% } else { %>
+                                                <h1>No Customers Found!</h1>
+                                                <% } %>
+                                                            
+                                        </tbody>
+
+                                    </table>
+                                </main>
+                            </div>
+                            
+                        </div>
+                        </div> 
+
+                    </div>
+                    <!-- Row / End -->
+                </div>
+            </div>
+
+            <%- include('./includes/footer.ejs') %>

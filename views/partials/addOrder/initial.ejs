@@ -1,10 +1,27 @@
 <div class="col-xl-4">
     <div class="submit-field">
         <h5>Customer (required)</h5>
-        <input type="text" name="order_customer" class="with-border"
-            placeholder="Customer"
-            value="<% if (editing) { %><%= order.customer %><% } %>"
-            required <%- disabled ? (' disabled') : '' %>>
+            <select id="order_customer"
+            class="selectpicker"
+            data-live-search="true" name="order_customer">
+            <% if (editing) { %>
+                <% if (customers.length > 0) { %>
+                    <% for (let customer of customers) { %>
+                        <% if(customer === order.customer) { %>
+                            <option data-tokens="<%=customer%>" value="<%=customer%>" selected><%=customer%></option>
+                        <% } else { %>
+                            <option data-tokens="<%=customer%>" value="<%=customer%>"><%=customer%></option>
+                        <% } %>
+                    <% } %>
+                <% } %>
+            <% } else { %>
+                <% if (customers.length> 0) { %>
+                    <% for (let customer of customers) { %>
+                        <option data-tokens="<%=customer%>" value="<%=customer%>"><%=customer%></option>
+                    <% } %>
+                <% } %>
+            <% } %>
+        </select>
     </div>
 </div>
 <input type="hidden" name="customerOrderNumber" <%- disabled ? (' disabled') : '' %>>

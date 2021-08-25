@@ -11,6 +11,8 @@ const csrf = require('csurf');
 const Auth0Strategy = require('passport-auth0');
 const path = require('path');
 
+const User = require("./models/User");
+
 const app = express();
 
 const envPath = path.resolve(process.cwd(), `.${process.env.NODE_ENV}.env`);
@@ -34,6 +36,10 @@ const ticketsRoute = require('./routes/ticketsRoute');
 const userRoute = require('./routes/userRoute');
 const activeUnitsRoute = require('./routes/activeUnitsRoute');
 const workOrdersRoute = require('./routes/workOrdersRoute');
+
+const employeeRoute = require('./routes/employeeRoute');
+const adminRoute = require('./routes/adminRoute');
+const customerRoute = require('./routes/customerRoute');
 
 const PORT = process.env.PORT || 3000;
 
@@ -113,6 +119,15 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use(async function(req, res, next) {
+    if(req.user){
+        const user = await User.findById(req.user.user_id.split("|")[1]);
+        // console.log(user);
+        res.locals.user = user;
+    }
+    next();
+});
+
 // Routes
 
 // const userRoutes = require("./routes/user.js");
@@ -127,6 +142,10 @@ app.use('/', ticketsRoute);
 app.use('/', userRoute);
 app.use('/', activeUnitsRoute);
 app.use('/', workOrdersRoute);
+
+app.use('/', employeeRoute);
+app.use('/admin', adminRoute);
+app.use('/', customerRoute);
 
 app.all('*', (req, res) => {
     res.status(404).json({
