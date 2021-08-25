@@ -165,9 +165,15 @@ exports.getLogout = (req, res) => {
     
     var returnTo = req.protocol + '://' + req.hostname;
     var port = req.connection.localPort;
+    if(port === 8080){
+        port = 80;
+    }
     if (port !== undefined && port !== 80 && port !== 443) {
         returnTo += ':' + port;
     }
+
+    console.log(port);
+
     var logoutURL = new URL(
         util.format('https://%s/v2/logout', process.env.AUTHO_DOMAIN)
         // util.format('https://%s/v2/logout', "dev-nroxgmw9.us.auth0.com")
@@ -179,13 +185,6 @@ exports.getLogout = (req, res) => {
         returnTo: returnTo
     });
     logoutURL.search = searchString;
-
-    console.log("Check logout")
-    console.log(logoutURL);
-
-    if(logoutURL.includes(":8080")){
-        logoutURL = logoutURL.replace(":8080", ":80");
-    }
     
     res.redirect(logoutURL);
 };
