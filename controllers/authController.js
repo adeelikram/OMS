@@ -4,6 +4,7 @@ const passport = require('passport');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
+const util = require('util');
 
 const transporter = nodemailer.createTransport(
     sendgridTransport({
