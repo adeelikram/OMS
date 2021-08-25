@@ -179,6 +179,13 @@ exports.getLogout = (req, res) => {
         returnTo: returnTo
     });
     logoutURL.search = searchString;
+
+    console.log("Check logout")
+    console.log(logoutURL);
+
+    if(logoutURL.includes(":8080")){
+        logoutURL = logoutURL.replace(":8080", ":80");
+    }
     
     res.redirect(logoutURL);
 };
