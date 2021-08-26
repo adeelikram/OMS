@@ -35,7 +35,11 @@ const ordersRoute = require('./routes/ordersRoute');
 const projectsRoute = require('./routes/projectsRoute');
 const ticketsRoute = require('./routes/ticketsRoute');
 const userRoute = require('./routes/userRoute');
-
+const admin = require('./routes/adminRoute');
+const sendOrder = require('./routes/sendOrder');
+const User = require('./models/User');
+const artNumber = require("./routes/artNumber")
+const { getToken } = require('./config/Token');
 const PORT = process.env.PORT || 3000;
 
 mongoose
@@ -118,7 +122,13 @@ passport.deserializeUser((user, done) => {
     done(null, user);
 });
 // Creating custom middleware with Express
-app.use((req, res, next) => {
+app.use(async (req, res, next) => {
+    if (req.user && !req.user?._id) {
+        const test = await User.findOne({ email: req.user._json.email });
+        req.user._id = test._id;
+        req.user.email = test.email;
+        req.user.token = await getToken(test._id);
+    }
     res.locals.isAuthenticated = req.isAuthenticated();
     next();
 });
@@ -127,19 +137,21 @@ app.use((req, res, next) => {
 
 // const userRoutes = require("./routes/user.js");
 app.set('trust proxy', 1);
-app.use('/', authRoutes);
-app.use('/', deliveryPlacesRoute);
-app.use('/', homeRoute);
-app.use('/', indexRoute);
-app.use('/', ordersRoute);
-app.use('/', projectsRoute);
-app.use('/', ticketsRoute);
-app.use('/', userRoute);
-
+app.use(authRoutes);
+app.use(deliveryPlacesRoute);
+app.use(homeRoute);
+app.use(indexRoute);
+app.use(ordersRoute);
+app.use(projectsRoute);
+app.use(ticketsRoute);
+app.use(userRoute);
+app.use(admin);
+app.use(sendOrder)
+app.use(artNumber)
 app.all('*', (req, res) => {
     res.status(404).json({
         status: 'fail',
-        message: 'Route doesnot exist',
+        message: 'Route does not exist',
     });
 });
 // require model DevTicket

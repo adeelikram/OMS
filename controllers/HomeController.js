@@ -1,4 +1,6 @@
+const { getToken } = require('../config/Token');
 const { Order } = require('../models/Order');
+const User = require('../models/User');
 
 module.exports.getHome = async (req, res) => {
     const orders = await Order.find({});
@@ -7,7 +9,7 @@ module.exports.getHome = async (req, res) => {
     res.render('orders', {
         orders,
         ordersCount,
-        // name: userProfile.nickname
         name: userProfile.nickname,
     });
 };
+

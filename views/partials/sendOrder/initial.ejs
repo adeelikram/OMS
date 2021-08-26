@@ -1,0 +1,170 @@
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Customer (required)</h5>
+        <input type="text" name="order_customer" class="with-border"
+            placeholder="Customer"
+            value="<% if (editing) { %><%= order.customer %><% } %>"
+            required <%- disabled ? (' disabled') : '' %>>
+    </div>
+</div>
+<input type="hidden" name="customerOrderNumber" <%- disabled ? (' disabled') : '' %>>
+
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Contact Name</h5>
+        <input type="text" name="order_clientName"
+            class="with-border" placeholder="Contact name"
+            value="<% if (editing) { %><%= order.clientName %><% } %>"
+            required <%- disabled ? (' disabled') : '' %>>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Phone nr</h5>
+        <input type="text" name="order_contact" class="with-border"
+            placeholder="Phone nr"
+            value="<% if (editing) { %><%= order.contact %><% } %>"
+            required <%- disabled ? (' disabled') : '' %>>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Email</h5>
+        <h6><br></h6>
+        <input type="text" name="order_email" class="with-border"
+            placeholder="Email"
+            value="<% if (editing) { %><%= order.email %><% } %>"
+            required <%- disabled ? (' disabled') : '' %>>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Order Date</h5>
+        <% if (editing) { %>
+            <h6>(Current: <% if (editing && order.orderDate) { %>
+                    <%= order.orderDate.toDateString() %>
+                        <% } %>)</h6>
+            <% }%>
+                <% if (editing) { %>
+                    <input <%- disabled ? (' disabled') : '' %> <% if
+                        (order.orderDate !=null) { %>
+                    type="text"
+                    <% } else { %>
+                        type= "date"
+                        <% }%>
+                            name="order_orderDate" class="with-border"
+                            placeholder="Deadline"
+                            <% if (editing && order.orderDate
+                                !=null) { %>
+                                value="<%=
+                                    order.orderDate.toDateString()
+                                    %>
+                                    "
+                                    <% } %>>
+                                        <% } %>
+                                            <% if (!editing) { %>
+                                                <input
+                                                    <%- disabled ? (' disabled') : '' %>
+                                                    type="date"
+                                                    name="order_orderDate"
+                                                    class="with-border"
+                                                    placeholder="Deadline">
+                                                <% } %>
+    </div>
+</div>
+
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Delivery Address</h5>
+        <h6><br></h6>
+        <input type="text" name="order_deliveryAddress" class="with-border"
+            placeholder="Delivery Address"
+            required>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Delivery City</h5>
+        <h6><br></h6>
+        <input type="text" name="order_deliveryCity" class="with-border"
+            placeholder="Delivery City"
+            
+            required>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Delivery Country</h5>
+        <h6><br></h6>
+        <input type="text" name="order_deliveryCountry" class="with-border"
+            placeholder="Delivery Country"
+            required>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Delivery Date</h5>
+        <h6><br></h6>
+        <input type="date" name="order_deliveryDate" class="with-border"
+            placeholder="Delivery Date"
+            required>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Delivery Name</h5>
+        <h6><br></h6>
+        <input type="text" name="order_deliveryName" class="with-border"
+            placeholder="Delivery Name"
+            required>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Article Number</h5>
+        <h6><br></h6>
+        <input type="text" name="order_articleNumber" class="with-border"
+            placeholder="Article Number"
+            required>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Delivered Quantity</h5>
+        <h6><br></h6>
+        <input type="text" name="order_deliveredQuantity" class="with-border"
+            placeholder="Delivered Quantity"
+            required>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Description</h5>
+        <h6><br></h6>
+        <input type="text" name="order_description" class="with-border"
+            placeholder="Description"
+            required>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Ordered Quantity</h5>
+        <h6><br></h6>
+        <input type="text" name="order_orderedQuantity" class="with-border"
+            placeholder="Ordered Quantity"
+            required>
+    </div>
+</div>

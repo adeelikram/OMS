@@ -1,0 +1,116 @@
+<div class="col-xl-12">
+    <div class="submit-field">
+        <hr>
+    </div>
+</div>
+<div class="col-xl-12">
+    <div class="submit-field">
+        <h3><b>Otium</b></h3>
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Number of units</h5>
+        <input <%- disabled ? (' disabled') : '' %> type="number"
+            name="otium_units" class="with-border"
+            placeholder="Number of units"
+            value="<% if (editing) { %><%= order.otium.units.bought %><% } %>">
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        
+    </div>
+</div>
+<!-- ;;; -->
+<div class="col-xl-12">
+    <div class="submit-field">
+        <h4>Otium, Accessories<button type="button"
+                onclick="toggleCollapse('hide_otium_div')"><i
+                    class="icon-feather-chevron-down"></i></button>
+        </h4>
+    </div>
+</div>
+<div class="container-fluid" id="hide_otium_div"
+    style="display:none">
+    <div class="row">
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>BLE-Beacon</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="otium_accessories_bleBeacon" class="with-border"
+                    placeholder="BLE-Beacon"
+                    value="<% if (editing && order.otium.accessories.bleBeacon) { %><%= order.otium.accessories.bleBeacon.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Meshsystem TP-Link M9</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="otium_accessories_meshSystemTPLinkM9" class="with-border"
+                    placeholder="Meshsystem TP-Link M9"
+                    value="<% if (editing && order.otium.accessories.meshSystemTPLinkM9) { %><%= order.otium.accessories.meshSystemTPLinkM9.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Väggfäste</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="otium_accessories_wallBracket" class="with-border"
+                    placeholder="Väggfäste"
+                    value="<% if (editing && order.otium.accessories.wallBracket) { %><%= order.otium.accessories.wallBracket.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Router, RUT950</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="otium_accessories_router950" class="with-border"
+                    placeholder="Router, RUT950"
+                    value="<% if (editing && order.otium.accessories.router950) { %><%= order.otium.accessories.router950.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Router, RUT240</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="otium_accessories_router240" class="with-border"
+                    placeholder="Router, RUT240"
+                    value="<% if (editing && order.otium.accessories.router240) { %><%= order.otium.accessories.router240.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Väggfäste, RUT240</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="otium_accessories_wallBracket240" class="with-border"
+                    placeholder="Väggfäste, RUT240"
+                    value="<% if (editing && order.otium.accessories.wallBracket240) { %><%= order.otium.accessories.wallBracket240.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Telenor Simkort, 3GB</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="otium_accessories_telenorSimCard3GB" class="with-border"
+                    placeholder="Telenor Simkort, 3GB"
+                    value="<% if (editing && order.otium.accessories.telenorSimCard3GB) { %><%= order.otium.accessories.telenorSimCard3GB.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Telenor Simkort, 600GB</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="otium_accessories_telenorSimCard600GB" class="with-border"
+                    placeholder="Telenor Simkort, 600GB"
+                    value="<% if (editing && order.otium.accessories.telenorSimCard600GB) { %><%= order.otium.accessories.telenorSimCard600GB.bought %><% } %>">
+            </div>
+        </div>
+        
+    </div>
+</div>

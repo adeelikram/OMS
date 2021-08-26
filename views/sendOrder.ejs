@@ -1,0 +1,81 @@
+<%- include('./includes/header.ejs') %>
+    <div class="dashboard-container">
+        <%- include('./includes/side-bar.ejs') %>
+            <div class="dashboard-content-container" data-simplebar>
+                <div class="dashboard-content-inner">
+
+
+                    <script>
+                        if ((new URLSearchParams(location.search)).get("msg")) {
+                            alert("order has been posted Successfully!")
+                        }
+                    </script>
+
+
+                    <!-- Row -->
+                    <div class="row">
+
+                        <!-- Dashboard Box -->
+                        <div class="col-xl-12">
+                            <div class="dashboard-box margin-top-0">
+
+                                <!-- Headline -->
+                                <div class="headline">
+                                    <h3><i class="icon-feather-flag"></i> Order Submission Form for Fortnox</h3>
+                                </div>
+                                <%- include ("./partials/messages") %>
+
+                                    <div class="content with-padding padding-bottom-10">
+                                        <div class="row">
+                                            <%- include('./partials/sendOrder/initial.ejs', { editing, disabled, order:
+                                                editing ? order : null }) %>
+
+                                                <%- include('./partials/sendOrder/room-mate-rent.ejs', { editing,
+                                                    disabled, order: editing ? order : null }) %>
+
+
+                                                    <%- include('./partials/sendOrder/nucleus.ejs', { editing, disabled,
+                                                        order: editing ? order : null }) %>
+
+                                                        <%- include('./partials/sendOrder/neat-seat.ejs', { editing,
+                                                            disabled, order: editing ? order : null }) %>
+
+                                                            <%- include('./partials/sendOrder/sit-shower-rent.ejs', {
+                                                                editing, disabled, order: editing ? order : null }) %>
+
+
+
+                                                                <%- include('./partials/sendOrder/otium.ejs', { editing,
+                                                                    disabled, order: editing ? order : null }) %>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-12">
+                                        <button
+                                            onclick="handleSubmitSendOrder(<%= JSON.stringify({ editing, id: editing ? order._id : null,save:true }) %>)"
+                                            class="button ripple-effect big margin-top-30 margin-bottom-30">
+                                            Save
+                                        </button>
+                                        <button
+                                            onclick="handleSubmitSendOrder(<%= JSON.stringify({ editing, id: editing ? order._id : null,save:false }) %>)"
+                                            class="button ripple-effect big margin-top-30 margin-bottom-30">
+                                            Spara
+                                        </button>
+                                        
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Row / End -->
+
+
+
+
+
+
+
+
+
+
+
+                    <%- include('./includes/footer.ejs') %>

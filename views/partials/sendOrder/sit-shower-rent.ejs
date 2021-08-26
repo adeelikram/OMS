@@ -1,0 +1,80 @@
+<div class="col-xl-12">
+    <div class="submit-field">
+        <hr>
+    </div>
+</div>
+<div class="col-xl-12">
+    <div class="submit-field">
+        <h3><b>Sit&Shower, rent</b></h3>
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Number of units</h5>
+        <input <%- disabled ? (' disabled') : '' %> type="number"
+            name="sitShowerRent_units" class="with-border"
+            placeholder="Number of units"
+            value="<% if (editing) { %><%= order.sitShowerRent.units.bought %><% } %>">
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        
+    </div>
+</div>
+<!-- ;;; -->
+<div class="col-xl-12">
+    <div class="submit-field">
+        <h4>Sit&Shower, Rent Accessories<button type="button"
+                onclick="toggleCollapse('hide_sit_shower_div')"><i
+                    class="icon-feather-chevron-down"></i></button>
+        </h4>
+    </div>
+</div>
+<div class="container-fluid" id="hide_sit_shower_div"
+    style="display:none">
+    <div class="row">
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Hygienstol</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="sitShowerRent_accessories_hygeinstol" class="with-border"
+                    placeholder="Hygienstol"
+                    value="<% if (editing && order.sitShowerRent.accessories.hygeinstol) { %><%= order.sitShowerRent.accessories.hygeinstol.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Soap</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="sitShowerRent_accessories_soap" class="with-border"
+                    placeholder="Soap"
+                    value="<% if (editing && order.sitShowerRent.accessories.soap) { %><%= order.sitShowerRent.accessories.soap.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Shampoo</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="sitShowerRent_accessories_shampoo" class="with-border"
+                    placeholder="Shampoo"
+                    value="<% if (editing && order.sitShowerRent.accessories.shampoo) { %><%= order.sitShowerRent.accessories.shampoo.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Golvslist</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="sitShowerRent_accessories_golvslist" class="with-border"
+                    placeholder="Golvslist"
+                    value="<% if (editing && order.sitShowerRent.accessories.golvslist) { %><%= order.sitShowerRent.accessories.golvslist.bought %><% } %>">
+            </div>
+        </div>
+        
+    </div>
+</div>

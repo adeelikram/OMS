@@ -170,12 +170,12 @@
         }
     }
 
-    function hasLength (obj) {
+    function hasLength(obj) {
         if (!obj) return null;
         return Object.keys(obj).length > 0;
     }
 
-    function getFormValues(id, params = { debug: false, accessories: true } ) {
+    function getFormValues(id, params = { debug: false, accessories: true }) {
         const elems = document.querySelectorAll(`[name^="${id}_"]`);
 
         const accessoryEntries = [];
@@ -183,12 +183,12 @@
 
         elems.forEach(e => {
             let arr = entries, split = `${id}_`;
-            
+
             if (params.accessories && e.name.includes('_accessories_')) {
                 arr = accessoryEntries;
                 split = '_accessories_';
             }
-            
+
             const name = e.name.split(split)[1];
 
             if (e.value === "") return;
@@ -214,20 +214,20 @@
             nucleus = getFormValues('nucleus'),
             neatseat = getFormValues('neatseat'),
             sitShowerRent = getFormValues('sitShowerRent'),
-            sitShowerSold = getFormValues('sitShowerSold');
+            sitShowerSold = getFormValues('sitShowerSold'),
             otium = getFormValues('otium'),
             assistant = getFormValues('orderAssistant');
 
-            if (roomMate) body.roomMate = roomMate;
-            if (roomMateRent) body.roomMateRent = roomMateRent;
-            if (roomMateSold) body.roomMateSold = roomMateSold;
-            if (nucleus) body.nucleus = nucleus;
-            if (neatseat) body.neatseat = neatseat;
-            if (sitShowerRent) body.sitShowerRent = sitShowerRent;
-            if (sitShowerSold) body.sitShowerSold = sitShowerSold;
-            if (otium) body.otium = otium;
+        if (roomMate) body.roomMate = roomMate;
+        if (roomMateRent) body.roomMateRent = roomMateRent;
+        if (roomMateSold) body.roomMateSold = roomMateSold;
+        if (nucleus) body.nucleus = nucleus;
+        if (neatseat) body.neatseat = neatseat;
+        if (sitShowerRent) body.sitShowerRent = sitShowerRent;
+        if (sitShowerSold) body.sitShowerSold = sitShowerSold;
+        if (otium) body.otium = otium;
 
-            if (hasLength(assistant)) body.assistant = assistant;
+        if (hasLength(assistant)) body.assistant = assistant;
 
         try {
             let path = '/add-order';
@@ -246,11 +246,63 @@
         }
     }
 
+    async function handleSubmitSendOrder({ editing, id, save }) {
+        const body = getFormValues('order');
+
+        const roomMateRent = getFormValues('roomMateRent'),
+            nucleus = getFormValues('nucleus'),
+            neatseat = getFormValues('neatseat'),
+            sitShowerRent = getFormValues('sitShowerRent'),
+            otium = getFormValues('otium'),
+            assistant = getFormValues('orderAssistant');
+
+        if (roomMateRent) body.roomMateRent = roomMateRent;
+        if (nucleus) body.nucleus = nucleus;
+        if (neatseat) body.neatseat = neatseat;
+        if (sitShowerRent) body.sitShowerRent = sitShowerRent;
+        if (otium) body.otium = otium;
+
+        if (hasLength(assistant)) body.assistant = assistant;
+        if (save) body.save = save;
+        if (localStorage.getItem("artNumber")) body.artNumber = localStorage.getItem("artNumber");
+        else {
+            alert("Set Article Number first")
+            return
+        }
+        try {
+            let path = '/send-order';
+
+            if (editing) {
+                path = '/edit-send-order';
+                body.id = id;
+            }
+
+            var res = await axios.post(path, body);
+            alert("sended successfully!")
+            window.location = "/send-order";
+
+        } catch (err) {
+            alert('Please fill all the required fields')
+            console.error(err.response.data);
+        }
+    }
+
+    function changeArticle() {
+        var el = document.getElementById("artNumber")
+        localStorage.setItem("artNumber", el.value)
+        alert("Article Number has been set!")
+    }
+
+    async function saveSendOrder() {
+
+    }
+
+
     const educationProductNames = ['roomMate', 'nucleus', 'sitShower', 'neatseat'];
 
     async function handleSubmitDelivery({ editing, order, deliveryId }) {
         const body = getFormValues('delivery');
-        
+
         body.orderId = order._id;
 
         const roomMateRent = getFormValues('roomMateRent');
@@ -310,7 +362,7 @@
 
         const installation = getFormValues('deliveryInstallation');
         if (hasLength(installation)) body.installation = installation;
-        
+
         let url = '/post-add-place-of-delivery';
 
         if (editing) {
@@ -325,7 +377,7 @@
         window.location = "/";
     }
 
-    
+
 </script>
 </body>
 

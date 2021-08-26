@@ -1,0 +1,126 @@
+<!-- ;;;; -->
+<div class="col-xl-12">
+    <div class="submit-field">
+        <hr>
+    </div>
+</div>
+<div class="col-xl-12">
+    <div class="submit-field">
+        <h3><b>Neatseat</b></h3>
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Neatseat, large</h5>
+        <input <%- disabled ? (' disabled') : '' %> type="number" name="neatseat_large"
+            class="with-border" placeholder="Neatseat, large"
+            value="<% if (editing) { %><%= order.neatseat.large.bought %><% } %>">
+    </div>
+</div>
+
+
+<!-- ;;; -->
+<div class="col-xl-12">
+    <div class="submit-field">
+        <h4>Neatseat Accessories<button type="button"
+                onclick="toggleCollapse('hide_neat_seat_div')"><i
+                    class="icon-feather-chevron-down"></i></button>
+        </h4>
+    </div>
+</div>
+<div class="container-fluid" id="hide_neat_seat_div"
+    style="display:none">
+    <div class="row">
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Armstöd Universal</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="neatseat_accessories_armRest" class="with-border"
+                    placeholder="Armstöd Universal"
+                    value="<% if (editing && order.neatseat.accessories.armRest) { %><%= order.neatseat.accessories.armRest.bought %><% } %>">
+            </div>
+        </div>
+        
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Förhöjning 4 cm, medium</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="neatseat_accessories_elevation4M" class="with-border"
+                    placeholder="Förhöjning 4 cm, medium"
+                    value="<% if (editing && order.neatseat.accessories.elevation4M) { %><%= order.neatseat.accessories.elevation4M.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Förhöjning 4 cm, large</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="neatseat_accessories_elevation4L" class="with-border"
+                    placeholder="Förhöjning 4 cm, large"
+                    value="<% if (editing && order.neatseat.accessories.elevation4L) { %><%= order.neatseat.accessories.elevation4L.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Förhöjning 7 cm, medium</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="neatseat_accessories_elevation7M" class="with-border"
+                    placeholder="Förhöjning 7 cm, medium"
+                    value="<% if (editing && order.neatseat.accessories.elevation4M) { %><%= order.neatseat.accessories.elevation4M.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Förhöjning 7 cm, large</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="neatseat_accessories_elevation7L" class="with-border"
+                    placeholder="Förhöjning 7 cm, large"
+                    value="<% if (editing && order.neatseat.accessories.elevation7L) { %><%= order.neatseat.accessories.elevation7L.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Förenklad fjärrkontroll</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="neatseat_accessories_simplifiedRemoteControl" class="with-border"
+                    placeholder="Förenklad fjärrkontroll"
+                    value="<% if (editing && order.neatseat.accessories.simplifiedRemoteControl) { %><%= order.neatseat.accessories.simplifiedRemoteControl.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Stor fjärrkontroll</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="neatseat_accessories_largeRemoteControl" class="with-border"
+                    placeholder="Stor fjärrkontroll"
+                    value="<% if (editing && order.neatseat.accessories.largeRemoteControl) { %><%= order.neatseat.accessories.largeRemoteControl.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Material för sittvakt</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="neatseat_accessories_materialForSitter" class="with-border"
+                    placeholder="Material för sittvakt"
+                    value="<% if (editing && order.neatseat.accessories.materialForSitter) { %><%= order.neatseat.accessories.materialForSitter.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Skruvpåse för installation av NeatSeat (extra)</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="neatseat_accessories_screwBagForInstallationOfNeatSeat" class="with-border"
+                    placeholder="Skruvpåse för installation av NeatSeat (extra)"
+                    value="<% if (editing && order.neatseat.accessories.screwBagForInstallationOfNeatSeat) { %><%= order.neatseat.accessories.screwBagForInstallationOfNeatSeat.bought %><% } %>">
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="submit-field">
+                <h5>Skruvpåse för installation av Förhöjning (extra)</h5>
+                <input <%- disabled ? (' disabled') : '' %> type="number"
+                    name="neatseat_accessories_screwBagForInstallationOfElevation" class="with-border"
+                    placeholder="Skruvpåse för installation av Förhöjning (extra)"
+                    value="<% if (editing && order.neatseat.accessories.screwBagForInstallationOfElevation) { %><%= order.neatseat.accessories.screwBagForInstallationOfElevation.bought %><% } %>">
+            </div>
+        </div>
+    </div>
+</div>

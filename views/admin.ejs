@@ -1,0 +1,20 @@
+<%- include('./includes/header.ejs') %>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <%- include('./includes/side-bar.ejs') %>
+            <!-- Dashboard Content
+    ================================================== -->
+            <div class="dashboard-content-container" data-simplebar>
+                <div class="dashboard-content-inner">
+
+            <a href="https://apps.fortnox.se/oauth-v1/login?next=%2Foauth-v1%2Fauth%3Fclient_id%3Dt9Qa7vFh2Q6c%26scope%3Dorder%20invoice%20customer%20article%26state%3Dsomestate12%26response_type%3Dcode%26redirect_uri=<%=domain%>"
+                class="btn btn-outline-info d-block mx-auto my-auto text-center">
+                <span class="h1">Connect</span>
+            </a>
+            
+            <div class="text-center h3 text-secondary float-right mr-2 h-auto">
+                <%=connected%>
+            </div>
+            
+
+            <%- include('./includes/footer.ejs') %>
