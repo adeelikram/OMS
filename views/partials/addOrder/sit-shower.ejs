@@ -5,40 +5,40 @@
 </div>
 <div class="col-xl-12">
     <div class="submit-field">
-        <h3><b>Sit&Shower, rent</b></h3>
+        <h3><b>Sit&Shower</b></h3>
     </div>
 </div>
 <div class="col-xl-4">
     <div class="submit-field">
         <h5>Number of units</h5>
         <input <%- disabled ? (' disabled') : '' %> type="number"
-            name="sitShowerRent_units" class="with-border"
+            name="sitShower_units" class="with-border"
             placeholder="Number of units"
-            value="<% if (editing) { %><%= order.sitShowerRent.units.bought %><% } %>">
+            value="<% if (editing) { %><%= order.sitShower.units.bought %><% } %>">
     </div>
 </div>
 <div class="col-xl-4">
     <div class="submit-field">
         <h5>Period(months)</h5>
         <input <%- disabled ? (' disabled') : '' %> type="number"
-            name="sitShowerRent_period" class="with-border"
+            name="sitShower_period" class="with-border"
             placeholder="Period(months), sold"
-            value="<% if (editing) { %><%= order.sitShowerRent.period %><% } %>">
+            value="<% if (editing) { %><%= order.sitShower.period %><% } %>">
     </div>
 </div>
 <div class="col-xl-4">
     <div class="submit-field">
         <h5>Installation</h5>
-        <select name="sitShowerRent_installation"
-            id="sitShowerRent_installation"
+        <select name="sitShower_installation"
+            id="sitShower_installation"
             class="browser-default custom-select "
             data-live-search="true">
             <% if (editing) { %>
-                <% if (order.sitShowerRent.installation) { %>
+                <% if (order.sitShower.installation) { %>
                     <option value="true" selected>Yes</option>
                     <option value="false">No</option>      
                 <% } else { %>
-                    <% if (order.sitShowerRent.installation === undefined) { %>
+                    <% if (order.sitShower.installation === undefined) { %>
                             <option value="" selected>Select</option>
                             <option value="true">Yes</option>
                             <option value="false">No</option>
@@ -51,6 +51,23 @@
                 <option value="" selected>Select</option>
                 <option value="true">Yes</option>
                 <option value="false">No</option>
+            <% } %>
+        </select>
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Type</h5>
+        <select name="sitShower_type"
+            id="sitShower_type"
+            class="browser-default custom-select "
+            data-live-search="true">
+            <% if (editing) { %>
+                <option value="rent" <%- order.sitShower.type === 'rent' ? 'selected' : '' %>>Rent</option>
+                <option value="sold" <%- order.sitShower.type === 'sold' ? 'selected' : '' %>>Sold</option>
+            <% } else { %>
+                <option value="rent" selected>Rent</option>
+                <option value="sold">Sold</option>
             <% } %>
         </select>
     </div>
@@ -71,36 +88,36 @@
             <div class="submit-field">
                 <h5>Hygienstol</h5>
                 <input <%- disabled ? (' disabled') : '' %> type="number"
-                    name="sitShowerRent_accessories_hygeinstol" class="with-border"
+                    name="sitShower_accessories_hygeinstol" class="with-border"
                     placeholder="Hygienstol"
-                    value="<% if (editing && order.sitShowerRent.accessories.hygeinstol) { %><%= order.sitShowerRent.accessories.hygeinstol.bought %><% } %>">
+                    value="<% if (editing && order.sitShower.accessories.hygeinstol) { %><%= order.sitShower.accessories.hygeinstol.bought %><% } %>">
             </div>
         </div>
         <div class="col-xl-4">
             <div class="submit-field">
                 <h5>Soap</h5>
                 <input <%- disabled ? (' disabled') : '' %> type="number"
-                    name="sitShowerRent_accessories_soap" class="with-border"
+                    name="sitShower_accessories_soap" class="with-border"
                     placeholder="Soap"
-                    value="<% if (editing && order.sitShowerRent.accessories.soap) { %><%= order.sitShowerRent.accessories.soap.bought %><% } %>">
+                    value="<% if (editing && order.sitShower.accessories.soap) { %><%= order.sitShower.accessories.soap.bought %><% } %>">
             </div>
         </div>
         <div class="col-xl-4">
             <div class="submit-field">
                 <h5>Shampoo</h5>
                 <input <%- disabled ? (' disabled') : '' %> type="number"
-                    name="sitShowerRent_accessories_shampoo" class="with-border"
+                    name="sitShower_accessories_shampoo" class="with-border"
                     placeholder="Shampoo"
-                    value="<% if (editing && order.sitShowerRent.accessories.shampoo) { %><%= order.sitShowerRent.accessories.shampoo.bought %><% } %>">
+                    value="<% if (editing && order.sitShower.accessories.shampoo) { %><%= order.sitShower.accessories.shampoo.bought %><% } %>">
             </div>
         </div>
         <div class="col-xl-4">
             <div class="submit-field">
                 <h5>Golvslist</h5>
                 <input <%- disabled ? (' disabled') : '' %> type="number"
-                    name="sitShowerRent_accessories_golvslist" class="with-border"
+                    name="sitShower_accessories_golvslist" class="with-border"
                     placeholder="Golvslist"
-                    value="<% if (editing && order.sitShowerRent.accessories.golvslist) { %><%= order.sitShowerRent.accessories.golvslist.bought %><% } %>">
+                    value="<% if (editing && order.sitShower.accessories.golvslist) { %><%= order.sitShower.accessories.golvslist.bought %><% } %>">
             </div>
         </div>
         

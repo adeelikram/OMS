@@ -1,0 +1,131 @@
+<%- include('./includes/header.ejs') %>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <%- include('./includes/side-bar.ejs') %>
+            <!-- Dashboard Content
+    ================================================== -->
+            <div class="dashboard-content-container" data-simplebar>
+                <div class="dashboard-content-inner">
+
+                    <!-- Dashboard Headline -->
+                    <div class="dashboard-headline">
+                        <h3>Hourly Reviews</h3>
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs" class="dark">
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Dashboard</a></li>
+                                <li>Hourly Reviews</li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Row -->
+                    <div class="row" style="display:''">
+
+                        <!-- Dashboard Box -->
+                        <div class="col-xl-12">
+                        <div class="dashboard-box margin-top-0" style="overflow-x:auto;">
+
+                            <!-- Headline -->
+                            <div class="headline">
+                                <h3><i class="icon-feather-flag"></i>
+                                    Add Hours
+                                </h3>
+                            </div>
+                            
+                             <%- include ("./partials/messages") %>
+
+                                        <div class="content with-padding padding-bottom-10">
+                                            <div class="row"> 
+                                               
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>Date</h5>
+                                                        <input
+                                                            type="date"
+                                                            id="hourly_date"
+                                                            class="with-border"
+                                                            placeholder="Date">
+                                                                                                
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>No of Hours</h5>
+                                                        <input
+                                                            type="number"
+                                                            id="hourly_hours"
+                                                            class="with-border"
+                                                            placeholder="Hours">                          
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button onclick="handleSubmitHourlyReview()" class="button ripple-effect big margin-top-30 margin-bottom-30">
+                                                Addera
+                                            </button>
+                                        </div>
+                                        <div class="col-xl-12">
+                                           
+                                        </div>
+                            
+                            <% if (months.length> 0) { %>
+                                <% for (let month of months) { %>
+                                    <div class="headline">
+                                        <h3><i class="icon-feather-flag"></i>
+                                            <%= month.month %>: <%= month.hours.length %>
+                                                Hourly Reviews
+                                        </h3>
+                                    </div>
+
+                                    <div class="container-fluid">
+                                        <main>
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="vertical-align:top">Date</th>
+                                                        <th style="vertical-align:top">Hours</th>
+                                                        <th style="vertical-align:top">Approved</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% if (month.hours.length> 0) { %>
+                                                        <% for (let hour of month.hours) { %>
+                                                            <tr>
+                                                                <td>
+                                                                    <%= hour.date.toDateString()%>
+                                                                </td>
+                                                                <td>
+                                                                    <%= hour.hours%>
+                                                                </td>
+                                                                <td>
+                                                                    <% if (hour.approved) { %><%= "Approved" %><% } else { %><%= "Not Approved" %><% } %>
+                                                                </td>
+                                                            </tr>
+                                                            <% } %>
+                                                                <% } else { %>
+                                                                    <h1>No Hours Found!</h1>
+                                                                    <% } %>
+                                                </tbody>
+
+                                            </table>
+                                        </main>
+
+                                    </div>       
+                                <% } %>
+                            <% } else { %>
+                                <h1>No Hours Found!</h1>
+                            <% } %>
+
+                            
+                            
+                        </div>
+                        </div> 
+
+                    </div>
+                    <!-- Row / End -->
+                </div>
+            </div>
+
+            <%- include('./includes/footer.ejs') %>

@@ -21,6 +21,7 @@ const OrderSchema = new mongoose.Schema({
         required: [true, 'Is Invoice Generated is required'],
     },
     number: { type: String, required: [true, 'Order Number is required'] },
+    houseAdaptation: Boolean,
     orderDate: Date,
     orderDeadline: Date,
     accomplished: { type: Boolean, default: false },
@@ -35,12 +36,10 @@ const OrderSchema = new mongoose.Schema({
     orderedUnits: { type: Boolean, default: false },
     meshSystem: { type: Boolean, default: false },
     internetConnection: { type: String, default: 'no' },
-    roomMateRent: RoomMate,
-    roomMateSold: RoomMate,
+    roomMate: RoomMate,
     nucleus: Nucleus,
     neatseat: Neatseat,
-    sitShowerRent: SitShower,
-    sitShowerSold: SitShower,
+    sitShower: SitShower,
     otium: Otium,
 });
 const Order = mongoose.model('Order', OrderSchema);

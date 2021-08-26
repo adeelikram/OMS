@@ -1,0 +1,100 @@
+<%- include('./includes/header.ejs') %>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <%- include('./includes/side-bar.ejs') %>
+            <!-- Dashboard Content
+    ================================================== -->
+            <div class="dashboard-content-container" data-simplebar>
+                <div class="dashboard-content-inner">
+
+                    <!-- Dashboard Headline -->
+                    <div class="dashboard-headline">
+                        <h3>Active Units</h3>
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs" class="dark">
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Dashboard</a></li>
+                                <li>Active Units</li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Row -->
+                    <div class="row">
+
+                        <!-- Dashboard Box -->
+                        <div class="col-xl-12">
+                            <div class="dashboard-box margin-top-0">
+                                <div>
+                                    <%- include ("./partials/messages") %>
+                                </div>
+                                <!-- Headline -->
+                                <div class="headline">
+                                    <h3><i class="icon-feather-award"></i><%= activeUnits.length %> Active Unit(s)</h3>
+                                </div>
+
+                                <div class="content">
+                                    <main style="overflow-x:auto;">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th style="vertical-align:top">Customer</th>
+                                                    <th style="vertical-align:top">Delivery Places</th>
+                                                    <th style="vertical-align:top">Unit Type</th>
+                                                    <th style="vertical-align:top">Units</th>
+                                                    <th style="vertical-align:top">Active Units</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% if (activeUnits && activeUnits.length> 0) { %>
+                                                    <% for (let activeUnit of activeUnits) { %>
+                                                        <tr>
+
+                                                            <td>
+                                                                <%=activeUnit.customer%>
+                                                            </td>
+                                                            <td>
+                                                                <%= activeUnit.deliveryPlace %>
+                                                            </td>
+                                                            <td>
+                                                                <%= activeUnit.product.label %>
+                                                            </td>
+                                                            <td>
+                                                                <%= activeUnit.units %>
+                                                            </td>
+                                                            <td>
+                                                                <%= activeUnit.units %>
+                                                            </td>
+                                                            <td><a class="btn btn-info"
+                                                                    href="/get-configure-active-units/<%= activeUnit.product.value %>/<%= activeUnit.deliveryId %>"
+                                                                    class="button ripple-effect"><i
+                                                                        class="icon-line-awesome-pencil"></i>
+                                                                    Info</a>
+                                                            </td>
+                                                        </tr>
+                                                        <% } %>
+                                                            <% } else { %>
+                                                                <h1>No Active Units Found!</h1>
+                                                                <% } %>
+                                            </tbody>
+                                        </table>
+
+                                        <div class="col-xl-12">
+                                            <div class="submit-field">
+                                                <b>
+                                                    <hr>
+                                                </b>
+                                            </div>
+                                        </div>
+
+                                        
+                                    </main>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Row / End -->
+                    
+                    <%- include('./includes/footer.ejs') %>

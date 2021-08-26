@@ -1,10 +1,27 @@
 <div class="col-xl-4">
     <div class="submit-field">
         <h5>Customer (required)</h5>
-        <input type="text" name="order_customer" class="with-border"
-            placeholder="Customer"
-            value="<% if (editing) { %><%= order.customer %><% } %>"
-            required <%- disabled ? (' disabled') : '' %>>
+            <select id="order_customer"
+            class="selectpicker"
+            data-live-search="true" name="order_customer">
+            <% if (editing) { %>
+                <% if (customers.length > 0) { %>
+                    <% for (let customer of customers) { %>
+                        <% if(customer === order.customer) { %>
+                            <option data-tokens="<%=customer%>" value="<%=customer%>" selected><%=customer%></option>
+                        <% } else { %>
+                            <option data-tokens="<%=customer%>" value="<%=customer%>"><%=customer%></option>
+                        <% } %>
+                    <% } %>
+                <% } %>
+            <% } else { %>
+                <% if (customers.length> 0) { %>
+                    <% for (let customer of customers) { %>
+                        <option data-tokens="<%=customer%>" value="<%=customer%>"><%=customer%></option>
+                    <% } %>
+                <% } %>
+            <% } %>
+        </select>
     </div>
 </div>
 <input type="hidden" name="customerOrderNumber" <%- disabled ? (' disabled') : '' %>>
@@ -140,5 +157,25 @@
         <input <%- disabled ? (' disabled') : '' %> type="text"
             name="order_isInvoiceGenerated" class="with-border" value="0"
             required></input>
+    </div>
+</div>
+
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Bostadsanpasaning</h5>
+        <select name="order_housingAdaption"
+            id="order_housingAdaption"
+            class="browser-default custom-select "
+            data-live-search="true">
+            <% if (editing) { %>
+                <% if (order.housingAdaption) { %>
+                    <option value="true" <%- order.housingAdaption ? 'selected' : '' %>>Yes</option>
+                    <option value="false" <%- order.housingAdaption ? 'selected' : '' %>>No</option>
+                <% } %>
+            <% } else { %>
+                <option value="true">Yes</option>
+                <option value="false" selected>No</option>
+            <% } %>
+        </select>
     </div>
 </div>

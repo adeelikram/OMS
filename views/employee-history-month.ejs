@@ -1,0 +1,166 @@
+<%- include('./includes/header.ejs') %>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <%- include('./includes/side-bar.ejs') %>
+            <!-- Dashboard Content
+    ================================================== -->
+            <div class="dashboard-content-container" data-simplebar>
+                <div class="dashboard-content-inner">
+
+                    <!-- Dashboard Headline -->
+                    <div class="dashboard-headline">
+                        <h3><%= month %> History</h3>
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs" class="dark">
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Dashboard</a></li>
+                                <li><%= month %></li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Row -->
+                    <div class="row" style="display:''">
+
+                        <!-- Dashboard Box -->
+                        <div class="col-xl-12">
+                        <div class="dashboard-box margin-top-0" style="overflow-x:auto;">
+                            <div class="headline">
+                                <h3><i class="icon-feather-flag"></i>
+                                    <%= absentsCount %>
+                                        Absents
+                                </h3>
+                            </div>
+
+                            <div class="container-fluid">
+                                <main>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th style="vertical-align:top">Type</th>
+                                                <th style="vertical-align:top">From</th>
+                                                <th style="vertical-align:top">To</th>
+                                                <th style="vertical-align:top">Approved</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% if (absents.length> 0) { %>
+                                                <% for (let absent of absents) { %>
+                                                    <tr>
+                                                        <td>
+                                                            <%=absent.type%>
+                                                        </td>
+                                                        <td>
+                                                            <%= absent.from.toDateString()%>
+                                                        </td>
+                                                        <td>
+                                                            <%= absent.to.toDateString()%>
+                                                        </td>
+                                                        <td>
+                                                            <% if (absent.approved) { %><%= "Approved" %><% } else { %><%= "Not Approved" %><% } %>
+                                                        </td>
+                                                    </tr>
+                                                    <% } %>
+                                                        <% } else { %>
+                                                            <h1>No Absents Found!</h1>
+                                                            <% } %>
+                                        </tbody>
+
+                                    </table>
+                                </main>
+
+                            </div>
+                            
+                            <div class="headline">
+                                <h3><i class="icon-feather-flag"></i>
+                                    <%= milagesCount %>
+                                        Milages
+                                </h3>
+                            </div>
+
+                            <div class="container-fluid">
+                                <main>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th style="vertical-align:top">Date</th>
+                                                <th style="vertical-align:top">Kilometers</th>
+                                                <th style="vertical-align:top">Approved</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% if (milages.length> 0) { %>
+                                                <% for (let milage of milages) { %>
+                                                    <tr>
+                                                        <td>
+                                                            <%= milage.date.toDateString()%>
+                                                        </td>
+                                                        <td>
+                                                            <%= milage.kilometer%>
+                                                        </td>
+                                                        <td>
+                                                            <% if (milage.approved) { %><%= "Approved" %><% } else { %><%= "Not Approved" %><% } %>
+                                                        </td>
+                                                    </tr>
+                                                    <% } %>
+                                                        <% } else { %>
+                                                            <h1>No Milages Found!</h1>
+                                                            <% } %>
+                                        </tbody>
+
+                                    </table>
+                                </main>
+
+                            </div>
+
+                            <div class="headline">
+                                <h3><i class="icon-feather-flag"></i>
+                                    <%= hoursCount %>
+                                        Hourly Reviews
+                                </h3>
+                            </div>
+
+                            <div class="container-fluid">
+                                <main>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th style="vertical-align:top">Date</th>
+                                                <th style="vertical-align:top">Hours</th>
+                                                <th style="vertical-align:top">Approved</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% if (hours.length> 0) { %>
+                                                <% for (let hour of hours) { %>
+                                                    <tr>
+                                                        <td>
+                                                            <%= hour.date.toDateString()%>
+                                                        </td>
+                                                        <td>
+                                                            <%= hour.hours%>
+                                                        </td>
+                                                        <td>
+                                                            <% if (hour.approved) { %><%= "Approved" %><% } else { %><%= "Not Approved" %><% } %>
+                                                        </td>
+                                                    </tr>
+                                                    <% } %>
+                                                        <% } else { %>
+                                                            <h1>No Hours Found!</h1>
+                                                            <% } %>
+                                        </tbody>
+
+                                    </table>
+                                </main>
+
+                            </div>
+                        </div>
+                        </div> 
+
+                    </div>
+                    <!-- Row / End -->
+                </div>
+            </div>
+
+            <%- include('./includes/footer.ejs') %>

@@ -82,12 +82,9 @@ const DeliveryPlaceSchema = new mongoose.Schema({
     electrician: getBasicSchema(),
     education: getEducationSchema(),
     roomMate: RoomMate,
-    roomMateRent: RoomMate,
-    roomMateSold: RoomMate,
     nucleus: Nucleus,
     neatseat: Neatseat,
-    sitShowerRent: SitShower,
-    sitShowerSold: SitShower,
+    sitShower: SitShower,
     otium: Otium,
 });
 const Delivery = mongoose.model('Delivery', DeliveryPlaceSchema);

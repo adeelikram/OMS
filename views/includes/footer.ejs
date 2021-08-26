@@ -209,23 +209,17 @@
         const body = getFormValues('order');
 
         const roomMate = getFormValues('roomMate'),
-            roomMateRent = getFormValues('roomMateRent'),
-            roomMateSold = getFormValues('roomMateSold'),
             nucleus = getFormValues('nucleus'),
             neatseat = getFormValues('neatseat'),
-            sitShowerRent = getFormValues('sitShowerRent'),
-            sitShowerSold = getFormValues('sitShowerSold'),
+            sitShower = getFormValues('sitShower'),
             otium = getFormValues('otium'),
             assistant = getFormValues('orderAssistant');
 
-        if (roomMate) body.roomMate = roomMate;
-        if (roomMateRent) body.roomMateRent = roomMateRent;
-        if (roomMateSold) body.roomMateSold = roomMateSold;
-        if (nucleus) body.nucleus = nucleus;
-        if (neatseat) body.neatseat = neatseat;
-        if (sitShowerRent) body.sitShowerRent = sitShowerRent;
-        if (sitShowerSold) body.sitShowerSold = sitShowerSold;
-        if (otium) body.otium = otium;
+            if (roomMate) body.roomMate = roomMate;
+            if (nucleus) body.nucleus = nucleus;
+            if (neatseat) body.neatseat = neatseat;
+            if (sitShower) body.sitShower = sitShower;
+            if (otium) body.otium = otium;
 
         if (hasLength(assistant)) body.assistant = assistant;
 
@@ -305,11 +299,8 @@
 
         body.orderId = order._id;
 
-        const roomMateRent = getFormValues('roomMateRent');
-        if (roomMateRent.units) body.roomMateRent = roomMateRent;
-
-        const roomMateSold = getFormValues('roomMateSold');
-        if (roomMateSold.units) body.roomMateSold = roomMateSold;
+        const roomMate = getFormValues('roomMate');
+        if (roomMate.units) body.roomMate = roomMate;
 
         const nucleus = getFormValues('nucleus');
         if (nucleus.units) body.nucleus = nucleus;
@@ -317,11 +308,8 @@
         const neatseat = getFormValues('neatseat');
         if (neatseat.large || neatseat.medium) body.neatseat = neatseat;
 
-        const sitShowerRent = getFormValues('sitShowerRent');
-        if (sitShowerRent.units) body.sitShowerRent = sitShowerRent;
-
-        const sitShowerSold = getFormValues('sitShowerSold');
-        if (sitShowerSold.units) body.sitShowerSold = sitShowerSold;
+        const sitShower = getFormValues('sitShower');
+        if (sitShower.units) body.sitShower = sitShower;
 
         const otium = getFormValues('otium');
         if (otium.units) body.otium = otium;
@@ -370,14 +358,258 @@
             body.deliveryId = deliveryId;
         }
 
-        console.log('footer', body);
-
         await axios.post(url, body).catch(err => console.error(err))
 
         window.location = "/";
     }
 
+    async function handleSubmitConfigureActiveUnits({ deliveryId, product, unit, activeUnits }) {
+        const count = product[unit || 'units'].bought;
+        const body = [];
 
+        for (let i = 0; i < count; i++) {
+            body.push(getFormValues(`activeUnits${i}`))
+        }
+
+        function redirect() {
+            window.location = `/get-edit-place-of-delivery/${deliveryId}?edit=true`;
+        }
+
+        await axios.post(`/post-configure-active-units/${product.value}${unit ? `-${unit}` : ''}/${deliveryId}`, body);
+
+        redirect();
+    }
+
+    async function handleSubmitWorkOrder() {
+        const body = getFormValues('workOrder');
+
+        const responsible = getFormValues('workOrderResponsible');
+        if (hasLength(responsible)) body.responsible = responsible;
+
+        const customer = getFormValues('workOrderCustomer');
+        if (hasLength(customer)) body.customer = customer;
+
+        const customerAddress = getFormValues('workOrderCustomerAddress');
+        if (hasLength(customerAddress)) body.customerAddress = customerAddress;
+
+        const responsibleAddress = getFormValues('workOrderResponsibleAddress');
+        if (hasLength(responsibleAddress)) body.responsibleAddress = responsibleAddress;
+
+        await axios.post('/work-orders', body).catch(err => console.error(err))
+
+        window.location = "/work-orders";
+    }
+
+       async function handleSubmitAddEmployee({ editing, id }) {
+        let body = getFormValues('employee');
+
+        const username = document.getElementById("employee_username").value,
+            name = document.getElementById('employee_name').value,
+            address = document.getElementById('employee_address').value,
+            postNumber = document.getElementById('employee_postnumber').value,
+            phoneNumber = document.getElementById('employee_phonenumber').value,
+            postAddress = document.getElementById('employee_postaddress').value,
+            accountNumber = document.getElementById('employee_accountnumber').value,
+            bank = document.getElementById('employee_bank').value,
+            clearing = document.getElementById('employee_clearing').value,
+            jobType = document.getElementById('employee_jobtype').value,
+            vaccations = document.getElementById('employee_vaccations').value
+
+            body = {
+                ...body,
+                username,
+                name,
+                address,
+                postNumber,
+                phoneNumber,
+                postAddress,
+                accountNumber,
+                bank,
+                clearing,
+                jobType,
+                vaccations
+            }
+            console.log(body);
+
+        try {
+            let path = '/add-employee-info';
+
+            if (editing) {
+                path = '/edit-employee-information';
+                body.id = id;
+            }
+
+            await axios.post(path, body);
+
+            window.location = "/employee-information";
+        } catch (err) {
+            console.log(err);
+            alert('Please fill all the required fields')
+            console.error(err.response.data);
+        }
+    }
+
+    async function handleSubmitAbsentReport() {
+        let body = getFormValues('absent');
+
+        const type = document.getElementById("absent_type").value,
+            from = document.getElementById('absent_from').value,
+            to = document.getElementById('absent_to').value
+
+            body = {
+                ...body,
+                type,
+                from,
+                to
+            }
+            console.log(body);
+
+        try {
+            let path = '/add-employee-absent-report';
+
+            await axios.post(path, body);
+
+            window.location = "/employee-absent-reports";
+        } catch (err) {
+            console.log(err);
+            alert('Please fill all the required fields')
+            console.error(err.response.data);
+        }
+    }
+
+    async function handleSubmitMilage() {
+        let body = getFormValues('absent');
+
+        const date = document.getElementById("milage_date").value,
+            kilometer = document.getElementById('milage_kilometer').value
+
+            body = {
+                ...body,
+                date,
+                kilometer
+            }
+            console.log(body);
+
+        try {
+            let path = '/add-employee-milage';
+
+            await axios.post(path, body);
+
+            window.location = "/employee-milages";
+        } catch (err) {
+            console.log(err);
+            alert('Please fill all the required fields')
+            console.error(err.response.data);
+        }
+    }
+
+    async function handleSubmitHourlyReview() {
+        let body = getFormValues('hourly');
+
+        const date = document.getElementById("hourly_date").value,
+            hours = document.getElementById('hourly_hours').value
+
+            body = {
+                ...body,
+                date,
+                hours
+            }
+            console.log(body);
+
+        try {
+            let path = '/add-employee-hourly-review';
+
+            await axios.post(path, body);
+
+            window.location = "/employee-hourly-reviews";
+        } catch (err) {
+            console.log(err);
+            alert('Please fill all the required fields')
+            console.error(err.response.data);
+        }
+    }
+
+    async function handleSubmitAdminEditEmployee({ editing, id }) {
+        let body = getFormValues('employee');
+
+        const jobType = document.getElementById('employee_jobtype').value,
+            vaccations = document.getElementById('employee_vaccations').value
+
+            body = {
+                ...body,
+                jobType,
+                vaccations
+            }
+            console.log(body);
+
+        try {
+            let path = '/admin/edit-employee-info';
+
+            if (editing) {
+                path = '/admin/edit-employee-info';
+                body.id = id;
+            }
+
+            await axios.post(path, body);
+
+            window.location = `/admin/employee-history/${id}`;
+        } catch (err) {
+            console.log(err);
+            alert('Please fill all the required fields')
+            console.error(err.response.data);
+        }
+    }
+
+    async function handleSubmitApproval({ month, employeeId }) {
+        let body = {
+            month,
+            employeeId
+        }
+        console.log(body);
+
+        try {
+            let path = '/admin/approve-employee-month';
+
+            await axios.post(path, body);
+
+            window.location = `/admin/employee-history/${employeeId}/${month}`;
+        } catch (err) {
+            console.log(err);
+            alert('Please fill all the required fields')
+            console.error(err.response.data);
+        }
+    }
+
+    async function handleSubmitSyncCustomers({ customers }) {
+        let body = getFormValues('employee');
+
+        const synced = Array.from(document.querySelectorAll('input#customer_synced')).map(i => i.checked);
+        for(let i=0;i<customers.length;i++){
+            customers[i].synced = synced[i];
+        }
+
+        customers = customers.filter(i => i.synced);
+
+            body = {
+                ...body,
+                customers
+            }
+            console.log(body);
+
+        try {
+            let path = '/admin/sync';
+
+            await axios.post(path, body);
+
+            window.location = `/admin/hubspot`;
+        } catch (err) {
+            console.log(err);
+            alert('Please fill all the required fields')
+            console.error(err.response.data);
+        }
+    }
+
+    
 </script>
 </body>
 

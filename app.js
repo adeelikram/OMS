@@ -11,12 +11,11 @@ const csrf = require('csurf');
 const Auth0Strategy = require('passport-auth0');
 const path = require('path');
 
+const User = require("./models/User");
+
 const app = express();
 
-let envPath = path.resolve(process.cwd(), '.production.env');
-
-if (process.env.NODE_ENV === 'development')
-    envPath = path.resolve(process.cwd(), '.local.env');
+const envPath = path.resolve(process.cwd(), `.${process.env.NODE_ENV}.env`);
 
 dotenv.config({ path: envPath });
 
@@ -35,11 +34,13 @@ const ordersRoute = require('./routes/ordersRoute');
 const projectsRoute = require('./routes/projectsRoute');
 const ticketsRoute = require('./routes/ticketsRoute');
 const userRoute = require('./routes/userRoute');
-const admin = require('./routes/adminRoute');
-const sendOrder = require('./routes/sendOrder');
-const User = require('./models/User');
-const artNumber = require("./routes/artNumber")
-const { getToken } = require('./config/Token');
+const activeUnitsRoute = require('./routes/activeUnitsRoute');
+const workOrdersRoute = require('./routes/workOrdersRoute');
+
+const employeeRoute = require('./routes/employeeRoute');
+const adminRoute = require('./routes/adminRoute');
+const customerRoute = require('./routes/customerRoute');
+
 const PORT = process.env.PORT || 3000;
 
 mongoose
@@ -133,21 +134,34 @@ app.use(async (req, res, next) => {
     next();
 });
 
+app.use(async function(req, res, next) {
+    if(req.user){
+        const user = await User.findById(req.user.user_id.split("|")[1]);
+        // console.log(user);
+        res.locals.user = user;
+    }
+    next();
+});
+
 // Routes
 
 // const userRoutes = require("./routes/user.js");
 app.set('trust proxy', 1);
-app.use(authRoutes);
-app.use(deliveryPlacesRoute);
-app.use(homeRoute);
-app.use(indexRoute);
-app.use(ordersRoute);
-app.use(projectsRoute);
-app.use(ticketsRoute);
-app.use(userRoute);
-app.use(admin);
-app.use(sendOrder)
-app.use(artNumber)
+app.use('/', authRoutes);
+app.use('/', deliveryPlacesRoute);
+app.use('/', homeRoute);
+app.use('/', indexRoute);
+app.use('/', ordersRoute);
+app.use('/', projectsRoute);
+app.use('/', ticketsRoute);
+app.use('/', userRoute);
+app.use('/', activeUnitsRoute);
+app.use('/', workOrdersRoute);
+
+app.use('/', employeeRoute);
+app.use('/admin', adminRoute);
+app.use('/', customerRoute);
+
 app.all('*', (req, res) => {
     res.status(404).json({
         status: 'fail',

@@ -27,6 +27,23 @@
             value="<% if (editing) { %><%= order.nucleus.period %><% } %>">
     </div>
 </div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Type</h5>
+        <select name="nucleus_type"
+            id="nucleus_type"
+            class="browser-default custom-select "
+            data-live-search="true">
+            <% if (editing) { %>
+                <option value="rent" <%- order.nucleus.type === 'rent' ? 'selected' : '' %>>Rent</option>
+                <option value="sold" <%- order.nucleus.type === 'sold' ? 'selected' : '' %>>Sold</option>
+            <% } else { %>
+                <option value="rent" selected>Rent</option>
+                <option value="sold">Sold</option>
+            <% } %>
+        </select>
+    </div>
+</div>
 <!-- ;;; -->
 <div class="col-xl-12">
     <div class="submit-field">

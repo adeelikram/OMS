@@ -44,13 +44,13 @@
                             <ul>
                                 <li><a href="/ongoing-projects">Manage Ongoing projects</a>
                                 </li>
-                                <li><a href="/send-order">Skicka order</a>
+                                <li><a href="/work-orders">Arbetsorder</a>
                                 </li>
                             </ul>
                         </li>
                         <li><a href="#"><i class="icon-feather-database"></i>Inventory</a>
                         </li>
-                        <li><a href="#"><i class="icon-feather-check-circle"></i>Active units</a>
+                        <li><a href="/active-units"><i class="icon-feather-check-circle"></i>Active units</a>
                         </li>
                         <li><a href="#"><i class="icon-feather-clock"></i>History</a>
                             <ul>
@@ -74,6 +74,37 @@
                             </ul>
                         
                         </li>
+
+                       <li><a href="#"><i class="icon-feather-user-check"></i>Employees</a>
+                            
+                            <ul>
+                                <li><a href="/employee-information">Information</a></li>
+                                <li><a href="/employee-absent-reports">Absent Report</a></li>
+                                <li><a href="/employee-milages">Milage</a></li>
+                                <li><a href="/employee-hourly-reviews">Hourly Review</a></li>
+                                <li><a href="/employee-history">History</a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                         <li><a href="#"><i class="icon-feather-user-check"></i>Customers</a>
+                            
+                            <ul>
+                                <li><a href="/customers">Customers</a></li>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <% if (user.role === "admin") { %>
+                        <li><a href="#"><i class="icon-feather-user-check"></i>Admin</a>
+                            <ul>
+                                <li><a href="/admin/employees">Employees</a></li>
+                                <li><a href="/admin/hubspot">Hubspot</a></li>
+                            </ul>
+                        </li>
+                        <% } %>
+
                     </ul>
 
                     <ul data-submenu-title="Account">

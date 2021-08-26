@@ -36,9 +36,6 @@
                                     <h3><i class="icon-feather-award"></i> Place of Delivery Form</h3>
                                 </div>
                                 <%- include ("./partials/messages") %>
-                                    <form
-                                        action="/<% if (editing) { %>post-edit-place-of-delivery<% } else { %>post-add-place-of-delivery <% } %>"
-                                        method="POST">
                                         <div class="content with-padding padding-bottom-10">
                                             <div class="row">
 
@@ -68,24 +65,24 @@
                                                                 <th style="vertical-align:top">Left to Implement</th>
                                                                 <th style="vertical-align:top">Installed</th>
                                                                 <th style="vertical-align:top">Date</th>
+                                                                <% if (editing) { %>
+                                                                    <th style="vertical-align:top">Active Units</th>
+                                                                <% } %>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <% const productNames=[ { value: 'roomMate' ,
-                                                                label: 'RoomMate Hyra' }, { value: 'roomMateRent' ,
-                                                                label: 'RoomMate Rent' }, { value: 'roomMateSold' ,
-                                                                label: 'RoomMate Sold' }, { value: 'nucleus' ,
+                                                                label: 'RoomMate' }, { value: 'nucleus' ,
                                                                 label: 'Nucleus' }, { value: 'neatseat' ,
-                                                                label: 'Neatseat' }, { value: 'sitShowerRent' ,
-                                                                label: 'Sit&Shower Rent' }, { value: 'sitShowerSold' ,
-                                                                label: 'Sit&Shower Sold' }, { value: 'otium' ,
+                                                                label: 'Neatseat' }, { value: 'sitShower' ,
+                                                                label: 'Sit&Shower' }, { value: 'otium' ,
                                                                 label: 'Otium' }, ]; for (const productName of
                                                                 productNames) { const product=order[productName.value];
-                                                                const d=editing ? delivery[productName.value] : null; if
-                                                                (product) { if (productName.value==='neatseat' ) { if
-                                                                (product.large && product.large.bought) { %>
+                                                                const d=editing ? delivery[productName.value] : null;
+                                                                if (product) { if (productName.value==='neatseat' ) { if
+                                                                (product.large && product.large.bought) {  %>
                                                                 <tr>
-                                                                    <td><b>Neatseat Large</b></td>
+                                                                    <td><b>Neatseat Large <%= product.type %></b></td>
                                                                     <td>
                                                                         <input type="number" name="neatseat_large"
                                                                             value="<% if (editing && d && d.large) { %><%= d.large.bought %><% } %>"
@@ -105,11 +102,19 @@
                                                                                 <input type="date" class="with-border"
                                                                                     name="large_date">
                                                                     </td>
+                                                                    <% if (editing && d.large && d.large.bought) {  %>
+                                                                        <td>
+                                                                                <a href="/get-configure-active-units/neatseat-large/<%= delivery._id %>"
+                                                                                    class="button ripple-effect big">
+                                                                                    Configure
+                                                                                </a> 
+                                                                        </td>
+                                                                    <% } %>
                                                                 </tr>
                                                                 <% } %>
                                                                     <% if (product.medium && product.medium.bought) { %>
                                                                         <tr>
-                                                                            <td><b>Neatseat Medium</b></td>
+                                                                            <td><b>Neatseat Medium <%= product.type %></b></td>
                                                                             <td>
                                                                                 <input type="number"
                                                                                     name="neatseat_medium"
@@ -132,6 +137,14 @@
                                                                                             class="with-border"
                                                                                             name="medium_date">
                                                                             </td>
+                                                                            <% if (editing && d.medium && d.medium.bought) {  %>
+                                                                                <td>
+                                                                                        <a href="/get-configure-active-units/neatseat-medium/<%= delivery._id %>"
+                                                                                            class="button ripple-effect big">
+                                                                                            Configure
+                                                                                        </a> 
+                                                                                </td>
+                                                                            <% } %>
                                                                         </tr>
                                                                         <% } %>
                                                                             <% } else { %>
@@ -139,7 +152,7 @@
                                                                                     product.units.bought) { %>
                                                                                     <tr>
                                                                                         <td><b>
-                                                                                                <%= productName.label %>
+                                                                                                <%= `${productName.label} ${product.type}` %>
                                                                                             </b></td>
                                                                                         <td>
                                                                                             <input type="number"
@@ -163,7 +176,7 @@
                                                                                                 <option value="false"
                                                                                                     selected>No</option>
                                                                                             </select>
-                                                                                        </td>
+                                                                                        </td> 
                                                                                         <td>
                                                                                             <% if (editing && d.date) {
                                                                                                 %>
@@ -176,6 +189,14 @@
                                                                                                         class="with-border"
                                                                                                         name="<%= productName.value %>_date">
                                                                                         </td>
+                                                                                        <% if (editing && d.units && d.units.bought) {  %>
+                                                                                            <td>
+                                                                                                    <a href="/get-configure-active-units/<%= productName.value %>/<%= delivery._id %>"
+                                                                                                        class="button ripple-effect big">
+                                                                                                        Configure
+                                                                                                    </a> 
+                                                                                            </td>
+                                                                                        <% } %>
                                                                                     </tr>
                                                                                     <% } %>
                                                                                         <% } %>
@@ -267,7 +288,6 @@
                                             </button>
                                             <br>
                                         </div>
-                                    </form>
                             </div>
                         </div>
                     </div>

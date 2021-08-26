@@ -2,6 +2,7 @@ module.exports = {
     units: { bought: Number, left: Number },
     period: Number,
     date: Date,
+    type: { type: String },
     accessories: {
         holder: { bought: Number, left: Number },
         router950: { bought: Number, left: Number },

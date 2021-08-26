@@ -1,0 +1,71 @@
+<%- include('./includes/header.ejs') %>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <%- include('./includes/side-bar.ejs') %>
+            <!-- Dashboard Content
+    ================================================== -->
+            <div class="dashboard-content-container" data-simplebar>
+                <div class="dashboard-content-inner">
+
+                    <!-- Dashboard Headline -->
+                    <div class="dashboard-headline">
+                        <h3>Employee History</h3>
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs" class="dark">
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Dashboard</a></li>
+                                <li>History</li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Row -->
+                    <div class="row" style="display:''">
+
+                        <!-- Dashboard Box -->
+                        <div class="col-xl-12">
+                        <div class="dashboard-box margin-top-0" style="overflow-x:auto;">
+                            <div class="headline">
+                                <h3><i class="icon-feather-flag"></i>
+                                    <%= monthsCount %>
+                                        Months
+                                </h3>
+                            </div>
+
+                            <div class="container-fluid">
+                                <main>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th style="vertical-align:top">Month Report</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% if (months.length> 0) { %>
+                                                <% for (let month of months) { %>
+                                                    <tr>
+                                                        <td>
+                                                            <a href="/employee-history/<%=month%>"><%=month%></a>
+                                                        </td>
+                                                    </tr>
+                                                    <% } %>
+                                                        <% } else { %>
+                                                            <h1>No Months Found!</h1>
+                                                            <% } %>
+                                        </tbody>
+
+                                    </table>
+                                </main>
+
+                            </div>
+                            
+                        </div>
+                        </div> 
+
+                    </div>
+                    <!-- Row / End -->
+                </div>
+            </div>
+
+            <%- include('./includes/footer.ejs') %>

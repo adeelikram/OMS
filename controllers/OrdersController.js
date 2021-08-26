@@ -9,7 +9,8 @@ const { ArchivedDelivery } = require('../models/DeliveryPlaces');
 const Shipment = require('../models/Shipment');
 const OrderDeleted = require('../models/OrderDeleted');
 const DeletedDeliveryPlace = require('../models/DeliveriesDeleted');
-const request = require('request');
+const Customer = require('../models/Hubspot/customer');
+
 module.exports.getOrders = (req, res) => {
     const { _raw, _json, ...userProfile } = req.user;
     Order.find({})
@@ -28,11 +29,15 @@ exports.getAddOrder = async (req, res) => {
     const { _raw, _json, ...userProfile } = req.user;
     const orders = await Order.find({});
     const ordersCount = orders.length;
+    let customers = await Customer.find({});
+    customers = customers.map(i => i.properties.name.value);
+
     res.render('add-order', {
         disabled: false,
         editing: false,
         name: userProfile.nickname,
         ordersCount,
+        customers
     });
 };
 
@@ -47,6 +52,7 @@ exports.postAddOrder = async (req, res) => {
             'invoiceInfo',
             'invoiceNumber',
             'isInvoiceGenerated',
+            'houseAdaptation',
             'neatseat',
             'nucleus',
             'number',
@@ -54,10 +60,7 @@ exports.postAddOrder = async (req, res) => {
             'orderDeadline',
             'otium',
             'roomMate',
-            'roomMateRent',
-            'roomMateSold',
-            'sitShowerRent',
-            'sitShowerSold',
+            'sitShower',
             'manager',
         ]);
 
@@ -76,12 +79,9 @@ exports.postAddOrder = async (req, res) => {
 
         const products = _.pick(body, [
             'roomMate',
-            'roomMateRent',
-            'roomMateSold',
             'nucleus',
             'neatseat',
-            'sitShowerRent',
-            'sitShowerSold',
+            'sitShower',
             'otium',
         ]);
 
@@ -170,10 +170,7 @@ exports.postEditOrder = async (req, res, next) => {
             'orderDeadline',
             'otium',
             'roomMate',
-            'roomMateRent',
-            'roomMateSold',
-            'sitShowerRent',
-            'sitShowerSold',
+            'sitShower',
             'manager',
             'assistant',
             'planningMeeting',
@@ -218,12 +215,9 @@ exports.postEditOrder = async (req, res, next) => {
 
         const products = _.pick(body, [
             'roomMate',
-            'roomMateRent',
-            'roomMateSold',
             'nucleus',
             'neatseat',
-            'sitShowerRent',
-            'sitShowerSold',
+            'sitShower',
             'otium',
         ]);
 

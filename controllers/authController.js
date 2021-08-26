@@ -4,6 +4,7 @@ const passport = require('passport');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
+const util = require('util');
 
 const transporter = nodemailer.createTransport(
     sendgridTransport({
@@ -160,18 +161,30 @@ exports.getCallback = async (req, res, next) => {
     })(req, res, next);
 };
 exports.getLogout = (req, res) => {
-    req.logOut();
+    req.logout();
+    
+    var returnTo = req.protocol + '://' + req.hostname;
+    var port = req.connection.localPort;
+    if(port === 8080){
+        port = 80;
+    }
+    if (port !== undefined && port !== 80 && port !== 443) {
+        returnTo += ':' + port;
+    }
 
-    const returnTo = `${req.protocol}://${req.hostname}/`;
-    const port = req.connection.localPort;
+    console.log(port);
 
-    const logoutURL = new URL(`https://${process.env.AUTHO_DOMAIN}/v2/logout`);
+    var logoutURL = new URL(
+        util.format('https://%s/v2/logout', process.env.AUTHO_DOMAIN)
+        // util.format('https://%s/v2/logout', "dev-nroxgmw9.us.auth0.com")
+    );
 
-    const searchString = querystring.stringify({
+    
+    var searchString = querystring.stringify({
         client_id: process.env.CLIENT_ID,
-        returnTo,
+        returnTo: returnTo
     });
     logoutURL.search = searchString;
-
+    
     res.redirect(logoutURL);
 };

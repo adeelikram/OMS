@@ -1,0 +1,195 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
+
+<%- include('./includes/header.ejs') %>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <%- include('./includes/side-bar.ejs') %>
+            <!-- Dashboard Content
+    ================================================== -->
+            <div class="dashboard-content-container" data-simplebar>
+                <div class="dashboard-content-inner">
+
+                    <!-- Dashboard Headline -->
+                    <div class="dashboard-headline">
+                        <h3></h3>
+
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs" class="dark">
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Employee Info</a></li>
+                                <li>
+                                    <% if (editing) { %>Update
+                                        Employee<% } else { %>Add Employee<% } %>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Row -->
+                    <div class="row">
+
+                        <!-- Dashboard Box -->
+                        <div class="col-xl-12">
+                            <div class="dashboard-box margin-top-0">
+
+                                <!-- Headline -->
+                                <div class="headline">
+                                    <h3><i class="icon-feather-flag"></i> Add Employee Info</h3>
+                                </div>
+                                <%- include ("./partials/messages") %>
+
+                                        <div class="content with-padding padding-bottom-10">
+                                            <div class="row">
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>Username</h5>
+                                                        <input type="text" id="employee_username" class="with-border"
+                                                            placeholder="Username"
+                                                            value="<% if (editing) { %><%= employee.username %><% } %>"
+                                                             <%- disabled ? (' disabled') : '' %>>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>Name</h5>
+                                                        <input type="text" id="employee_name"
+                                                            class="with-border" placeholder="Name"
+                                                            value="<% if (editing) { %><%= employee.name %><% } %>"
+                                                             <%- disabled ? (' disabled') : '' %>>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>Address</h5>
+                                                        <input type="text" id="employee_address" class="with-border"
+                                                            placeholder="Address "
+                                                            value="<% if (editing) { %><%= employee.address %><% } %>"
+                                                             <%- disabled ? (' disabled') : '' %>>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>Post Number</h5>
+                                                        <h6><br></h6>
+                                                        <input type="text" id="employee_postnumber" class="with-border"
+                                                            placeholder="Post Number"
+                                                            value="<% if (editing) { %><%= employee.postNumber %><% } %>"
+                                                             <%- disabled ? (' disabled') : '' %>>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>Post Address</h5>
+                                                        <h6><br></h6>
+                                                        <input type="text" id="employee_postaddress" class="with-border"
+                                                            placeholder="Post Address"
+                                                            value="<% if (editing) { %><%= employee.postAddress %><% } %>"
+                                                             <%- disabled ? (' disabled') : '' %>>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>Phone</h5>
+                                                        <h6><br></h6>
+                                                        <input type="text" id="employee_phonenumber" class="with-border"
+                                                            placeholder="Phone"
+                                                            value="<% if (editing) { %><%= employee.phoneNumber %><% } %>"
+                                                             <%- disabled ? (' disabled') : '' %>>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>Account Number</h5>
+                                                        <h6><br></h6>
+                                                        <input type="text" id="employee_accountnumber" class="with-border"
+                                                            placeholder="Account Number"
+                                                            value="<% if (editing) { %><%= employee.accountNumber %><% } %>"
+                                                             <%- disabled ? (' disabled') : '' %>>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>Bank</h5>
+                                                        <h6><br></h6>
+                                                        <input type="text" id="employee_bank" class="with-border"
+                                                            placeholder="Bank"
+                                                            value="<% if (editing) { %><%= employee.bank %><% } %>"
+                                                             <%- disabled ? (' disabled') : '' %>>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>Clearing</h5>
+                                                        <h6><br></h6>
+                                                        <input type="text" id="employee_clearing" class="with-border"
+                                                            placeholder="Clearing"
+                                                            value="<% if (editing) { %><%= employee.clearing %><% } %>"
+                                                             <%- disabled ? (' disabled') : '' %>>
+                                                    </div>
+                                                </div>
+                                                
+                                                
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>Full/Half Time</h5>
+                                                        <h6><br></h6>
+                                                        <select
+                                                            id="employee_jobtype"
+                                                            class="browser-default custom-select "
+                                                            data-live-search="true">
+                                                            <% if (editing) { %>
+                                                                <% if (employee.jobType) { %>
+                                                                    <option value="<%= employee.jobType %>" selected><%= employee.jobType %></option>
+                                                                    <option value="Full Time">Full Time</option>
+                                                                    <option value="Half Time">Half Time</option>      
+                                                                <% } else { %>
+                                                                    <% if (employee.jobType === undefined) { %>
+                                                                            <option value="" selected>Select</option>
+                                                                            <option value="Full Time">Full Time</option>
+                                                                            <option value="Half Time">Half Time</option>
+                                                                    <% } else { %>
+                                                                        <option value="Full Time">Full Time</option>
+                                                                        <option value="Half Time">Half Time</option>
+                                                                    <% } %>
+                                                                <% } %>
+                                                            <% } else { %>
+                                                                <option value="" selected>Select</option>
+                                                                <option value="Full Time">Full Time</option>
+                                                                <option value="Half Time">Half Time</option>
+                                                            <% } %>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>Vaccations</h5>
+                                                        <h6><br></h6>
+                                                        <input type="text" id="employee_vaccations" class="with-border"
+                                                            placeholder="Vaccations"
+                                                            value="<% if (editing) { %><%= employee.vaccations %><% } %>"
+                                                             <%- disabled ? (' disabled') : '' %>>
+                                                    </div>
+                                                </div>
+                                            
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-12">
+                                            <button onclick="handleSubmitAddEmployee(<%= JSON.stringify({ editing, id: editing ? employee._id : null }) %>)" class="button ripple-effect big margin-top-30 margin-bottom-30">
+                                                Spara
+                                            </button>
+                                        </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Row / End -->
+                    <%- include('./includes/footer.ejs') %>

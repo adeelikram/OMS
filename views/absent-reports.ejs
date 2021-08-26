@@ -1,0 +1,148 @@
+<%- include('./includes/header.ejs') %>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <%- include('./includes/side-bar.ejs') %>
+            <!-- Dashboard Content
+    ================================================== -->
+            <div class="dashboard-content-container" data-simplebar>
+                <div class="dashboard-content-inner">
+
+                    <!-- Dashboard Headline -->
+                    <div class="dashboard-headline">
+                        <h3>Absent Reports</h3>
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs" class="dark">
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Dashboard</a></li>
+                                <li>Absent Reports</li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Row -->
+                    <div class="row" style="display:''">
+
+                        <!-- Dashboard Box -->
+                        <div class="col-xl-12">
+                        <div class="dashboard-box margin-top-0" style="overflow-x:auto;">
+
+                            <!-- Headline -->
+                            <div class="headline">
+                                <h3><i class="icon-feather-flag"></i>
+                                    Add Absent
+                                </h3>
+                            </div>
+                            
+                             <%- include ("./partials/messages") %>
+
+                                        <div class="content with-padding padding-bottom-10">
+                                            <div class="row"> 
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>Type</h5>
+                                                        <select
+                                                            id="absent_type"
+                                                            class="browser-default custom-select "
+                                                            data-live-search="true">
+                                                            <option value="" selected>Select</option>
+                                                            <option value="Sick Leave">Sick Leave</option>
+                                                            <option value="Child Care">Child Care</option>
+                                                            <option value="Child Leave">Child Leave</option>
+                                                            <option value="Vacation">Vacation</option>
+                                                            <option value="Non Paid Leave">Non Paid Leave</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>Absent From</h5>
+                                                        <input
+                                                            type="date"
+                                                            id="absent_from"
+                                                            class="with-border"
+                                                            placeholder="Absent From">
+                                                                                                
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>Absent To</h5>
+                                                        <input
+                                                            type="date"
+                                                            id="absent_to"
+                                                            class="with-border"
+                                                            placeholder="Absent To">                          
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button onclick="handleSubmitAbsentReport()" class="button ripple-effect big margin-top-30 margin-bottom-30">
+                                                Addera
+                                            </button>
+                                        </div>
+                                        <div class="col-xl-12">
+                                           
+                                        </div>
+                            
+                            <% if (months.length> 0) { %>
+                                <% for (let month of months) { %>
+                                   <div class="headline">
+                                <h3><i class="icon-feather-flag"></i>
+                                    <%= month.month %>: <%= month.absents.length %>
+                                        Absents
+                                </h3>
+                            </div>
+
+                            <div class="container-fluid">
+                                <main>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th style="vertical-align:top">Type</th>
+                                                <th style="vertical-align:top">From</th>
+                                                <th style="vertical-align:top">To</th>
+                                                <th style="vertical-align:top">Approved</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% if (month.absents.length> 0) { %>
+                                                <% for (let absent of month.absents) { %>
+                                                    <tr>
+                                                        <td>
+                                                            <%=absent.type%>
+                                                        </td>
+                                                        <td>
+                                                            <%= absent.from.toDateString()%>
+                                                        </td>
+                                                        <td>
+                                                            <%= absent.to.toDateString()%>
+                                                        </td>
+                                                        <td>
+                                                            <% if (absent.approved) { %><%= "Approved" %><% } else { %><%= "Not Approved" %><% } %>
+                                                        </td>
+                                                    </tr>
+                                                <% } %>
+                                            <% } else { %>
+                                                <h1>No Absents Found!</h1>
+                                            <% } %>
+                                        </tbody>
+
+                                    </table>
+                                </main>
+
+                            </div>
+                                <% } %>
+                            <% } else { %>
+                                <h1>No Absents Found!</h1>
+                            <% } %>
+                        </div>
+                        </div> 
+
+                    </div>
+                    <!-- Row / End -->
+                </div>
+            </div>
+
+            <%- include('./includes/footer.ejs') %>

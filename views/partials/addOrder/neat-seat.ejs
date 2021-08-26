@@ -54,6 +54,23 @@
         </select>
     </div>
 </div>
+<div class="col-xl-4">
+    <div class="submit-field">
+        <h5>Type</h5>
+        <select name="neatseat_type"
+            id="neatseat_type"
+            class="browser-default custom-select "
+            data-live-search="true">
+            <% if (editing) { %>
+                <option value="rent" <%- order.neatseat.type === 'rent' ? 'selected' : '' %>>Rent</option>
+                <option value="sold" <%- order.neatseat.type === 'sold' ? 'selected' : '' %>>Sold</option>
+            <% } else { %>
+                <option value="rent">Rent</option>
+                <option value="sold" selected>Sold</option>
+            <% } %>
+        </select>
+    </div>
+</div>
 <!-- ;;; -->
 <div class="col-xl-12">
     <div class="submit-field">
