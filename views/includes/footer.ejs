@@ -215,11 +215,11 @@
             otium = getFormValues('otium'),
             assistant = getFormValues('orderAssistant');
 
-            if (roomMate) body.roomMate = roomMate;
-            if (nucleus) body.nucleus = nucleus;
-            if (neatseat) body.neatseat = neatseat;
-            if (sitShower) body.sitShower = sitShower;
-            if (otium) body.otium = otium;
+        if (roomMate) body.roomMate = roomMate;
+        if (nucleus) body.nucleus = nucleus;
+        if (neatseat) body.neatseat = neatseat;
+        if (sitShower) body.sitShower = sitShower;
+        if (otium) body.otium = otium;
 
         if (hasLength(assistant)) body.assistant = assistant;
 
@@ -240,29 +240,60 @@
         }
     }
 
+    async function sendFortConfig() {
+        var el = document.querySelectorAll("#oms-col > li")
+        let keys = []
+        let obj = {}
+        el.forEach(v => {
+            keys.push(...v.innerText.split("\n"))
+        })
+        el = document.querySelectorAll(".oms-fort-select")
+        for (var i = 0; i < el.length; i++) {
+            obj[keys[i]] = el[i].value
+        }
+        await axios.post("/fortnox-prods", obj)
+        alert("Configuration saved successfully!")
+    }
+
     async function handleSubmitSendOrder({ editing, id, save }) {
         const body = getFormValues('order');
 
-        const roomMateRent = getFormValues('roomMateRent'),
+        var roomMateRent = getFormValues('roomMateRent'),
             nucleus = getFormValues('nucleus'),
             neatseat = getFormValues('neatseat'),
             sitShowerRent = getFormValues('sitShowerRent'),
             otium = getFormValues('otium'),
             assistant = getFormValues('orderAssistant');
 
-        if (roomMateRent) body.roomMateRent = roomMateRent;
-        if (nucleus) body.nucleus = nucleus;
-        if (neatseat) body.neatseat = neatseat;
-        if (sitShowerRent) body.sitShowerRent = sitShowerRent;
-        if (otium) body.otium = otium;
+
+
+
+
+        if (roomMateRent) {
+            roomMateRent = { units: roomMateRent.units, ...roomMateRent.accessories }
+            body.roomMateRent = roomMateRent
+        }
+        if (nucleus) {
+            nucleus = { units: nucleus.units, ...nucleus.accessories }
+            body.nucleus = nucleus
+        }
+        if (neatseat) {
+            neatseat = { units: neatseat.units, ...neatseat.accessories }
+            body.neatseat = neatseat
+        }
+        if (sitShowerRent) {
+            sitShowerRent = { units: sitShowerRent.units, ...sitShowerRent.accessories }
+            body.sitShowerRent = sitShowerRent
+        }
+        if (otium) {
+            otium = { units: otium.units, ...otium.accessories }
+            body.otium = otium
+        }
 
         if (hasLength(assistant)) body.assistant = assistant;
         if (save) body.save = save;
-        if (localStorage.getItem("artNumber")) body.artNumber = localStorage.getItem("artNumber");
-        else {
-            alert("Set Article Number first")
-            return
-        }
+
+
         try {
             let path = '/send-order';
 
@@ -272,24 +303,16 @@
             }
 
             var res = await axios.post(path, body);
-            alert("sended successfully!")
-            window.location = "/send-order";
 
+            if (save) alert("Successfully saved in database!")
+            else alert("Successfully sent to Fortnox!")
+        
         } catch (err) {
             alert('Please fill all the required fields')
             console.error(err.response.data);
         }
     }
 
-    function changeArticle() {
-        var el = document.getElementById("artNumber")
-        localStorage.setItem("artNumber", el.value)
-        alert("Article Number has been set!")
-    }
-
-    async function saveSendOrder() {
-
-    }
 
 
     const educationProductNames = ['roomMate', 'nucleus', 'sitShower', 'neatseat'];
@@ -400,7 +423,7 @@
         window.location = "/work-orders";
     }
 
-       async function handleSubmitAddEmployee({ editing, id }) {
+    async function handleSubmitAddEmployee({ editing, id }) {
         let body = getFormValues('employee');
 
         const username = document.getElementById("employee_username").value,
@@ -415,21 +438,21 @@
             jobType = document.getElementById('employee_jobtype').value,
             vaccations = document.getElementById('employee_vaccations').value
 
-            body = {
-                ...body,
-                username,
-                name,
-                address,
-                postNumber,
-                phoneNumber,
-                postAddress,
-                accountNumber,
-                bank,
-                clearing,
-                jobType,
-                vaccations
-            }
-            console.log(body);
+        body = {
+            ...body,
+            username,
+            name,
+            address,
+            postNumber,
+            phoneNumber,
+            postAddress,
+            accountNumber,
+            bank,
+            clearing,
+            jobType,
+            vaccations
+        }
+        console.log(body);
 
         try {
             let path = '/add-employee-info';
@@ -456,13 +479,13 @@
             from = document.getElementById('absent_from').value,
             to = document.getElementById('absent_to').value
 
-            body = {
-                ...body,
-                type,
-                from,
-                to
-            }
-            console.log(body);
+        body = {
+            ...body,
+            type,
+            from,
+            to
+        }
+        console.log(body);
 
         try {
             let path = '/add-employee-absent-report';
@@ -483,12 +506,12 @@
         const date = document.getElementById("milage_date").value,
             kilometer = document.getElementById('milage_kilometer').value
 
-            body = {
-                ...body,
-                date,
-                kilometer
-            }
-            console.log(body);
+        body = {
+            ...body,
+            date,
+            kilometer
+        }
+        console.log(body);
 
         try {
             let path = '/add-employee-milage';
@@ -509,12 +532,12 @@
         const date = document.getElementById("hourly_date").value,
             hours = document.getElementById('hourly_hours').value
 
-            body = {
-                ...body,
-                date,
-                hours
-            }
-            console.log(body);
+        body = {
+            ...body,
+            date,
+            hours
+        }
+        console.log(body);
 
         try {
             let path = '/add-employee-hourly-review';
@@ -535,12 +558,12 @@
         const jobType = document.getElementById('employee_jobtype').value,
             vaccations = document.getElementById('employee_vaccations').value
 
-            body = {
-                ...body,
-                jobType,
-                vaccations
-            }
-            console.log(body);
+        body = {
+            ...body,
+            jobType,
+            vaccations
+        }
+        console.log(body);
 
         try {
             let path = '/admin/edit-employee-info';
@@ -584,17 +607,17 @@
         let body = getFormValues('employee');
 
         const synced = Array.from(document.querySelectorAll('input#customer_synced')).map(i => i.checked);
-        for(let i=0;i<customers.length;i++){
+        for (let i = 0; i < customers.length; i++) {
             customers[i].synced = synced[i];
         }
 
         customers = customers.filter(i => i.synced);
 
-            body = {
-                ...body,
-                customers
-            }
-            console.log(body);
+        body = {
+            ...body,
+            customers
+        }
+        console.log(body);
 
         try {
             let path = '/admin/sync';
@@ -609,7 +632,7 @@
         }
     }
 
-    
+
 </script>
 </body>
 

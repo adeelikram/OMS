@@ -1,106 +1,34 @@
-const { RefreshToken } = require("../config/Token")
+
 const { gpData } = require("../fortnox")
+const { OrderRows, EmailInformation, Order, neatseat, nucleus, otium, roomMateRent, sitShowerRent } = require("../config/fortnox.json")
+const { fortnoxRefer } = require("../models/fortnoxProdRefer")
 
-var arr = [
-    'clientName',
-    'customer',
-    'email',
-    'invoiceInfo',
-    'invoiceNumber',
-    'isInvoiceGenerated',
-    'neatseat',
-    'nucleus',
-    'number',
-    'orderDate',
-    'orderDeadline',
-    'otium',
-    'roomMate',
-    'roomMateRent',
-    'sitShowerRent',
-    'manager',
+var oms = [
+    { 'neatseat': [...neatseat] },
+    { 'nucleus': [...nucleus] },
+    { 'otium': [...otium] },
+    { 'roomMateRent': [...roomMateRent] },
+    { 'sitShowerRent': [...sitShowerRent] }
 ]
 
-var arr2 = [
-    '@url',
-    '@urlTaxReductionList',
-    'AdministrationFee',
-    'AdministrationFeeVAT',
-    'Address1',
-    'Address2',
-    'BasisTaxReduction',
-    'Cancelled',
-    'City',
-    'Comments',
-    'ContributionPercent',
-    'ContributionValue',
-    'CopyRemarks',
-    'Country',
-    'CostCenter',
-    'Currency',
-    'CurrencyRate',
-    'CurrencyUnit',
-    'CustomerName',
-    'CustomerNumber',
-    'IsDelivery',
-    'DeliveryAddress1',
-    'DeliveryAddress2',
-    'DeliveryCity',
-    'DeliveryCountry',
-    'DeliveryDate',
-    'DeliveryName',
-    'DeliveryZipCode',
-    'DocumentNumber',
-    'ExternalInvoiceReference1',
-    'ExternalInvoiceReference2',
-    'Freight',
-    'FreightVAT',
-    'Gross',
-    'HouseWork',
-    'InvoiceReference',
-    'Language',
-    'Net',
-    'NotCompleted',
-    'OfferReference',
-    'OrderDate',
-    'OrderType',
-    'OrganisationNumber',
-    'OurReference',
-    'Phone1',
-    'Phone2',
-    'PriceList',
-    'PrintTemplate',
-    'Project',
-    'WarehouseReady',
-    'OutboundDate',
-    'Remarks',
-    'RoundOff',
-    'Sent',
-    'TaxReduction',
-    'TermsOfDelivery',
-    'TermsOfPayment',
-    'TimeBasisReference',
-    'Total',
-    'TotalToPay',
-    'TotalVAT',
-    'VATIncluded',
-    'WayOfDelivery',
-    'YourReference',
-    'YourOrderNumber',
-    'ZipCode',
-    'StockPointCode',
-    'StockPointId',
-    'TaxReductionType',
-]
 
 
 exports.fortnoxProdController = async function (req, res) {
+    var fort = []
     var data = (await gpData('https://api.fortnox.se/3/articles', null, req, "GET"))?.Articles
     if (data) for (let el of data) {
-        if (!arr2.includes("ArticleNumber: " + el.ArticleNumber)) arr2.push("ArticleNumber: " + el.ArticleNumber)
+        if (!fort.includes("ArticleNumber: " + el.ArticleNumber)) fort.push("ArticleNumber: " + el.ArticleNumber)
     }
+    data = await fortnoxRefer.findOne({})
     res.render("fortnox-prod-list", {
-        oms: arr,
+        oms: oms,
         name: req.user.nickname,
-        fort: arr2
+        fort: fort,
+        data: (data?._doc) ? data._doc : {},
     })
+}
+exports.fortnoxProdPostController = async function (req, res) {
+    await fortnoxRefer.deleteMany({})
+    await fortnoxRefer.create(req.body)
+    res.end()
 }

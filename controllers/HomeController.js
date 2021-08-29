@@ -10,6 +10,7 @@ module.exports.getHome = async (req, res) => {
         orders,
         ordersCount,
         name: userProfile.nickname,
+        user:{role:null}
     });
 };
 

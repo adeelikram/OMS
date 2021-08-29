@@ -1,9 +1,9 @@
 // require admin mongo model
 var { admin } = require('../models/admin');
-var { getCredentials } = require("../controllers/adminController")
+var { getCredentials } = require("../controllers/adminFortnoxController")
 // require axios
 var axios = require('axios').default;
-const { gpData } = require('../fortnox');
+
 // axios post request
 exports.RefreshToken = async function (token,id) {
     console.log("token at 8 Token.js "+token)

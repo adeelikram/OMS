@@ -42,7 +42,7 @@ module.exports.getEmployees = async (req, res) => {
         employees,
         employeesCount: employees.length,
         name: userProfile.nickname,
-        role: user.role,
+        role: user?.role,
     });
 };
 

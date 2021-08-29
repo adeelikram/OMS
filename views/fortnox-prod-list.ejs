@@ -3,62 +3,103 @@
     <style>
         .prod-list-ul {
             margin-left: -20px !important;
+            padding: auto;
         }
 
-        .prod-list-ul >* {
-            margin-top: 10px !important;
+        .accessories {
+            line-height: 30px;
         }
 
         .oms-fort-select {
-            height: auto;
+            height: 20px;
             padding: 0;
-            margin: 0 0 12.1px 0;
+            margin: 0 0 9px 0;
+
         }
     </style>
-    
+
     <div class="dashboard-container">
         <%- include('./includes/side-bar.ejs') %>
             <!-- Dashboard Content
     ================================================== -->
             <div class="dashboard-content-container" data-simplebar>
                 <div class="dashboard-content-inner">
-    
 
-            <div class="d-flex mx-xl-5 mt-xl-4">
-                <div class="row mx-xl-5">
-                    <div class="col-xl-4 mx-xl-5">
-                        <h1 class="text-center"><b class="mx-xl-4">OMS</b></h1>
-                        <ol class="prod-list-ul">
-                            <% for(var i of oms) {%>
-                                <li class="text-center ">
-                                    <span class="bg-light rounded w-100">
-                                        <span class="mx-2">
-                                            <%=i%>
-                                        </span>
-                                    </span>
-                                </li>
-                                <% } %>
-                        </ol>
+
+                    <div class="d-flex mx-xl-5 mt-xl-4">
+                        <div class="row mx-xl-5">
+                            <div class="col-xl-4 mx-xl-5">
+                                <h1 class="text-center mb-2"><b class="mx-xl-4">OMS</b></h1>
+                                <ol class="prod-list-ul" id="oms-col">
+                                    <% for(var i of oms) {%>
+                                        <%let t=Object.keys(i)[0]%>
+                                            <li class="text-center accessories">
+                                                <%=t%>
+                                                    <ol type="a">
+                                                        <% for(var v of i[t]){%>
+                                                            <li>
+                                                                <%=v%>
+                                                            </li>
+                                                            <% } %>
+                                                    </ol>
+                                            </li>
+                                            <% } %>
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 ">
+                            <h1 class="mb-2"><b>Fortnox</b></h1>
+                            <ol class="prod-list-ul" id="fort-col">
+
+                                <% for(var i of oms) { %>
+                                    <%let t=Object.keys(i)[0]%>
+                                        <%if(data[t]) {%>
+                                            <%fort.splice(fort.indexOf(data[t]),1)%>
+                                                <%fort.unshift(data[t])%>
+                                                    <%}%>
+                                                        <li class="text-center ">
+                                                            <select class="oms-fort-select">
+                                                                <%for (var j of fort) {%>
+                                                                    <option value="<%=j%>">
+                                                                        <%=j%>
+                                                                    </option>
+                                                                    <%}%>
+                                                            </select>
+                                                            <ol type="a">
+                                                                <!-- <%// fort.splice(fort.indexOf('Skip'),1)%>
+                                                                    <%// fort.unshift('Skip')%> -->
+                                                                        <% for(var v of i[t]){%>
+                                                                            <li>
+                                                                                <%if(data[v]) {%>
+                                                                                    <%fort.splice(fort.indexOf(data[v]),1)%>
+                                                                                        <%fort.unshift(data[v])%>
+                                                                                            <%}%>
+                                                                                                <select
+                                                                                                    class="oms-fort-select ">
+                                                                                                    <%for (var j of
+                                                                                                        fort) {%>
+                                                                                                        <option
+                                                                                                            value="<%=j%>">
+                                                                                                            <%=j%>
+                                                                                                        </option>
+                                                                                                        <%}%>
+                                                                                                </select>
+                                                                            </li>
+                                                                            <!-- <%// fort.splice(fort.indexOf('Skip'),1)%>
+                                                                                <%// fort.unshift('Skip')%> -->
+                                                                                    <% } %>
+
+                                                            </ol>
+
+
+                                                        </li>
+                                                        <% } %>
+                            </ol>
+                        </div>
+
                     </div>
-                </div>
-                <div class="col-xl-4 ">
-                    <h1><b>Fortnox</b></h1>
-                    <ol class="prod-list-ul">
-                        <% for(var i of oms) {%>
-                            <li>
-                                <select name="" id="" class="oms-fort-select">
-                                    <%for (var j of fort) {%>
-                                        <option value="<%=j%>">
-                                            <%=j%>
-                                        </option>
-                                        <%}%>
-                                </select>
-                                <%}%>
-                            </li>
-                    </ol>
-                </div>
-            </div>
+                    <button onclick="sendFortConfig()" class="btn btn-primary  d-block mx-auto"><span
+                            class="h1">Save</span></button>
 
 
-
-            <%- include('./includes/footer.ejs') %>
+                    <%- include('./includes/footer.ejs') %>

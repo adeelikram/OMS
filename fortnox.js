@@ -17,12 +17,13 @@ exports.gpData = async (url, body, req, method) => {
                     return ""
                 }
                 let obj = await RefreshToken(data.refresh_token, req.user._id)
+                
                 req.user.token = obj
                 return await this.gpData(url, body, req, method)
             }
             else {
                 console.log(error.response.data)
-                return ""
+                return null
             }
         }
         else {

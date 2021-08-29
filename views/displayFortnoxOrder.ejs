@@ -1,0 +1,115 @@
+<%- include('./includes/header.ejs') %>
+    <div class="dashboard-container">
+        <%- include('./includes/side-bar.ejs') %>
+            <div class="dashboard-content-container" data-simplebar>
+                <div class="dashboard-content-inner">
+                    <!-- Dashboard Headline -->
+                    <div class="dashboard-headline">
+                        <h3>Fortnox Orders</h3>
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs" class="dark">
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Dashboard</a></li>
+                                <li>Fortnox Orders</li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Row -->
+                    <div class="row">
+
+                        <!-- Dashboard Box -->
+                        <!-- <div class="col-xl-12"> -->
+                        <div class="dashboard-box margin-top-0" style="overflow-x:auto;">
+
+                            <!-- Headline -->
+                            <div class="headline">
+                                <h3><i class="icon-feather-flag"></i>
+                                    <%= orders.length %>
+                                        Orders
+                                </h3>
+                            </div>
+
+                            <div class="container-fluid">
+                                <main>
+                                    <div>
+                                        <%- include ("./partials/messages") %>
+                                    </div>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th style="vertical-align:top">Customer Number</th>
+                                                <th style="vertical-align:top">Customer Name</th>
+                                                <th style="vertical-align:top">Sended</th>
+                                                <th style="vertical-align:top">Order Date</th>
+                                                <th style="vertical-align:top"></th>
+                                                <th style="vertical-align:top"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% if (orders.length> 0) { %>
+                                                <% for (let order of orders) { %>
+                                                    <tr>
+                                                        <td class="text-dark">
+                                                            <%=order._doc.CustomerNumber%>
+                                                        </td>
+                                                        <td>
+                                                            <%= order._doc.CustomerName%>
+                                                        </td>
+                                                        <td>
+                                                            <%= order._doc.sent%>
+                                                        </td>
+                                                        <td>
+                                                            <%= order._doc.OrderDate %>
+                                                        </td>
+
+
+                                                        <td>
+                                                            <form action="/send-fortnox-order/<%= order._id %>"
+                                                                method="post">
+                                                                <button id="<%=order._doc.sent%>" type="submit"
+                                                                    class="btn btn-success">
+                                                                    Send
+                                                                </button>
+                                                            </form>
+
+                                                        </td>
+                                                        <td>
+
+                                                            <form action="/delete-fortnox-order/<%= order._id %>"
+                                                                method="post">
+                                                                <button type="submit" class="btn btn-danger"
+                                                                    onclick="return confirm('Are you sure you want to delete the order?')">
+                                                                    Delete
+                                                                </button>
+                                                            </form>
+
+                                                        </td>
+                                                    </tr>
+                                                    <% } %>
+                                                        <% } else { %>
+                                                            <h1>No Orders Found!</h1>
+                                                            <% } %>
+                                        </tbody>
+
+                                    </table>
+                                </main>
+
+                            </div>
+                        </div>
+                        <!-- </div> -->
+
+                    </div>
+                    <!-- Row / End -->
+                </div>
+            </div>
+
+            <script>
+                var all = document.querySelectorAll("form > button")
+                for (var i = 0; i < all.length; i++) {
+                    if (all[i].id && all[i].id != "false") all[i].disabled = true
+                }
+            </script>
+
+            <%- include('./includes/footer.ejs') %>

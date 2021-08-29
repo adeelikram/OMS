@@ -23,12 +23,18 @@
                         </li>
                     </ul>
 
-                    <ul data-submenu-title="Admin">
-                        <li><a href="/admin"> Fortnox</a>
-                        </li>
-                        <li><a href="/fortnox-prods"> List of Products</a>
-                        </li>
-                        <li><a href="/artNumber"> Article Number</a>
+                    <ul data-submenu-title="">
+
+                        <li><a href="#"></i>Fortnox</a>
+                            <ul>
+                                <li><a href="/admin"> Fortnox</a>
+                                </li>
+                                <li><a href="/fortnox-prods"> List of Products</a>
+                                </li>
+                                <li><a href="/send-order">Skicka Order</a>
+                                </li>
+                                <li><a href="/display-fortnox-order">Hantera sändningar</a></li>
+                            </ul>
                         </li>
                     </ul>
 
@@ -37,6 +43,7 @@
                             <ul>
                                 <li><a href="/orders">Manage Orders</a>
                                 </li>
+
                                 <li><a href="/add-order">Add Order</a></li>
                             </ul>
                         </li>
@@ -46,6 +53,7 @@
                                 </li>
                                 <li><a href="/work-orders">Arbetsorder</a>
                                 </li>
+
                             </ul>
                         </li>
                         <li><a href="#"><i class="icon-feather-database"></i>Inventory</a>
@@ -63,7 +71,7 @@
                         <li><a href="#"><i class="icon-feather-calendar"></i>Monthly report</a>
                         </li>
                         <li><a href="#"><i class="icon-feather-user-check"></i>Customer Service</a>
-                            
+
                             <ul>
                                 <li><a href="/support-ticket">Ny support ticket</a>
                                 </li>
@@ -72,11 +80,11 @@
                                 </li>
                                 <li><a href="/deviation-ticket-list">Visa avvikelser</a></li>
                             </ul>
-                        
+
                         </li>
 
-                       <li><a href="#"><i class="icon-feather-user-check"></i>Employees</a>
-                            
+                        <li><a href="#"><i class="icon-feather-user-check"></i>Employees</a>
+
                             <ul>
                                 <li><a href="/employee-information">Information</a></li>
                                 <li><a href="/employee-absent-reports">Absent Report</a></li>
@@ -88,15 +96,15 @@
                         </li>
 
 
-                         <li><a href="#"><i class="icon-feather-user-check"></i>Customers</a>
-                            
+                        <li><a href="#"><i class="icon-feather-user-check"></i>Customers</a>
+
                             <ul>
                                 <li><a href="/customers">Customers</a></li>
-                                </li>
-                            </ul>
                         </li>
+                    </ul>
+                    </li>
 
-                        <% if (user.role === "admin") { %>
+                    <% if (user?.role==="admin" ) { %>
                         <li><a href="#"><i class="icon-feather-user-check"></i>Admin</a>
                             <ul>
                                 <li><a href="/admin/employees">Employees</a></li>
@@ -105,13 +113,14 @@
                         </li>
                         <% } %>
 
-                    </ul>
+                            </ul>
 
-                    <ul data-submenu-title="Account">
-                        <li><a href="#"><i class="icon-feather-edit-2"></i>Change Password</a>
-                        </li>
-                        <li><a href="/logout"><i class="icon-material-outline-power-settings-new"></i> Logout</a></li>
-                    </ul>
+                            <ul data-submenu-title="Account">
+                                <li><a href="#"><i class="icon-feather-edit-2"></i>Change Password</a>
+                                </li>
+                                <li><a href="/logout"><i class="icon-material-outline-power-settings-new"></i>
+                                        Logout</a></li>
+                            </ul>
 
                 </div>
             </div>

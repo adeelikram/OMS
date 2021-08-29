@@ -15,8 +15,7 @@ const User = require("./models/User");
 
 const app = express();
 
-const envPath = path.resolve(process.cwd(), `.${process.env.NODE_ENV}.env`);
-
+const envPath = path.resolve(`./.production.env`);
 dotenv.config({ path: envPath });
 
 // const csrfProtection = csrf();
@@ -40,7 +39,10 @@ const workOrdersRoute = require('./routes/workOrdersRoute');
 const employeeRoute = require('./routes/employeeRoute');
 const adminRoute = require('./routes/adminRoute');
 const customerRoute = require('./routes/customerRoute');
-
+const { getToken } = require('./config/Token');
+const adminFortnox = require('./routes/adminFortnoxRoute');
+const sendOrder = require("./routes/sendOrder")
+const displayFortnoxOrder = require("./routes/displayFortnoxRoute")
 const PORT = process.env.PORT || 3000;
 
 mongoose
@@ -93,6 +95,7 @@ app.use(function (req, res, next) {
 //     res.locals.csrfToken = req.csrfToken();
 //     next();
 // });
+
 const strategy = new Auth0Strategy(
     {
         domain: process.env.AUTHO_DOMAIN,
@@ -134,8 +137,8 @@ app.use(async (req, res, next) => {
     next();
 });
 
-app.use(async function(req, res, next) {
-    if(req.user){
+app.use(async function (req, res, next) {
+    if (req.user) {
         const user = await User.findById(req.user.user_id.split("|")[1]);
         // console.log(user);
         res.locals.user = user;
@@ -161,7 +164,9 @@ app.use('/', workOrdersRoute);
 app.use('/', employeeRoute);
 app.use('/admin', adminRoute);
 app.use('/', customerRoute);
-
+app.use("/", adminFortnox);
+app.use("/", sendOrder);
+app.use("/", displayFortnoxOrder);
 app.all('*', (req, res) => {
     res.status(404).json({
         status: 'fail',
