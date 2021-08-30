@@ -303,8 +303,8 @@
             }
 
             var res = await axios.post(path, body);
-
-            if (save) alert("Successfully saved in database!")
+            if(res?.data?.ErrorInformation) alert("can't send data. Maybe fortnox access token has been expired")   
+            else if (save) alert("Successfully saved in database!")
             else alert("Successfully sent to Fortnox!")
         
         } catch (err) {

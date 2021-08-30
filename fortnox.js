@@ -23,7 +23,7 @@ exports.gpData = async (url, body, req, method) => {
             }
             else {
                 console.log(error.response.data)
-                return null
+                return error.response.data
             }
         }
         else {

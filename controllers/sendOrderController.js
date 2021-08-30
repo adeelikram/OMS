@@ -20,7 +20,7 @@ exports.postSendOrder = async function (req, res) {
         console.log(resp_mon)
     }
     else {
-        await sendFortnox(order, req, null)
+        await sendFortnox(order, req, null,res)
     }
     res.end()
 }
@@ -28,7 +28,7 @@ exports.postSendOrder = async function (req, res) {
 exports.postSavedOrder = async function (req, res) {
     var { id } = req.params
     var data = await sendOrder.findOne({ _id: id })
-    await sendFortnox(data._doc, req, id)
+    await sendFortnox(data._doc, req, id,res)
     res.redirect('/display-fortnox-order')
 }
 
@@ -38,31 +38,32 @@ exports.deleteFortnoxOrder = async function (req, res) {
     res.redirect('/display-fortnox-order')
 }
 
-async function sendFortnox(body, req, id) {
+async function sendFortnox(body, req, id,res) {
     var cust = _.pick(body, ["CustomerNumber", "CustomerName", "Phone1", "Email"])
     var temp = cust["CustomerName"]
     delete cust["CustomerName"]
     cust.Name = temp
     await prepareCustomer({ "Customer": cust }, req);
     ["Email", "_id", "__v", "sent"].forEach(e => delete body[e])
-    await prepareOrder({ "Order": body }, req, id);
+    await prepareOrder({ "Order": body }, req, id,res);
 }
 
 async function prepareCustomer(obj, req) {
     var response = await gpData("https://api.fortnox.se/3/customers/", obj, req, "POST")
 }
 
-async function prepareOrder(data, req, id) {
+async function prepareOrder(data, req, id,res) {
     var response = await gpData("https://api.fortnox.se/3/orders/", data, req, "POST")
+    res.json(response)
     if (!id) {
         data = data.Order
-        var res = await sendOrder.updateOne(data, { $set: { sent: true } })
+        var res_mon = await sendOrder.updateOne(data, { $set: { sent: true } })
     }
     else {
-        var res = await sendOrder.updateOne({ _id: id }, { $set: { sent: true } })
+        var res_mon = await sendOrder.updateOne({ _id: id }, { $set: { sent: true } })
     }
-    if (res.ok) console.log("also changed in database " + res)
-    console.log(res)
+    if (res_mon.nModified) console.log("also changed in database " + res_mon)
+    console.log(res_mon)
 }
 
 function prepareOrderRows(local, artNumber) {
