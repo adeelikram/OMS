@@ -632,6 +632,22 @@
         }
     }
 
+    async function handleSubmitAddTender() {
+        const body = getFormValues('tender');
+
+        await axios.post('/post-create-tender', body).catch(err => console.error(err))
+
+        window.location = "/tenders";
+    }
+
+    async function handleSaveTenderInformation(tenderId) {
+        const information = document.getElementById(`${tenderId}_information`).value;
+        
+        if (information) {
+            await axios.post(`/post-create-tender-information/${tenderId}`, { information }).catch(err => console.error(err));
+        }
+    }
+
 
 </script>
 </body>

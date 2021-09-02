@@ -11,7 +11,7 @@ const csrf = require('csurf');
 const Auth0Strategy = require('passport-auth0');
 const path = require('path');
 
-const User = require("./models/User");
+const User = require('./models/User');
 
 const app = express();
 
@@ -38,11 +38,14 @@ const workOrdersRoute = require('./routes/workOrdersRoute');
 
 const employeeRoute = require('./routes/employeeRoute');
 const adminRoute = require('./routes/adminRoute');
+const tendersRoute = require('./routes/tendersRoute');
+
 const customerRoute = require('./routes/customerRoute');
 const { getToken } = require('./config/Token');
 const adminFortnox = require('./routes/adminFortnoxRoute');
-const sendOrder = require("./routes/sendOrder")
-const displayFortnoxOrder = require("./routes/displayFortnoxRoute")
+const sendOrder = require('./routes/sendOrder');
+const displayFortnoxOrder = require('./routes/displayFortnoxRoute');
+
 const PORT = process.env.PORT || 3000;
 
 mongoose
@@ -57,14 +60,15 @@ app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(`${__dirname}/public`));
-// express cors 
+// express cors
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header(
+        'Access-Control-Allow-Headers',
+        'Origin, X-Requested-With, Content-Type, Accept'
+    );
     next();
 });
-
-
 
 // Express Session
 app.use(
@@ -139,7 +143,7 @@ app.use(async (req, res, next) => {
 
 app.use(async function (req, res, next) {
     if (req.user) {
-        const user = await User.findById(req.user.user_id.split("|")[1]);
+        const user = await User.findById(req.user.user_id.split('|')[1]);
         // console.log(user);
         res.locals.user = user;
     }
@@ -164,9 +168,11 @@ app.use('/', workOrdersRoute);
 app.use('/', employeeRoute);
 app.use('/admin', adminRoute);
 app.use('/', customerRoute);
-app.use("/", adminFortnox);
-app.use("/", sendOrder);
-app.use("/", displayFortnoxOrder);
+app.use('/', adminFortnox);
+app.use('/', sendOrder);
+app.use('/', displayFortnoxOrder);
+app.use('/', tendersRoute);
+
 app.all('*', (req, res) => {
     res.status(404).json({
         status: 'fail',
