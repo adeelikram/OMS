@@ -45,7 +45,6 @@
                                                     <th style="vertical-align:top">Date</th>
                                                     <th style="vertical-align:top">Last Date</th>
                                                     <th style="vertical-align:top">Ansvarig</th>
-                                                    <th style="vertical-align:top">Information</th>
                                                     <th style="vertical-align:top"></th>
 
                                                 </tr>
@@ -80,9 +79,9 @@
                                                             <td>
                                                                 <%= tender.responsible %>
                                                             </td>
-                                                            <td><input type="text" id="<%= tender._id %>_information" class="with-border" value="<%= tender.information %>"></td>
                                                             <td>
-                                                                <button type="button" class="btn btn-info mr-2" onclick="handleSaveTenderInformation('<%= tender._id %>')">Save</button>
+                                                                <a class="btn btn-info mr-2" style="width: 200px;" href="/get-edit-tender/<%= tender._id %>">Edit</a>
+                                                                <a class="btn btn-secondary mr-2" style="width: 200px;" href="/get-tender-requirements/<%= tender._id %>">Krav som ej möts</a>
                                                             </td>
 
                                                             
@@ -110,7 +109,7 @@
                                             <div class="col-xl-4">
                                                 <div class="submit-field">
                                                     <a class="btn btn-info mr-2" href="/get-create-tender">Add New Tender</a>
-                                                    <a class="btn btn-secondary" href="<%= krav ? "/tenders" : "/tenders?krav=true" %>"><%= krav ? "All Tenders" : "Krav som ej möts" %></button>
+                                                    <a class="btn btn-secondary mr-2" style="width: 200px;" href="/get-tender-requirements/all">Krav som ej möts</a>
                                                 </div>
                                             </div>
                                         </div>

@@ -1,0 +1,81 @@
+<%- include('./includes/header.ejs') %>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <%- include('./includes/side-bar.ejs') %>
+            <!-- Dashboard Content
+    ================================================== -->
+            <div class="dashboard-content-container" data-simplebar>
+                <div class="dashboard-content-inner">
+
+                    <!-- Dashboard Headline -->
+                    <div class="dashboard-headline">
+                        <h3>
+                            Manage Tender
+                        </h3>
+
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs" class="dark">
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Dashboard</a></li>
+                                <li>
+                                    Manage Tender
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Row -->
+                    <div class="row">
+
+                        <!-- Dashboard Box -->
+                        <div class="col-xl-12">
+                            <div class="dashboard-box margin-top-0">
+                                <!-- Headline -->
+                                <div class="headline">
+                                    <h3><i class="icon-feather-award"></i>Manage Tender</h3>
+                                </div>
+                                <%- include ("./partials/messages") %>
+                                        <div class="content with-padding padding-bottom-10">
+                                            <% for (const tender of tenders) { %>
+                                                <div class="row">
+                                                    
+                                                        
+                                                        <div class="col-xl-12">
+                                                            <div class="submit-field">
+                                                                <h5>Customer</h5>
+                                                                <input type="text" class="with-border"
+                                                                    value="<%= tender.customer %>"
+                                                                    disabled>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-xl-12">
+                                                            <div class="submit-field">
+                                                                <h3>Krav som ej möts</h3>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-xl-12">
+                                                            <div class="submit-field">
+                                                                <h5>Ej mötta krav</h5>
+                                                                <textarea type="text" class="with-border"
+                                                                    name="tender_requirements"
+                                                                    placeholder="Ej mötta krav"
+                                                                    disabled>
+                                                                    <%= tender.requirements %>
+                                                                </textarea>
+                                                            </div>
+                                                        </div>
+                                                    
+
+                                                </div>
+                                            <% } %>
+                                        </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <!-- Row / End -->
+                    <%- include('./includes/footer.ejs') %>

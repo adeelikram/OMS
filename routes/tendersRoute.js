@@ -3,21 +3,23 @@ const {
     getTenders,
     getCreateTender,
     postCreateTender,
-    postCreateTenderDescription,
+    getEditTender,
+    postEditTender,
+    getTenderRequirements,
 } = require('../controllers/TendersController');
 
 const router = express.Router();
 const { secured } = require('../middlewares/secured');
 
 router.get('/tenders', secured, getTenders);
-router.get('/get-create-tender', secured, getCreateTender);
 
+router.get('/get-create-tender', secured, getCreateTender);
 router.post('/post-create-tender', secured, postCreateTender);
-router.post(
-    '/post-create-tender-information/:id',
-    secured,
-    postCreateTenderDescription
-);
+
+router.get('/get-edit-tender/:id', secured, getEditTender);
+router.post('/post-edit-tender/:id', secured, postEditTender);
+
+router.get('/get-tender-requirements/:id', secured, getTenderRequirements);
 
 // router.get(
 //     '/get-configure-active-units/:product/:deliveryId',

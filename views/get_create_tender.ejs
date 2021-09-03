@@ -45,7 +45,8 @@
                                                             <h5>Customer</h5>
                                                             <input type="text" class="with-border"
                                                                 name="tender_customer"
-                                                                placeholder="Customer">
+                                                                placeholder="Customer"
+                                                                value="<% if (editing) { %><%= tender.customer %><% } %>">
                                                         </div>
                                                     </div>
 
@@ -54,7 +55,9 @@
                                                             <h5>Beskrivning</h5>
                                                             <input type="text" class="with-border"
                                                                 name="tender_description"
-                                                                placeholder="Description">
+                                                                placeholder="Description"
+                                                                value="<% if (editing) { %><%= tender.description %><% } %>">
+                                                                
                                                         </div>
                                                     </div>
                                                     
@@ -84,15 +87,36 @@
                                                             <h5>Ansvarig</h5>
                                                             <input type="text" class="with-border"
                                                                 name="tender_responsible"
-                                                                placeholder="Ansvarig">
+                                                                placeholder="Ansvarig"
+                                                                value="<% if (editing) { %><%= tender.responsible %><% } %>">
+                                                                
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-4">
+                                                    <div class="col-xl-12">
                                                         <div class="submit-field">
                                                             <h5>Information</h5>
-                                                            <input type="text" class="with-border"
+                                                            <textarea type="text" class="with-border"
                                                                 name="tender_information"
                                                                 placeholder="Information">
+                                                                <%= editing ? tender.information : '' %>
+                                                            </textarea>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xl-12">
+                                                        <div class="submit-field">
+                                                            <h3>Krav som ej möts</h3>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xl-12">
+                                                        <div class="submit-field">
+                                                            <h5>Ej mötta krav</h5>
+                                                            <textarea type="text" class="with-border"
+                                                                name="tender_requirements"
+                                                                placeholder="Ej mötta krav">
+                                                                <%= editing ? tender.requirements : '' %>
+                                                            </textarea>
                                                         </div>
                                                     </div>
                                                 
@@ -101,7 +125,7 @@
                                         </div>
                                         <div class="col-xl-12">
                                             <button type="button"
-                                                onclick="handleSubmitAddTender()"
+                                                onclick="<%= editing ? `handleEditTender('${tender._id}')` : 'handleSubmitAddTender()' %>"
                                                 class="button ripple-effect big margin-top-30 margin-bottom-30">
                                                 Save
                                             </button>

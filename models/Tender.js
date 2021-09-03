@@ -9,6 +9,9 @@ const schema = new mongoose.Schema({
     responsible: String,
     info: String,
     information: String,
+    underlag: String,
+    svar: String,
+    requirements: String,
 });
 
 const Model = mongoose.model('Tender', schema);
