@@ -1,0 +1,120 @@
+<%- include('./includes/header.ejs') %>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <%- include('./includes/side-bar.ejs') %>
+            <!-- Dashboard Content
+    ================================================== -->
+            <div class="dashboard-content-container" data-simplebar>
+                <div class="dashboard-content-inner">
+
+                    <!-- Dashboard Headline -->
+                    <div class="dashboard-headline">
+                        <h3>
+                            Add Time Track
+                        </h3>
+
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs" class="dark">
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Dashboard</a></li>
+                                <li>
+                                    Add Time Track
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Row -->
+                    <div class="row">
+
+                        <!-- Dashboard Box -->
+                        <div class="col-xl-12">
+                            <div class="dashboard-box margin-top-0">
+                                <!-- Headline -->
+                                <div class="headline">
+                                    <h3><i class="icon-feather-award"></i>Add Time Track</h3>
+                                </div>
+                                <%- include ("./partials/messages") %>
+                                        <div class="content with-padding padding-bottom-10">
+                                            <div class="row">
+                                                
+                                                    
+                                                    <div class="col-xl-4">
+                                                        <div class="submit-field">
+                                                            <h5>Type</h5>
+                                                            <select name="timeTrack_type" id="timeTrack_type" onchange="handleChangeType()">
+                                                                <option value="task" selected>Task</option>
+                                                                <option value="customer">Customer</option>
+                                                                <option value="project">Ongoing Project</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div id="customers_div" class="col-xl-4" style="display: none;">
+                                                        <div class="submit-field">
+                                                            <h5>Customer</h5>
+                                                            <input type="text" class="with-border"
+                                                                name="timeTrack_customer"
+                                                                id="timeTrack_customer"
+                                                                placeholder="Customer">
+                                                        </div>
+                                                    </div>
+
+                                                    <div id="ongoing_projects_div" class="col-xl-4" style="display: none;">
+                                                        <div class="submit-field">
+                                                            <h5>Ongoing Projects</h5>
+                                                            <select name="timeTrack_project">
+                                                                <% for (const project of projects) { %>
+                                                                    <option value="<%= project._id %>"><%= `${project.customer} - ${project.manager}` %></option>
+                                                                <% } %>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>Topic</h5>
+                                                        <select name="timeTrack_topic">
+                                                            <option value="implementation" selected>Implementation</option>
+                                                            <option value="support">Support</option>
+                                                            <option value="sales">Sales</option>
+                                                            <option value="education">Education</option>
+                                                            <option value="other">Other</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xl-4">
+                                                    <div class="submit-field">
+                                                        <h5>Time</h5>
+                                                        <div class="d-flex">
+                                                            <input type="text" class="with-border"
+                                                                name="timeTrack_hours"
+                                                                placeholder="Hours">
+    
+                                                            <input type="text" class="with-border"
+                                                            name="timeTrack_minutes"
+                                                            placeholder="Minutes">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-12">
+                                            <button type="button"
+                                                class="button ripple-effect big margin-top-30 margin-bottom-30"
+                                                onclick="handleAddTimeTrack()">
+                                                Save
+                                            </button>
+                                            <br>
+                                        </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <!-- Row / End -->
+                    <%- include('./includes/footer.ejs') %>

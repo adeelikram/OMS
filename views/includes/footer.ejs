@@ -658,9 +658,72 @@
     async function handleSaveTenderInformation(tenderId) {
         const information = document.getElementById(`${tenderId}_information`).value;
         
-        if (information) {
-            await axios.post(`/post-create-tender-information/${tenderId}`, { information }).catch(err => console.error(err));
+        await axios.post(`/post-create-tender-information/${tenderId}`, { information }).catch(err => console.error(err));
+    }
+
+    function renderFieldByTrackType(type) {
+        const ongoingProjects = document.getElementById("ongoing_projects_div");
+        const customers = document.getElementById("customers_div");
+
+        switch (type) {
+            case "task": {
+                ongoingProjects.style.display = "none";
+                customers.style.display = "none";
+
+                break;
+            }
+            case "customer": {
+                ongoingProjects.style.display = "none";
+                customers.style.display = "block";
+                break;
+            }
+            case "project": {
+                ongoingProjects.style.display = "block";
+                customers.style.display = "none";
+                break;
+            }
+            default: {
+                break;
+            }
         }
+        
+    }
+
+    function handleChangeType() {
+        const element = document.getElementById('timeTrack_type');
+        const value = element.value;
+
+        renderFieldByTrackType(value);
+    }
+
+    async function handleAddTimeTrack() {
+        const body = getFormValues('timeTrack');
+
+        switch (body.type) {
+            case "task": {
+                delete body.customer;
+                delete body.project;
+                break;
+            }
+            case "customer": {
+                delete body.project;
+                break;
+            }
+            case "project": {
+                delete body.customer;
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+
+        console.log(body);
+
+        await axios.post('/post-create-time-track', body).catch(err => console.error(err))
+
+        window.location = "/time-tracker";
+
     }
 
 

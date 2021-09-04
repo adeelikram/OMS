@@ -1,0 +1,98 @@
+<%- include('./includes/header.ejs') %>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <%- include('./includes/side-bar.ejs') %>
+            <!-- Dashboard Content
+    ================================================== -->
+            <div class="dashboard-content-container" data-simplebar>
+                <div class="dashboard-content-inner">
+
+                    <!-- Dashboard Headline -->
+                    <div class="dashboard-headline">
+                        <h3>Time Tracker</h3>
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs" class="dark">
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Dashboard</a></li>
+                                <li>Time Tracker</li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Row -->
+                    <div class="row">
+
+                        <!-- Dashboard Box -->
+                        <div class="col-xl-12">
+                            <div class="dashboard-box margin-top-0">
+                                <div>
+                                    <%- include ("./partials/messages") %>
+                                </div>
+                                <!-- Headline -->
+                                <div class="headline">
+                                    <h3><i class="icon-feather-award"></i><%= timeTracks.length %> Activity(s)</h3>
+                                </div>
+
+                                <div class="">
+                                    <main style="overflow-x:auto;">
+                                        <table class="table table-bordered mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th style="vertical-align:top" style="max-width: 200px;">Type</th>
+                                                    <th style="vertical-align:top" style="max-width: 200px;">Customer</th>
+                                                    <th style="vertical-align:top" style="max-width: 200px;">Order</th>
+                                                    <th style="vertical-align:top">Topic</th>
+                                                    <th style="vertical-align:top">Time</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% if (timeTracks && timeTracks.length> 0) { %>
+                                                    <% for (let timeTrack of timeTracks) { %>
+                                                        <tr>
+
+                                                            <td style="text-transform: capitalize;">
+                                                                <%= timeTrack.type %>
+                                                            </td>
+                                                            <td>
+                                                                <%= timeTrack.customer %>
+                                                            </td>
+                                                            <td>
+                                                                <% if (timeTrack.project) { %>
+                                                                    <%= `${timeTrack.project.customer} - ${timeTrack.project.manager}` %>
+                                                                <% } %>
+                                                            </td>
+                                                            <td style="text-transform: capitalize;">
+                                                                <%=timeTrack.topic%>
+                                                            </td>
+                                                            <td>
+                                                                <%= `${timeTrack.hours} hrs ${timeTrack.minutes} mins` %>
+                                                            </td>
+                                                        </tr>
+                                                        <% } %>
+                                                            <% } else { %>
+                                                                <tr>
+                                                                    <td>No Time Tracked</td>
+                                                                </tr>
+                                                                <% } %>
+                                            </tbody>
+                                        </table>
+
+                                        
+                                    </main>
+
+                                    <div class="content" style="padding: 16px 0;">
+                                        <div class="col-xl-4">
+                                            <div class="submit-field">
+                                                <a class="btn btn-info mr-2" href="/get-create-time-track">Add New Time</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Row / End -->
+                    
+                    <%- include('./includes/footer.ejs') %>

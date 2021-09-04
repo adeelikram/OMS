@@ -39,6 +39,7 @@ const workOrdersRoute = require('./routes/workOrdersRoute');
 const employeeRoute = require('./routes/employeeRoute');
 const adminRoute = require('./routes/adminRoute');
 const tendersRoute = require('./routes/tendersRoute');
+const timeTracksRoute = require('./routes/timeTracksRoute');
 
 const customerRoute = require('./routes/customerRoute');
 const { getToken } = require('./config/Token');
@@ -172,6 +173,7 @@ app.use('/', adminFortnox);
 app.use('/', sendOrder);
 app.use('/', displayFortnoxOrder);
 app.use('/', tendersRoute);
+app.use('/', timeTracksRoute);
 
 app.all('*', (req, res) => {
     res.status(404).json({
