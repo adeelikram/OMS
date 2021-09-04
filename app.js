@@ -132,7 +132,7 @@ passport.deserializeUser((user, done) => {
 });
 // Creating custom middleware with Express
 app.use(async (req, res, next) => {
-    if (req.user && !req.user?._id) {
+    if (req.user && !req.user._id) {
         const test = await User.findOne({ email: req.user._json.email });
         req.user._id = test._id;
         req.user.email = test.email;

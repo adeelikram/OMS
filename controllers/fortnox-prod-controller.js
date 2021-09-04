@@ -15,7 +15,7 @@ var oms = [
 
 exports.fortnoxProdController = async function (req, res) {
     var fort = []
-    var data = (await gpData('https://api.fortnox.se/3/articles', null, req, "GET"))?.Articles
+    var data = (await gpData('https://api.fortnox.se/3/articles', null, req, "GET")).Articles
     if (!("error" in data)) for (let el of data) {
         if (!fort.includes("ArticleNumber: " + el.ArticleNumber)) fort.push("ArticleNumber: " + el.ArticleNumber)
     }
@@ -24,7 +24,7 @@ exports.fortnoxProdController = async function (req, res) {
         oms: oms,
         name: req.user.nickname,
         fort: fort,
-        data: (data?._doc) ? data._doc : {},
+        data: (data._doc) ? data._doc : {},
     })
 }
 exports.fortnoxProdPostController = async function (req, res) {
