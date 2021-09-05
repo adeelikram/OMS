@@ -8,7 +8,7 @@ exports.gpData = async (url, body, req, method) => {
         else if (method == "POST") data = await axios.post(url, body, { headers: { "Accept": "application/json", "Authorization": "Bearer " + req.user.token } })
         return data.data
     } catch (error) {
-        if (error.response?.data) {
+        if (error.response.data) {
             if (error.response.data.message) {
                 console.log(error.response.data)
                 var data = await admin.findOne({ _id: req.user._id })
