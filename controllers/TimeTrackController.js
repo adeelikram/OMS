@@ -50,15 +50,3 @@ exports.postCreateTimeTrack = async (req, res, next) => {
         res.status(503).send(err);
     }
 };
-
-exports.postCreateTenderDescription = async (req, res, next) => {
-    try {
-        console.log(req.body.information, typeof req.body.information);
-        // await Tender.findByIdAndUpdate(req.params.id, {
-        //     information: req.body.information,
-        // });
-        res.redirect('/tenders');
-    } catch (err) {
-        res.status(503).send(err);
-    }
-};

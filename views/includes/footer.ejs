@@ -381,7 +381,16 @@
             body.deliveryId = deliveryId;
         }
 
-        await axios.post(url, body).catch(err => console.error(err))
+
+        const contractors = [];
+
+        if (body.electrician) contractors.push({ ...body.electrician, contractor: body.electrician.name, customer: body.customer });
+        if (body.otherInstaller) contractors.push({ ...body.otherInstaller, contractor: body.otherInstaller.name, customer: body.customer });
+        if (body.plumbingFitter) contractors.push({ ...body.plumbingFitter, contractor: body.plumbingFitter.name, customer: body.customer });
+
+        const promises = contractors.map(c => axios.post("/post-create-contractor", c));
+
+        await Promise.all([axios.post(url, body), ...promises]);
 
         window.location = "/";
     }
@@ -723,6 +732,18 @@
         await axios.post('/post-create-time-track', body).catch(err => console.error(err))
 
         window.location = "/time-tracker";
+
+    }
+
+    async function handleAddContractor() {
+        const body = getFormValues('contractor');
+        const neatseat = document.getElementById('contractor_neatseat').checked;
+
+        body.neatseat = neatseat;
+
+        await axios.post('/post-create-contractor', body).catch(err => console.error(err))
+
+        window.location = "/contractors";
 
     }
 
