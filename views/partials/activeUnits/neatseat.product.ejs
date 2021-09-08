@@ -6,6 +6,7 @@
 
 <% for (let i = 0; i < product[unit].bought; i++) { %>
 
+
     <div class="col-xl-12">
         <div class="submit-field">
             <h5>Unit <%= i + 1 %></h5>
@@ -17,9 +18,8 @@
             <div class="submit-field">
                 <h5>Active Units</h5>
                 <select name="activeUnits<%= i %>_enabled">
-                    <option value="" <%- editing ? activeUnits && activeUnits[i] && activeUnits[i][unit] === undefined || activeUnits[i] && activeUnits[i][unit] === null ? 'selected' : '' : '' %>>Select</option>
-                    <option value="false" <%- editing ? activeUnits && activeUnits[i] && activeUnits[i][unit] === false ? 'selected' : '' : '' %>>No</option>
-                    <option value="true" <%- editing ? activeUnits && activeUnits[i] && activeUnits[i][unit] ? 'selected' : '' : '' %>>Yes</option>
+                    <option value="false" <%- editing ? !activeUnits || !activeUnits[i] || !activeUnits[i].enabled ? 'selected' : '' : '' %>>No</option>
+                    <option value="true" <%- editing ? activeUnits && activeUnits[i] && activeUnits[i].enabled ? 'selected' : '' : '' %>>Yes</option>
                 </select>
             </div>
         </div>

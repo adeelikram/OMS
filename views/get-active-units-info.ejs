@@ -48,32 +48,38 @@
                                             </thead>
                                             <tbody>
                                                 <% if (activeUnits && activeUnits.length> 0) { %>
-                                                    <% for (let activeUnit of activeUnits) { %>
-                                                        <tr>
+                                                    <% for (let deliveryGroup of activeUnits) { %>
+                                                        <% for (let activeUnit of deliveryGroup.activeUnits) { %>
+                                                            <% for (let label of ['roomMate', 'nucleus', 'neatseatlarge', 'neatseatmedium', 'sitShower', 'otium']) { %>
+                                                                <% if (activeUnit[label]) { %>
+                                                                    <tr>
 
-                                                            <td>
-                                                                <%=activeUnit.customer%>
-                                                            </td>
-                                                            <td>
-                                                                <%= activeUnit.deliveryPlace %>
-                                                            </td>
-                                                            <td>
-                                                                <%= activeUnit.product.label %>
-                                                            </td>
-                                                            <td>
-                                                                <%= activeUnit.units %>
-                                                            </td>
-                                                            <td>
-                                                                <%= activeUnit.units %>
-                                                            </td>
-                                                            <td><a class="btn btn-info"
-                                                                    href="/get-configure-active-units/<%= activeUnit.product.value %>/<%= activeUnit.deliveryId %>"
-                                                                    class="button ripple-effect"><i
-                                                                        class="icon-line-awesome-pencil"></i>
-                                                                    Info</a>
-                                                            </td>
-                                                        </tr>
+                                                                        <td>
+                                                                            <%=customer%>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= deliveryGroup.delivery.title %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= label %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= activeUnit[label].allUnits %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= activeUnit[label].activeUnits %>
+                                                                        </td>
+                                                                        <td><a class="btn btn-info"
+                                                                                href="/get-configure-active-units/<%= label === 'neatseatlarge' ? 'neatseat-large' : label === 'neatseatmedium' ? 'neatseat-medium' : label %>/<%= deliveryGroup.delivery._id %>"
+                                                                                class="button ripple-effect"><i
+                                                                                    class="icon-line-awesome-pencil"></i>
+                                                                                Info</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                <% } %>
+                                                            <% } %>
                                                         <% } %>
+                                                    <% } %>
                                                             <% } else { %>
                                                                 <h1>No Active Units Found!</h1>
                                                                 <% } %>

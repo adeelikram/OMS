@@ -54,7 +54,8 @@ exports.getConfigureActiveUnits = async (req, res, next) => {
 
     const currentProduct = products.find((e) => e.value === p);
 
-    const productInActiveUnits = activeUnits[currentProduct.value];
+    const productInActiveUnits =
+        activeUnits[`${currentProduct.value}${unitType || ''}`];
 
     const response = {
         name: userProfile.nickname,
@@ -94,6 +95,16 @@ exports.postConfigureActiveUnits = async (req, res, next) => {
         p = key;
     }
 
+    // console.log(
+    //     'product:%s,deliveryId:%s,p:%s,unitType:%s',
+    //     product,
+    //     deliveryId,
+    //     p,
+    //     unitType
+    // );
+
+    // console.log(productValues, p, productValues.includes(p));
+
     if (!productValues.includes(p))
         return res.redirect(
             `/get-edit-place-of-delivery/${deliveryId}?edit=true`
@@ -103,6 +114,8 @@ exports.postConfigureActiveUnits = async (req, res, next) => {
         .populate('orderId')
         .lean();
 
+    // console.log('delivery', delivery);
+
     if (!delivery || !delivery.orderId)
         return res.redirect(
             `/get-edit-place-of-delivery/${deliveryId}?edit=true`
@@ -110,101 +123,112 @@ exports.postConfigureActiveUnits = async (req, res, next) => {
 
     const currentProduct = products.find((e) => e.value === p);
 
+    // console.log('currentProduct:%s', currentProduct);
+
     const activeUnits = await ActiveUnit.findOne({
         delivery: deliveryId,
         customer: delivery.orderId.customer,
     });
 
+    console.log('activeUnits:%s', activeUnits);
+
     if (activeUnits) {
         // update the activeUnits
         // eslint-disable-next-line no-inner-declarations
-        function getUpdate() {
-            let b = { [currentProduct.value]: req.body };
-            if (unitType)
-                b = {
-                    [currentProduct.value]: {
-                        ...activeUnits[currentProduct.value],
-                        [unitType]: req.body.enabled,
-                    },
-                };
-            return b;
-        }
+        // function getUpdate() {
+        //     let b = { [currentProduct.value]: req.body };
+        //     if (unitType)
+        //         b = {
+        //             [currentProduct.value]: {
+        //                 ...activeUnits[currentProduct.value],
+        //                 [unitType]: req.body.enabled,
+        //             },
+        //         };
+        //     return b;
+        // }
         await ActiveUnit.updateOne(
             { delivery: deliveryId, customer: delivery.orderId.customer },
-            getUpdate()
+            { [`${currentProduct.value}${unitType || ''}`]: req.body }
         );
     } else {
         // create new
-        const newUnit = {
+        const newActiveUnits = {
             customer: delivery.orderId.customer,
             delivery: deliveryId,
-            [currentProduct.value]: req.body,
+            [`${currentProduct.value}${unitType || ''}`]: req.body,
         };
-        if (unitType)
-            newUnit[currentProduct.value] = {
-                [unitType]: req.body.enabled,
-            };
-        await ActiveUnit.create(newUnit);
+        await ActiveUnit.create(newActiveUnits);
     }
 
     res.status(200).json();
 };
 
+const activeUnitLabels = [
+    'roomMate',
+    'nucleus',
+    'neatseatmedium',
+    'neatseatlarge',
+    'sitShower',
+    'otium',
+];
+
+const calculateActiveUnitsOfCustomer = (u) => {
+    // Find count of all units from the array
+    let units = 0;
+
+    // Find count of active units from the array
+    let activeUnits = 0;
+
+    u.forEach((deliveryGroup) => {
+        activeUnitLabels.forEach((label) => {
+            units += deliveryGroup[label].length;
+            activeUnits += deliveryGroup[label].filter(
+                (e) => e.enabled === true
+            ).length;
+        });
+    });
+
+    // Calculate count of delivery places from length of activeUnits.length
+    const deliveryPlaces = u.length;
+
+    return { units, activeUnits, deliveryPlaces };
+};
+
 exports.getActiveUnits = async (req, res, next) => {
     const { _raw, _json, ...userProfile } = req.user;
     try {
-        const activeUnits = await ActiveUnit.find().populate('delivery').lean();
+        // const activeUnits = await ActiveUnit.find().populate('delivery').lean();
+
+        const activeUnitsByCustomer = await ActiveUnit.aggregate([
+            { $match: {} },
+            {
+                $group: {
+                    _id: '$customer',
+                    activeUnits: {
+                        $push: {
+                            roomMate: '$roomMate',
+                            nucleus: '$nucleus',
+                            neatseatmedium: '$neatseatmedium',
+                            sitShower: '$sitShower',
+                            otium: '$otium',
+                            neatseatlarge: '$neatseatlarge',
+                        },
+                    },
+                },
+            },
+        ]);
 
         const processedActiveUnits = [];
 
-        // each distint customer will have all the units in all products in all deliveries summed up
-
-        activeUnits.forEach((unit) => {
-            // same customer exists
-            const indexOfExistingCustomer = processedActiveUnits.indexOf(
-                (e) => e.customer === unit.customer
-            );
-            if (indexOfExistingCustomer !== -1) {
-                const currUnit = processedActiveUnits[indexOfExistingCustomer];
-
-                currUnit.deliveryPlaces++;
-
-                [
-                    'roomMate',
-                    'nucleus',
-                    'neatseat',
-                    'sitShower',
-                    'otium',
-                ].forEach((productGroup) => {
-                    currUnit[productGroup].forEach((p, index) => {
-                        if (p.medium) currUnit.units += 1;
-                        if (p.large) currUnit.units += 1;
-                        if (p.units) currUnit.units += 1;
-                    });
-                });
-            } else {
-                let units = 0;
-                [
-                    'roomMate',
-                    'nucleus',
-                    'neatseat',
-                    'sitShower',
-                    'otium',
-                ].forEach((productGroup) => {
-                    unit[productGroup].forEach((p) => {
-                        console.log(p);
-                        if (p.medium) units += 1;
-                        if (p.large) units += 1;
-                        if (p.enabled) units += 1;
-                    });
-                });
-
-                processedActiveUnits.push({
-                    customer: unit.customer,
-                    units,
-                    deliveryPlaces: 1,
-                });
-            }
+        activeUnitsByCustomer.forEach((customerGroup) => {
+            const { units, activeUnits, deliveryPlaces } =
+                calculateActiveUnitsOfCustomer(customerGroup.activeUnits);
+            processedActiveUnits.push({
+                customer: customerGroup._id,
+                units,
+                activeUnits,
+                deliveryPlaces,
+            });
         });
 
         res.render('active-units', {
@@ -220,48 +244,69 @@ exports.getActiveUnitsByCustomer = async (req, res, next) => {
     const { _raw, _json, ...userProfile } = req.user;
     const { customer } = req.params;
     try {
-        const activeUnits = await ActiveUnit.find({ customer })
-            .populate('delivery')
-            .lean();
+        const [activeUnitsByDelivery, deliveryPlaces] = await Promise.all([
+            ActiveUnit.aggregate([
+                { $match: { customer } },
+                {
+                    $group: {
+                        _id: '$delivery',
+                        activeUnits: {
+                            $push: {
+                                roomMate: '$roomMate',
+                                nucleus: '$nucleus',
+                                neatseatmedium: '$neatseatmedium',
+                                sitShower: '$sitShower',
+                                otium: '$otium',
+                                neatseatlarge: '$neatseatlarge',
+                            },
+                        },
+                    },
+                },
+                {
+                    $project: {
+                        delivery: '$_id',
+                        activeUnits: '$activeUnits',
+                        _id: 0,
+                    },
+                },
+            ]),
+            DeliveryPlace.find().lean(),
+        ]);
 
-        const processedActiveUnits = [];
+        activeUnitsByDelivery.forEach(
+            (deliveryGroup) =>
+                (deliveryGroup.delivery = deliveryPlaces.find(
+                    (e) =>
+                        e._id.toString() === deliveryGroup.delivery.toString()
+                ))
+        );
 
-        // each distint customer will have all the units in all products in all deliveries summed up
+        activeUnitsByDelivery.forEach((e) => {
+            [
+                'roomMate',
+                'nucleus',
+                'neatseatmedium',
+                'neatseatlarge',
+                'sitShower',
+                'otium',
+            ].forEach((label) => {
+                e.activeUnits.forEach((unit) => {
+                    const allUnits = unit[label].length;
+                    const activeUnits = unit[label].filter(
+                        (u) => u.enabled === true
+                    ).length;
+                    const stats = { label, allUnits, activeUnits };
+                    unit[label] = stats;
 
-        activeUnits.forEach((unit) => {
-            // same customer exists
-            productValues.forEach((productGroup) => {
-                let units = 0;
-                unit[productGroup].forEach((p) => {
-                    if (p.medium) {
-                        // console.log(unit.delivery);
-                        units += unit.delivery[productGroup].medium.bought;
-                    }
-
-                    if (p.large) {
-                        // console.log(unit.delivery);
-                        units += unit.delivery[productGroup].large.bought;
-                    }
-
-                    if (p.enabled) {
-                        // console.log(unit.delivery);
-                        units += unit.delivery[productGroup].units.bought;
-                    }
+                    if (!activeUnits) delete unit[label];
                 });
-                if (units)
-                    processedActiveUnits.push({
-                        customer: unit.customer,
-                        units,
-                        product: products.find((e) => e.value === productGroup),
-                        deliveryPlace: unit.delivery.title,
-                        deliveryId: unit.delivery._id,
-                    });
             });
         });
 
         res.render('get-active-units-info', {
             name: userProfile.displayName.delivery,
-            activeUnits: processedActiveUnits,
+            customer,
+            activeUnits: activeUnitsByDelivery,
         });
     } catch (error) {
         console.log(error);

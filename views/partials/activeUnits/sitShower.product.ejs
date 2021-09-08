@@ -16,8 +16,7 @@
             <div class="submit-field">
                 <h5>Active Units</h5>
                 <select name="activeUnits<%= i %>_enabled">
-                    <option value="" <%- editing ? activeUnits[i] && activeUnits[i].enabled === undefined || activeUnits[i] && activeUnits[i].enabled === null ? 'selected' : '' : '' %>>Select</option>
-                    <option value="false" <%- editing ? activeUnits[i] && activeUnits[i].enabled === false ? 'selected' : '' : '' %>>No</option>
+                    <option value="false" <%- editing ? !activeUnits[i] || !activeUnits[i].enabled ? 'selected' : '' : '' %>>No</option>
                     <option value="true" <%- editing ? activeUnits[i] && activeUnits[i].enabled ? 'selected' : '' : '' %>>Yes</option>
                 </select>
             </div>
