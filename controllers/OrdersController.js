@@ -143,12 +143,14 @@ exports.getEditOrder = async (req, res, next) => {
     const { orderId } = req.params;
 
     const order = await Order.findById(orderId);
-
+    let customers = await Customer.find({});
+    customers = customers.map(i => i.properties.name.value);
     res.render('add-order', {
         disabled: false,
         editing: editMode,
         order,
         name: req.user.nickname,
+        customers
     });
 };
 
