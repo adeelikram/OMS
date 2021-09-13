@@ -4,8 +4,14 @@ var { RefreshToken } = require("./config/Token")
 exports.gpData = async (url, body, req, method) => {
     try {
         var data = null
-        if (method == "GET") data = await axios.get(url, { headers: { "Accept": "application/json", "Authorization": "Bearer " + req.user.token } })
-        else if (method == "POST") data = await axios.post(url, body, { headers: { "Accept": "application/json", "Authorization": "Bearer " + req.user.token } })
+        if (method == "GET") data = await axios.get(url,
+            {
+                headers: { "Accept": "application/json", "Authorization": "Bearer " + req.user.token }
+            })
+        else if (method == "POST") data = await axios.post(url, body,
+            {
+                headers: { "Accept": "application/json", "Authorization": "Bearer " + req.user.token }
+            })
         return data.data
     } catch (error) {
         if (error.response?.data) {
@@ -17,7 +23,7 @@ exports.gpData = async (url, body, req, method) => {
                     return ""
                 }
                 let obj = await RefreshToken(data.refresh_token, req.user._id)
-                
+
                 req.user.token = obj
                 return await this.gpData(url, body, req, method)
             }

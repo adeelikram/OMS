@@ -1,0 +1,70 @@
+<%- include('./includes/header.ejs') %>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <%- include('./includes/side-bar.ejs') %>
+            <!-- Dashboard Content
+    ================================================== -->
+            <div class="dashboard-content-container" data-simplebar>
+                <div class="dashboard-content-inner">
+
+                    <div class="row">
+
+                        <!-- Dashboard Box -->
+                        <div class="col-xl-12">
+                            <div class="dashboard-box margin-top-0">
+
+                                <!-- Headline -->
+                                <%- include ("./partials/messages") %>
+
+                                    <div class="content with-padding padding-bottom-10">
+                                        <div class="row">
+                                            <div class="col-xl-4">
+                                                <div class="submit-field">
+                                                    <h5>Customer Number</h5>
+                                                    <input type="text" name="contract_CustomerNumber" class="with-border"
+                                                        placeholder="Customer Number" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="submit-field">
+                                                    <h5>Contract Date</h5>
+                                                    <input type="date" name="contract_ContractDate" class="with-border"
+                                                        placeholder="Contract Date" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="submit-field">
+                                                    <h5>Contract Length</h5>
+                                                    <input type="number" name="contract_ContractLength" class="with-border"
+                                                        placeholder="Contract Length" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xl-4">
+                                                <div class="submit-field">
+                                                    <h5>Email (optional)</h5>
+                                                    <input type="text" name="contract_EmailAddressFrom" class="with-border"
+                                                        placeholder="@exmaple.com">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xl-4">
+                                                <div class="submit-field">
+                                                    <h5>Orders</h5>
+                                                    <select name="contract_id" class="with-border browser-default custom-select">
+                                                        <% for (let i of data) {%>
+                                                            <option value="<%=i._id%>">
+                                                                <%=i.customer%>
+                                                            </option>
+                                                            <%}%>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-info" onclick="sendContract()">Send Contract</button>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <%- include('./includes/footer.ejs') %>

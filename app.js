@@ -43,6 +43,10 @@ const { getToken } = require('./config/Token');
 const adminFortnox = require('./routes/adminFortnoxRoute');
 const sendOrder = require("./routes/sendOrder")
 const displayFortnoxOrder = require("./routes/displayFortnoxRoute")
+const displayFortomsCustomers = require("./routes/displayFortomsRoute");
+const supplierRoute = require("./routes/suppliersRoute")
+const fortContractController = require("./routes/fortContractRoute")
+
 const PORT = process.env.PORT || 3000;
 
 mongoose
@@ -167,6 +171,9 @@ app.use('/', customerRoute);
 app.use("/", adminFortnox);
 app.use("/", sendOrder);
 app.use("/", displayFortnoxOrder);
+app.use('/', displayFortomsCustomers);
+app.use('/', supplierRoute);
+app.use('/', fortContractController);
 app.all('*', (req, res) => {
     res.status(404).json({
         status: 'fail',

@@ -11,6 +11,8 @@ const OrderDeleted = require('../models/OrderDeleted');
 const DeletedDeliveryPlace = require('../models/DeliveriesDeleted');
 const Customer = require('../models/Hubspot/customer');
 
+
+
 module.exports.getOrders = (req, res) => {
     const { _raw, _json, ...userProfile } = req.user;
     Order.find({})
@@ -118,20 +120,16 @@ exports.postAddOrder = async (req, res) => {
             }
         });
 
+        
         await Order.create(body);
 
-        request.post("https://api.fortnox.se/api/warehouse/purchaseorders-v1", body, function (err, resp, body) {
-            if (err) console.log(err);
-            else console.log(body);
-        })
-
-
-
+        
+        
         req.flash('success_msg', 'Order added successfully...');
-        res.status(200).send();
+        res.end()
     } catch (error) {
         console.log(error);
-        res.status(400).send(error);
+        if(error) res.json({message:"Error occured in backend please check OrderController.js postAddOrder function"});
     }
 };
 
@@ -143,12 +141,15 @@ exports.getEditOrder = async (req, res, next) => {
     const { orderId } = req.params;
 
     const order = await Order.findById(orderId);
+    let customers = await Customer.find({});
+    customers = customers.map(i => i.properties.name.value);
 
     res.render('add-order', {
         disabled: false,
         editing: editMode,
         order,
         name: req.user.nickname,
+        customers
     });
 };
 

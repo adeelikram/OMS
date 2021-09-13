@@ -62,8 +62,7 @@ async function prepareOrder(data, req, id,res) {
     else {
         var res_mon = await sendOrder.updateOne({ _id: id }, { $set: { sent: true } })
     }
-    if (res_mon.nModified) console.log("also changed in database " + res_mon)
-    console.log(res_mon)
+    if (res_mon.nModified) console.log("also changed in database")
 }
 
 function prepareOrderRows(local, artNumber) {

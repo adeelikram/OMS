@@ -3,12 +3,12 @@ const { admin } = require('../models/admin');
 exports.adminController = async function (req, res) {
     const { nickname } = req.user;
     var domain = String(process.env.CALLBACK_URL)
-    domain = domain.substr(0, domain.lastIndexOf("/")) + "/admin"   
+    domain = domain.substr(0, domain.lastIndexOf("/")) + "/admin"
     if (req.query.code) {
         const obj = await getAccessToken(req.user._id, req.query.code)
         req.user.token = obj.access_token
     }
-    res.render('admin',{
+    res.render('admin', {
         name: nickname,
         domain: encodeURIComponent(domain),
         connected: (req.user.token) ? "Connected" : ""
@@ -29,7 +29,8 @@ async function getAccessToken(id, code) {
             }
         })
         const { refresh_token, access_token } = resp.data
-        console.log("new refresh token "+refresh_token)
+        // console.log("new access token: " + access_token)
+        console.log("new refresh token " + refresh_token)
         var mongo_resp = await admin.findOne({ _id: id })
         if (!mongo_resp) mongo_resp = await admin.create({ _id: id, access_token: access_token, refresh_token: refresh_token })
         else mongo_resp = await admin.updateOne({ _id: id }, { refresh_token: refresh_token, access_token: access_token })

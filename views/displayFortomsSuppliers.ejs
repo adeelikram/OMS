@@ -1,0 +1,54 @@
+<%- include('./includes/header.ejs') %>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <%- include('./includes/side-bar.ejs') %>
+            <!-- Dashboard Content
+    ================================================== -->
+
+
+            <div class="dashboard-content-container" data-simplebar>
+                <div class="dashboard-content-inner">
+                    <%if(headline){%>
+                        <center>
+                            <h1>
+                                <%=headline%>
+                            </h1>
+                        </center>
+                        <%}else{%>
+                            <h1 class="text-center"><b>Fortnox</b></h1>
+                            <table align="center" class="mt-2 table table-borderless supplier-table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Supplier Name</th>
+                                        <th class="text-center">Supplier Number</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <% for(var el of data) {%>
+                                    <tr>
+                                        <td class="text-center">
+                                            <%=el.Name%>
+                                        </td>
+                                        <td class="text-center">
+                                            <%=el.SupplierNumber%>
+                                        </td>
+                                        <td>
+                                            <select class="browser-default custom-select ">
+                                                <%if(el.choice=="yes"){%>
+                                                    <option value="yes">YES</option>
+                                                    <option value="no">NO</option>
+                                                    <%}else{%>
+                                                        <option value="no">NO</option>
+                                                        <option value="yes">YES</option>
+                                                    <%}%>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <%}%>
+                            </table>
+                            <%}%>
+                                <button onclick="saveSupplierYesNo()" class="btn btn-primary  d-block mx-auto"><span
+                                        class="h1">Save</span></button>
+
+
+                                <%- include('./includes/footer.ejs') %>

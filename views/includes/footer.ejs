@@ -231,12 +231,11 @@
                 body.id = id;
             }
 
-            await axios.post(path, body);
-
+            var res = await axios.post(path, body);
             window.location = "/";
         } catch (err) {
-            alert('Please fill all the required fields')
-            console.error(err.response.data);
+            console.log(err)
+            alert(err)
         }
     }
 
@@ -264,10 +263,6 @@
             sitShowerRent = getFormValues('sitShowerRent'),
             otium = getFormValues('otium'),
             assistant = getFormValues('orderAssistant');
-
-
-
-
 
         if (roomMateRent) {
             roomMateRent = { units: roomMateRent.units, ...roomMateRent.accessories }
@@ -303,18 +298,27 @@
             }
 
             var res = await axios.post(path, body);
-            if(res?.data?.ErrorInformation) alert("can't send data. Maybe fortnox access token has been expired")   
+            if (res?.data?.ErrorInformation) alert("can't send data. Maybe fortnox access token has been expired or any required input field is empty")
             else if (save) alert("Successfully saved in database!")
             else alert("Successfully sent to Fortnox!")
-        
+
         } catch (err) {
             alert('Please fill all the required fields')
             console.error(err.response.data);
         }
     }
 
-
-
+    async function saveSupplierYesNo() {
+        var el = document.querySelectorAll(".supplier-table tr")
+        var obj = { arr: [] }
+        for (var i = 1; i < el.length; i++) {
+            let temp = el[i].children
+            obj.arr.push({ name: temp[0].textContent.trim(), supplierNumber: temp[1].textContent.trim(), choice: temp[2].children[0].value })
+        }
+        console.log(obj.arr)
+        await axios.post("/save-supplier-yesno", obj)
+        alert("Supplier data has been saved successfully!")
+    }
     const educationProductNames = ['roomMate', 'nucleus', 'sitShower', 'neatseat'];
 
     async function handleSubmitDelivery({ editing, order, deliveryId }) {
@@ -421,6 +425,14 @@
         await axios.post('/work-orders', body).catch(err => console.error(err))
 
         window.location = "/work-orders";
+    }
+
+
+    async function sendContract() {
+        const body = getFormValues('contract');
+        var res = await axios.post('/fortnox-contracts', body)
+        if ("ErrorInformation" in res.data) alert("Error: " + res.data.ErrorInformation.message)
+        else alert("data has been posted!")
     }
 
     async function handleSubmitAddEmployee({ editing, id }) {

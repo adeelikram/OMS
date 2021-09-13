@@ -1,0 +1,41 @@
+<%- include('./includes/header.ejs') %>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <%- include('./includes/side-bar.ejs') %>
+            <!-- Dashboard Content
+    ================================================== -->
+            
+
+            <div class="dashboard-content-container" data-simplebar>
+                <div class="dashboard-content-inner">
+                    <%if(headline){%>
+                        <center>
+                            <h1>
+                                <%=headline%>
+                            </h1>
+                        </center>
+                        <%}else{%>
+                            <h1 class="text-center"><b>Fortnox</b></h1>
+                            <table align="center" class="mt-2 table table-borderless col-xl-4">
+                                <thead>
+                                    <tr>
+                                        <th>Customer Name</th>
+                                        <th>Customer Number</th>
+                                    </tr>
+                                </thead>
+                                <% for(var el of data) {%>
+                                    <tr>
+                                        <td class="text-center">
+                                            <%=el.Name%>
+                                        </td>
+                                        <td class="text-center">
+                                            <%=el.CustomerNumber%>
+                                        </td>
+                                    </tr>
+                                    <%}%>
+                            </table>
+                            <%}%>
+
+
+
+                                <%- include('./includes/footer.ejs') %>

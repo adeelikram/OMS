@@ -1,0 +1,80 @@
+<%- include('./includes/header.ejs') %>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <%- include('./includes/side-bar.ejs') %>
+            <!-- Dashboard Content     
+    ================================================== -->
+
+            <div class="dashboard-content-container" data-simplebar>
+                <div class="dashboard-content-inner">
+                   <%for(var i in data){%> 
+                    <%var date=String(new Date(i)).replace(" 01 "," ")%>
+                    <button class="supplier-accordion"><%=date.substr(4,8)%></button>
+                    <div class="supplier-panel">
+                        <table class="table table-borderless">
+                          <thead>
+                              <th>Supplier Name</th>
+                              <th>Amount</th>
+                              <th>Invoice Picture</th>
+                              <th>Ongoing Project</th>
+                          </thead>
+                          <%for(var el of data[i]){%>
+                            <tr>
+                                <td><%=el.name%></td>
+                                <td><%=el.amount%></td>
+                                <td><a href="<%=el.pic%>" target="_blank">Click Here</a></td>
+                                <td>
+                                    <select class="browser-default custom-select">
+                                        <%for(var v of projects){%>
+                                            <option value="<%=v._id%>"><%=v.customer%></option>
+                                        <%}%>   
+                                    </select>
+                                </td>
+                            </tr>
+                          <%}%>  
+                        </table>           
+                    </div>
+                   <%}%> 
+                    <style>
+                        .supplier-accordion {
+                            background-color: #eee;
+                            color: #444;
+                            cursor: pointer;
+                            padding: 18px;
+                            width: 100%;
+                            border: none;
+                            text-align: left;
+                            outline: none;
+                            font-size: 15px;
+                            transition: 0.4s;
+                        }
+
+                        .active,
+                        .supplier-accordation:hover {
+                            background-color: #ccc;
+                        }
+
+                        .supplier-panel {
+                            padding: 0 18px;
+                            display: none;
+                            background-color: white;
+                            overflow: hidden;
+                        }
+                    </style>
+                    <script>
+                        var acc = document.getElementsByClassName("supplier-accordion");
+                        var i;
+
+                        for (i = 0; i < acc.length; i++) {
+                            acc[i].addEventListener("click", function () {
+                                this.classList.toggle("active");
+                                var panel = this.nextElementSibling;
+                                if (panel.style.display === "block") {
+                                    panel.style.display = "none";
+                                } else {
+                                    panel.style.display = "block";
+                                }
+                            });
+                        }
+                    </script>
+                    <%- include('./includes/footer.ejs') %>
