@@ -9,6 +9,14 @@
 </div>
 <div class="col-xl-4">
     <div class="submit-field">
+        <h5>Company Name</h5>
+        <input type="text" name="deliveryPlumbingFitter_company" class="with-border"
+            placeholder="Company Name"
+            value="<% if (editing && delivery.plumbingFitter) { %><%= delivery.plumbingFitter.company %><% } %>">
+    </div>
+</div>
+<div class="col-xl-4">
+    <div class="submit-field">
         <h5>Phone nr</h5>
         <input type="text" name="deliveryPlumbingFitter_contact" class="with-border"
             placeholder="Phone nr"

@@ -1,0 +1,259 @@
+<%- include('../../includes/header.ejs') %>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <%- include('../../includes/side-bar.ejs') %>
+            <!-- Dashboard Content
+    ================================================== -->
+            <div class="dashboard-content-container" data-simplebar>
+                <div class="dashboard-content-inner">
+
+                    <!-- Dashboard Headline -->
+                    <div class="dashboard-headline">
+                        <h3>User Calls</h3>
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs" class="dark">
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Dashboard</a></li>
+                                <li>User Calls</li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Row -->
+                    <div class="row" style="display:''">
+
+                        <!-- Dashboard Box -->
+                        <div class="col-xl-12">
+                        <div class="dashboard-box margin-top-0" style="overflow-x:auto;">
+                            <div class="headline">
+                                <h3><i class="icon-feather-flag"></i>
+                                    <%= lastDayCount %>
+                                        Calls Last Day
+                                </h3>
+                            </div>
+
+                            <div class="container-fluid">
+                                <main>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th style="vertical-align:top">Title</th>
+                                                <th style="vertical-align:top">Body</th>
+                                                <th style="vertical-align:top">Duration(Mins)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% if (lastDay.length> 0) { %>
+                                                <% for (let engagement of lastDay) { %>
+                                                     <tr>
+                                                        <td>
+                                                            <%=engagement.metadata.body%>
+                                                        </td>
+                                                        <td>
+                                                            <%=engagement.metadata.durationMilliseconds/1000%>
+                                                        </td>
+                                                        <td>
+                                                            <%=engagement.metadata.toNumber%>
+                                                        </td>
+                                                        <td>
+                                                            <%=engagement.metadata.fromNumber%>
+                                                        </td>
+                                                        <td>
+                                                            <%=engagement.metadata.status%>
+                                                        </td>
+                                                    </tr>
+                                                <% } %>
+                                            <% } else { %>
+                                                <h1>No Calls for last day Found!</h1>
+                                            <% } %>
+                                        </tbody>
+
+                                    </table>
+                                </main>
+
+                            </div>
+                            
+                        </div>
+                        </div> 
+
+                    </div>
+                    <br>
+                    <div class="row" style="display:''">
+
+                        <!-- Dashboard Box -->
+                        <div class="col-xl-12">
+                        <div class="dashboard-box margin-top-0" style="overflow-x:auto;">
+                            <div class="headline">
+                                <h3><i class="icon-feather-flag"></i>
+                                    <%= lastWeekCount %>
+                                        Calls Last Week
+                                </h3>
+                            </div>
+
+                            <div class="container-fluid">
+                                <main>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th style="vertical-align:top">Title</th>
+                                                <th style="vertical-align:top">Body</th>
+                                                <th style="vertical-align:top">Duration(Mins)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% if (lastWeek.length> 0) { %>
+                                                <% for (let engagement of lastWeek) { %>
+                                                    <tr>
+                                                        <td>
+                                                            <%=engagement.metadata.body%>
+                                                        </td>
+                                                        <td>
+                                                            <%=engagement.metadata.durationMilliseconds/1000%>
+                                                        </td>
+                                                        <td>
+                                                            <%=engagement.metadata.toNumber%>
+                                                        </td>
+                                                        <td>
+                                                            <%=engagement.metadata.fromNumber%>
+                                                        </td>
+                                                        <td>
+                                                            <%=engagement.metadata.status%>
+                                                        </td>
+                                                    </tr>
+                                                <% } %>
+                                            <% } else { %>
+                                                <h1>No Calls for last week Found!</h1>
+                                            <% } %>
+                                        </tbody>
+
+                                    </table>
+                                </main>
+
+                            </div>
+                            
+                        </div>
+                        </div> 
+
+                    </div>
+                    <br>
+                     <div class="row" style="display:''">
+
+                        <!-- Dashboard Box -->
+                        <div class="col-xl-12">
+                        <div class="dashboard-box margin-top-0" style="overflow-x:auto;">
+                            <div class="headline">
+                                <h3><i class="icon-feather-flag"></i>
+                                    <%= lastMonthCount %>
+                                        Calls Last Month
+                                </h3>
+                            </div>
+
+                            <div class="container-fluid">
+                                <main>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th style="vertical-align:top">Title</th>
+                                                <th style="vertical-align:top">Body</th>
+                                                <th style="vertical-align:top">Duration(Mins)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% if (lastMonth.length> 0) { %>
+                                                <% for (let engagement of lastMonth) { %>
+                                                    <tr>
+                                                        <td>
+                                                            <%=engagement.metadata.body%>
+                                                        </td>
+                                                        <td>
+                                                            <%=engagement.metadata.durationMilliseconds/1000%>
+                                                        </td>
+                                                        <td>
+                                                            <%=engagement.metadata.toNumber%>
+                                                        </td>
+                                                        <td>
+                                                            <%=engagement.metadata.fromNumber%>
+                                                        </td>
+                                                        <td>
+                                                            <%=engagement.metadata.status%>
+                                                        </td>
+                                                    </tr>
+                                                <% } %>
+                                            <% } else { %>
+                                                <h1>No Calls for last Month Found!</h1>
+                                            <% } %>
+                                        </tbody>
+
+                                    </table>
+                                </main>
+
+                            </div>
+                            
+                        </div>
+                        </div> 
+
+                    </div>
+                    <br>
+                     <div class="row" style="display:''">
+
+                        <!-- Dashboard Box -->
+                        <div class="col-xl-12">
+                        <div class="dashboard-box margin-top-0" style="overflow-x:auto;">
+                            <div class="headline">
+                                <h3><i class="icon-feather-flag"></i>
+                                    <%= lastYearCount %>
+                                        Calls Last Year
+                                </h3>
+                            </div>
+
+                            <div class="container-fluid">
+                                <main>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th style="vertical-align:top">Title</th>
+                                                <th style="vertical-align:top">Body</th>
+                                                <th style="vertical-align:top">Duration(Mins)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% if (lastYear.length> 0) { %>
+                                                <% for (let engagement of lastYear) { %>
+                                                     <tr>
+                                                        <td>
+                                                            <%=engagement.metadata.body%>
+                                                        </td>
+                                                        <td>
+                                                            <%=engagement.metadata.durationMilliseconds/1000%>
+                                                        </td>
+                                                        <td>
+                                                            <%=engagement.metadata.toNumber%>
+                                                        </td>
+                                                        <td>
+                                                            <%=engagement.metadata.fromNumber%>
+                                                        </td>
+                                                        <td>
+                                                            <%=engagement.metadata.status%>
+                                                        </td>
+                                                    </tr>
+                                                <% } %>
+                                            <% } else { %>
+                                                <h1>No Calls for last year Found!</h1>
+                                            <% } %>
+                                        </tbody>
+
+                                    </table>
+                                </main>
+
+                            </div>
+                            
+                        </div>
+                        </div> 
+
+                    </div>
+                    <!-- Row / End -->
+                </div>
+            </div>
+
+            <%- include('../../includes/footer.ejs') %>

@@ -1,0 +1,124 @@
+<%- include('./includes/header.ejs') %>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <%- include('./includes/side-bar.ejs') %>
+            <!-- Dashboard Content
+    ================================================== -->
+            <div class="dashboard-content-container" data-simplebar>
+                <div class="dashboard-content-inner">
+
+                    <!-- Dashboard Headline -->
+                    <div class="dashboard-headline">
+                        <h3>Manage Tenders</h3>
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs" class="dark">
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Dashboard</a></li>
+                                <li>Tenders</li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Row -->
+                    <div class="row">
+
+                        <!-- Dashboard Box -->
+                        <div class="col-xl-12">
+                            <div class="dashboard-box margin-top-0">
+                                <div>
+                                    <%- include ("./partials/messages") %>
+                                </div>
+                                <!-- Headline -->
+                                <div class="headline">
+                                    <h3><i class="icon-feather-award"></i><%= tenders.length %> Tender(s)</h3>
+                                </div>
+
+                                <div class="">
+                                    <main style="overflow-x:auto;">
+                                        <table class="table table-bordered mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th style="vertical-align:top" style="max-width: 200px;">Customer</th>
+                                                    <th style="vertical-align:top">Beskrivning</th>
+                                                    <th style="vertical-align:top">Deadline</th>
+                                                    <th style="vertical-align:top">Date</th>
+                                                    <th style="vertical-align:top">Last Date</th>
+                                                    <th style="vertical-align:top">Ansvarig</th>
+                                                    <th style="vertical-align:top"></th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% if (tenders && tenders.length> 0) { %>
+                                                    <% for (let tender of tenders) { %>
+                                                        <tr>
+
+                                                            <td>
+                                                                <%=tender.customer%>
+                                                            </td>
+                                                            <td>
+                                                                <%= tender.description%>
+                                                            </td>
+                                                            <td>
+                                                                <% if (tender.deadline !=null) { %>
+                                                                    <%= tender.deadline.toDateString() %>
+                                                                        <% } %>
+                                                            </td>
+                                                            <td>
+                                                                <% if (tender.date !=null) { %>
+                                                                    <%= tender.date.toDateString() %>
+                                                                        <% } %>
+                                                            </td>
+                                                            
+                                                            <td>
+                                                                <% if (tender.lastDate !=null) { %>
+                                                                    <%= tender.lastDate.toDateString() %>
+                                                                        <% } %>
+                                                            </td>
+                                                            <td>
+                                                                <%= tender.responsible %>
+                                                            </td>
+                                                            <td>
+                                                                <a class="btn btn-info mr-2" style="width: 200px;" href="/get-edit-tender/<%= tender._id %>">Edit</a>
+                                                                <a class="btn btn-secondary mr-2" style="width: 200px;" href="/get-tender-requirements/<%= tender._id %>">Krav som ej möts</a>
+                                                            </td>
+
+                                                            
+                                                        </tr>
+                                                        <% } %>
+                                                            <% } else { %>
+                                                                <tr>
+                                                                    <td>No Tenders found</td>
+                                                                </tr>
+                                                                <% } %>
+                                            </tbody>
+                                        </table>
+
+                                        
+                                    </main>
+
+                                    <form action="/post-edit-order-management" method="POST">
+                                        <div class="content" style="padding: 16px 0;">
+
+                                            <div class="col-xl-12">
+                                                <div class="submit-field">
+                                                    <hr>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="submit-field">
+                                                    <a class="btn btn-info mr-2" href="/get-create-tender">Add New Tender</a>
+                                                    <a class="btn btn-secondary mr-2" style="width: 200px;" href="/get-tender-requirements/all">Krav som ej möts</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Row / End -->
+                    
+                    <%- include('./includes/footer.ejs') %>

@@ -298,7 +298,7 @@
             }
 
             var res = await axios.post(path, body);
-            if (res?.data?.ErrorInformation) alert("can't send data. Maybe fortnox access token has been expired or any required input field is empty")
+            if(res.data.ErrorInformation) alert("can't send data. Maybe fortnox access token has been expired")   
             else if (save) alert("Successfully saved in database!")
             else alert("Successfully sent to Fortnox!")
 
@@ -385,7 +385,16 @@
             body.deliveryId = deliveryId;
         }
 
-        await axios.post(url, body).catch(err => console.error(err))
+
+        const contractors = [];
+
+        if (body.electrician) contractors.push({ ...body.electrician, contractor: body.electrician.name, customer: body.customer });
+        if (body.otherInstaller) contractors.push({ ...body.otherInstaller, contractor: body.otherInstaller.name, customer: body.customer });
+        if (body.plumbingFitter) contractors.push({ ...body.plumbingFitter, contractor: body.plumbingFitter.name, customer: body.customer });
+
+        const promises = contractors.map(c => axios.post("/post-create-contractor", c));
+
+        await Promise.all([axios.post(url, body), ...promises]);
 
         window.location = "/";
     }
@@ -642,6 +651,112 @@
             alert('Please fill all the required fields')
             console.error(err.response.data);
         }
+    }
+
+    async function handleSubmitAddTender() {
+        const body = getFormValues('tender');
+
+        if (body.information) body.information = body.information.trim();
+        if (body.requirements) body.requirements = body.requirements.trim();
+
+
+        await axios.post('/post-create-tender', body).catch(err => console.error(err))
+
+        window.location = "/tenders";
+    }
+
+    async function handleEditTender(id) {
+        const body = getFormValues('tender');
+
+        if (body.information) body.information = body.information.trim();
+        if (body.requirements) body.requirements = body.requirements.trim();
+
+        await axios.post('/post-edit-tender', body).catch(err => console.error(err))
+
+        window.location = "/tenders";
+    }
+
+    async function handleSaveTenderInformation(tenderId) {
+        const information = document.getElementById(`${tenderId}_information`).value;
+        
+        await axios.post(`/post-create-tender-information/${tenderId}`, { information }).catch(err => console.error(err));
+    }
+
+    function renderFieldByTrackType(type) {
+        const ongoingProjects = document.getElementById("ongoing_projects_div");
+        const customers = document.getElementById("customers_div");
+
+        switch (type) {
+            case "task": {
+                ongoingProjects.style.display = "none";
+                customers.style.display = "none";
+
+                break;
+            }
+            case "customer": {
+                ongoingProjects.style.display = "none";
+                customers.style.display = "block";
+                break;
+            }
+            case "project": {
+                ongoingProjects.style.display = "block";
+                customers.style.display = "none";
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+        
+    }
+
+    function handleChangeType() {
+        const element = document.getElementById('timeTrack_type');
+        const value = element.value;
+
+        renderFieldByTrackType(value);
+    }
+
+    async function handleAddTimeTrack() {
+        const body = getFormValues('timeTrack');
+
+        switch (body.type) {
+            case "task": {
+                delete body.customer;
+                delete body.project;
+                break;
+            }
+            case "customer": {
+                delete body.project;
+                break;
+            }
+            case "project": {
+                delete body.customer;
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+
+        console.log(body);
+
+        await axios.post('/post-create-time-track', body).catch(err => console.error(err))
+
+        window.location = "/time-tracker";
+
+    }
+
+    async function handleAddContractor() {
+        const body = getFormValues('contractor');
+        const neatseat = document.getElementById('contractor_neatseat').checked;
+
+        body.neatseat = neatseat;
+
+        await axios.post('/post-create-contractor', body).catch(err => console.error(err))
+
+        window.location = "/contractors";
+
     }
 
 

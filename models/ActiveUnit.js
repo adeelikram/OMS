@@ -30,10 +30,14 @@ const schema = new mongoose.Schema({
             simCard: String,
         },
     ],
-    neatseat: [
+    neatseatlarge: [
         {
-            large: Boolean,
-            medium: Boolean,
+            enabled: Boolean,
+        },
+    ],
+    neatseatmedium: [
+        {
+            enabled: Boolean,
         },
     ],
     sitShower: [

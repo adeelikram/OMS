@@ -11,7 +11,7 @@ const csrf = require('csurf');
 const Auth0Strategy = require('passport-auth0');
 const path = require('path');
 
-const User = require("./models/User");
+const User = require('./models/User');
 
 const app = express();
 
@@ -38,6 +38,10 @@ const workOrdersRoute = require('./routes/workOrdersRoute');
 
 const employeeRoute = require('./routes/employeeRoute');
 const adminRoute = require('./routes/adminRoute');
+const tendersRoute = require('./routes/tendersRoute');
+const timeTracksRoute = require('./routes/timeTracksRoute');
+const contractorsRoute = require('./routes/contractorsRoute');
+
 const customerRoute = require('./routes/customerRoute');
 const { getToken } = require('./config/Token');
 const adminFortnox = require('./routes/adminFortnoxRoute');
@@ -61,14 +65,15 @@ app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(`${__dirname}/public`));
-// express cors 
+// express cors
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header(
+        'Access-Control-Allow-Headers',
+        'Origin, X-Requested-With, Content-Type, Accept'
+    );
     next();
 });
-
-
 
 // Express Session
 app.use(
@@ -131,7 +136,7 @@ passport.deserializeUser((user, done) => {
 });
 // Creating custom middleware with Express
 app.use(async (req, res, next) => {
-    if (req.user && !req.user?._id) {
+    if (req.user && !req.user._id) {
         const test = await User.findOne({ email: req.user._json.email });
         req.user._id = test._id;
         req.user.email = test.email;
@@ -143,7 +148,7 @@ app.use(async (req, res, next) => {
 
 app.use(async function (req, res, next) {
     if (req.user) {
-        const user = await User.findById(req.user.user_id.split("|")[1]);
+        const user = await User.findById(req.user.user_id.split('|')[1]);
         // console.log(user);
         res.locals.user = user;
     }
@@ -174,6 +179,13 @@ app.use("/", displayFortnoxOrder);
 app.use('/', displayFortomsCustomers);
 app.use('/', supplierRoute);
 app.use('/', fortContractController);
+app.use('/', adminFortnox);
+app.use('/', sendOrder);
+app.use('/', displayFortnoxOrder);
+app.use('/', tendersRoute);
+app.use('/', timeTracksRoute);
+app.use('/', contractorsRoute);
+
 app.all('*', (req, res) => {
     res.status(404).json({
         status: 'fail',

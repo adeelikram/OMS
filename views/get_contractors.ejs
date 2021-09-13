@@ -1,0 +1,92 @@
+<%- include('./includes/header.ejs') %>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <%- include('./includes/side-bar.ejs') %>
+            <!-- Dashboard Content
+    ================================================== -->
+            <div class="dashboard-content-container" data-simplebar>
+                <div class="dashboard-content-inner">
+
+                    <!-- Dashboard Headline -->
+                    <div class="dashboard-headline">
+                        <h3>Manage Hantverkares</h3>
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs" class="dark">
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Dashboard</a></li>
+                                <li>Manage Hantverkares</li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Row -->
+                    <div class="row">
+
+                        <!-- Dashboard Box -->
+                        <div class="col-xl-12">
+                            <div class="dashboard-box margin-top-0">
+                                <div>
+                                    <%- include ("./partials/messages") %>
+                                </div>
+                                <!-- Headline -->
+                                <div class="headline">
+                                    <h3><i class="icon-feather-award"></i><%= contractors.length %> Hantverkare(s)</h3>
+                                </div>
+
+                                <div class="">
+                                    <main style="overflow-x:auto;">
+                                        <table class="table table-bordered mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th style="vertical-align:top" style="max-width: 200px;">Hantverkare</th>
+                                                    <th style="vertical-align:top" style="max-width: 200px;">Customer</th>
+                                                    <th style="vertical-align:top" style="max-width: 200px;">Rating</th>
+                                                    <th style="vertical-align:top" style="max-width: 200px;">Neatseat</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% if (contractors && contractors.length> 0) { %>
+                                                    <% for (let contractor of contractors) { %>
+                                                        <tr>
+
+                                                            <td>
+                                                                <%= contractor.contractor %>
+                                                            </td>
+                                                            <td>
+                                                                <%= contractor.customer %>
+                                                            </td>
+                                                            <td>
+                                                                <%=contractor.rating %>
+                                                            </td>
+                                                            <td>
+                                                                <%= contractor.neatseat ? "yes" : "no" %>
+                                                            </td>
+                                                        </tr>
+                                                        <% } %>
+                                                            <% } else { %>
+                                                                <tr>
+                                                                    <td>No Contactors</td>
+                                                                </tr>
+                                                                <% } %>
+                                            </tbody>
+                                        </table>
+
+                                        
+                                    </main>
+
+                                    <div class="content" style="padding: 16px 0;">
+                                        <div class="col-xl-4">
+                                            <div class="submit-field">
+                                                <a class="btn btn-info mr-2" href="/get-create-contractor">Add New Contractor</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Row / End -->
+                    
+                    <%- include('./includes/footer.ejs') %>

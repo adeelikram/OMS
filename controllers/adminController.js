@@ -3,6 +3,10 @@ const Employee = require('../models/Employee/Employee');
 const Absent = require('../models/Employee/Absent');
 const Milage = require('../models/Employee/Milage');
 const Hourly = require('../models/Employee/Hourly');
+const Engagements = require("../models/Hubspot/engagements");
+
+const hubspot = require("../services/hubspot");
+
 const _ = require('lodash');
 
 const mlist = [
@@ -42,7 +46,7 @@ module.exports.getEmployees = async (req, res) => {
         employees,
         employeesCount: employees.length,
         name: userProfile.nickname,
-        role: user?.role,
+        role: user.role,
     });
 };
 
@@ -230,4 +234,193 @@ exports.postEditEmployeeInfo = async (req, res) => {
         console.log(error);
         res.status(400).send(error);
     }
+};
+
+module.exports.getEmployeesFromHubspot = async (req, res) => {
+    const { _raw, _json, ...userProfile } = req.user;
+
+    const user = await User.findById(userProfile._id);
+
+    let users = await User.find({});
+
+    for(let i=0;i<users.length;i++){
+        try {
+            let contact = await hubspot.contacts.getByEmail(users[i].email);
+            if(contact){
+                let calls = [];
+                let emails = [];
+                let meetings = [];
+                let engagements = await hubspot.engagements.getAssociated("contact", contact.vid);
+                for(let i=0;i<engagements.results.length;i++){
+                    let engagement = engagements.results[i];
+                   
+                    if(engagement.engagement.type === 'CALL'){
+                        calls = [...calls, engagement];
+                    }else if(engagement.engagement.type === 'MEETING'){
+                        meetings = [...meetings, engagement];
+                    }if(engagement.engagement.type === 'EMAIL'){
+                        emails = [...emails, engagement];
+                    }else{
+                        console.log("pass");
+                    }
+                }
+
+                let userEngagements = await Engagements.findOne({userId: users[i]._id});
+                if(!userEngagements){
+                    let userEngagements = new Engagements({
+                        calls,
+                        emails,
+                        meetings,
+                        email: users[i].email,
+                        username: users[i].username,
+                        userId: users[i]._id
+                    });
+                    userEngagements = await userEngagements.save();   
+                }
+            }
+        }catch(err){
+            console.log("Not Found Contact");
+        }
+    }
+
+    let userEngagements = await Engagements.find({});
+
+    res.render('admin/hubspot/engangements', {
+        userEngagements,
+        userEngagementsCount: userEngagements.length,
+        name: userProfile.nickname,
+        role: user.role,
+    });
+};
+
+module.exports.getEmployeeCalls = async (req, res) => {
+    const { _raw, _json, ...userProfile } = req.user;
+
+    const{id} = req.params;
+
+    const user = await User.findById(userProfile._id);
+
+    let userEngagements = await Engagements.findById(id);
+    let calls = userEngagements.calls;
+
+    let lastDay = [];
+    let lastWeek = [];
+    let lastMonth = [];
+    let lastYear = [];
+
+    let lastDayTimestamp = Date.now() - (1 * 60 * 60 * 24 * 1000);
+    let lastWeekTimestamp = Date.now() - (7 * 60 * 60 * 24 * 1000);
+    let lastMonthTimestamp = Date.now() - (30 * 60 * 60 * 24 * 1000);
+    let lastYearTimestamp = Date.now() - (365 * 60 * 60 * 24 * 1000);
+
+    for (let i=0;i<calls.length;i++){
+        let timestamp = calls[i].engagement.createdAt;
+        if(timestamp < lastDayTimestamp && timestamp > lastWeekTimestamp) lastDay.push(calls[i]);
+        if(timestamp < lastWeekTimestamp  && timestamp > lastMonthTimestamp ) lastWeek.push(calls[i]);
+        if(timestamp < lastMonthTimestamp && timestamp > lastYearTimestamp) lastMonth.push(calls[i]);
+        if(timestamp < lastYearTimestamp) lastYear.push(calls[i]);
+    }
+
+    res.render('admin/hubspot/calls', {
+        calls,
+        callsCount: calls.length,
+        lastDay,
+        lastDayCount: lastDay.length,
+        lastWeek,
+        lastWeekCount: lastWeek.length,
+        lastMonth,
+        lastMonthCount: lastMonth.length,
+        lastYear,
+        lastYearCount: lastYear.length,
+        name: userProfile.nickname,
+        role: user.role,
+    });
+};
+
+module.exports.getEmployeeMeetings = async (req, res) => {
+    const { _raw, _json, ...userProfile } = req.user;
+
+    const{id} = req.params;
+
+    const user = await User.findById(userProfile._id);
+
+    let userEngagements = await Engagements.findById(id);
+    let meetings = userEngagements.meetings;
+
+    let lastDay = [];
+    let lastWeek = [];
+    let lastMonth = [];
+    let lastYear = [];
+
+    let lastDayTimestamp = Date.now() - (1 * 60 * 60 * 24 * 1000);
+    let lastWeekTimestamp = Date.now() - (7 * 60 * 60 * 24 * 1000);
+    let lastMonthTimestamp = Date.now() - (30 * 60 * 60 * 24 * 1000);
+    let lastYearTimestamp = Date.now() - (365 * 60 * 60 * 24 * 1000);
+
+    for (let i=0;i<meetings.length;i++){
+        let timestamp = meetings[i].engagement.createdAt;
+        if(timestamp < lastDayTimestamp && timestamp > lastWeekTimestamp) lastDay.push(meetings[i]);
+        if(timestamp < lastWeekTimestamp  && timestamp > lastMonthTimestamp ) lastWeek.push(meetings[i]);
+        if(timestamp < lastMonthTimestamp && timestamp > lastYearTimestamp) lastMonth.push(meetings[i]);
+        if(timestamp < lastYearTimestamp) lastYear.push(meetings[i]);
+    }
+
+    res.render('admin/hubspot/meetings', {
+        meetings,
+        meetingsCount: meetings.length,
+        lastDay,
+        lastDayCount: lastDay.length,
+        lastWeek,
+        lastWeekCount: lastWeek.length,
+        lastMonth,
+        lastMonthCount: lastMonth.length,
+        lastYear,
+        lastYearCount: lastYear.length,
+        name: userProfile.nickname,
+        role: user.role,
+    });
+};
+
+module.exports.getEmployeeEmails = async (req, res) => {
+    const { _raw, _json, ...userProfile } = req.user;
+
+    const{id} = req.params;
+
+    const user = await User.findById(userProfile._id);
+
+    let userEngagements = await Engagements.findById(id);
+    let emails = userEngagements.emails;
+
+    let lastDay = [];
+    let lastWeek = [];
+    let lastMonth = [];
+    let lastYear = [];
+
+    let lastDayTimestamp = Date.now() - (1 * 60 * 60 * 24 * 1000);
+    let lastWeekTimestamp = Date.now() - (7 * 60 * 60 * 24 * 1000);
+    let lastMonthTimestamp = Date.now() - (30 * 60 * 60 * 24 * 1000);
+    let lastYearTimestamp = Date.now() - (365 * 60 * 60 * 24 * 1000);
+
+    for (let i=0;i<emails.length;i++){
+        let timestamp = emails[i].engagement.createdAt;
+        if(timestamp < lastDayTimestamp && timestamp > lastWeekTimestamp) lastDay.push(emails[i]);
+        if(timestamp < lastWeekTimestamp  && timestamp > lastMonthTimestamp ) lastWeek.push(emails[i]);
+        if(timestamp < lastMonthTimestamp && timestamp > lastYearTimestamp) lastMonth.push(emails[i]);
+        if(timestamp < lastYearTimestamp) lastYear.push(emails[i]);
+    }
+
+    res.render('admin/hubspot/emails', {
+        emails,
+        emailsCount: emails.length,
+        lastDay,
+        lastDayCount: lastDay.length,
+        lastWeek,
+        lastWeekCount: lastWeek.length,
+        lastMonth,
+        lastMonthCount: lastMonth.length,
+        lastYear,
+        lastYearCount: lastYear.length,
+        name: userProfile.nickname,
+        role: user.role,
+    });
 };

@@ -54,6 +54,8 @@
                                 </li>
 
                                 <li><a href="/add-order">Add Order</a></li>
+                                
+                                
                             </ul>
                         </li>
                         <li><a href="/ongoing-projects"><i class="icon-feather-file"></i>Ongoing projects</a>
@@ -63,8 +65,19 @@
                                 <li><a href="/work-orders">Arbetsorder</a>
                                 </li>
 
+                                <li><a href="/tenders">Upphandling</a>
+                                </li>
+
+                                <li><a href="/time-tracker">Time Tracker</a>
+                                </li>
+
+                                <li><a href="/contractors">Hantverkare</a>
+                                </li>
+
+
                             </ul>
                         </li>
+                        
                         <li><a href="#"><i class="icon-feather-database"></i>Inventory</a>
                         </li>
                         <li><a href="/active-units"><i class="icon-feather-check-circle"></i>Active units</a>
@@ -105,10 +118,11 @@
                         </li>
 
 
-                        <li><a href="#"><i class="icon-feather-user-check"></i>Customers</a>
+                        <li><a href="#"><i class="icon-feather-user-check"></i>Sales</a>
 
                             <ul>
                                 <li><a href="/customers">Customers</a></li>
+                                <li><a href="/admin/hubspot/engangements">Engangements</a></li>
                         </li>
                     </ul>
                     </li>
@@ -116,8 +130,9 @@
                     <% if (user?.role==="admin" ) { %>
                         <li><a href="#"><i class="icon-feather-user-check"></i>Admin</a>
                             <ul>
-                                <li><a href="/admin/employees">Employees</a></li>
-                                <li><a href="/admin/hubspot">Hubspot</a></li>
+                                <li><a href="/admin/employees">Manager Employees</a></li>
+                                <li><a href="/admin/hubspot">Hubspot Customers</a></li>
+                               
                             </ul>
                         </li>
                         <% } %>
