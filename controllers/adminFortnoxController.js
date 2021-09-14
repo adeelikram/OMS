@@ -42,8 +42,8 @@ async function getAccessToken(id, code) {
 }
 
 function getCredentials() {
-    var clietid = "t9Qa7vFh2Q6c"
-    var client_secret = "VmT6egKGbI"
+    var clietid = process.env.FORTNOX_CLIENT_ID
+    var client_secret = process.env.FORTNOX_CLIENT_SECRET
     return Buffer.from(clietid + ":" + client_secret).toString("base64")
 }
 
