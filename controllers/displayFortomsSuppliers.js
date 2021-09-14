@@ -11,12 +11,10 @@ exports.displayFortomsSuppliers = async (req, res) => {
         else data.Suppliers[i].choice = "no"
     }
 
-    if (data?.ErrorInformation) res.render("displayFortomsSuppliers", {
-        headline: "Access Token Might be expired",
-        name: req.user.nickname,
-        data: []
-    })
-    else res.render("displayFortomsSuppliers", {
+    if (data?.ErrorInformation) {
+        data.Suppliers = []
+    }
+    res.render("displayFortomsSuppliers", {
         headline: null,
         name: req.user.nickname,
         data: data.Suppliers

@@ -16,9 +16,10 @@ var oms = [
 exports.fortnoxProdController = async function (req, res) {
     var fort = []
     var data = (await gpData('https://api.fortnox.se/3/articles', null, req, "GET")).Articles
-    if (!("error" in data)) for (let el of data) {
+    if (data) for (let el of data) {
         if (!fort.includes("ArticleNumber: " + el.ArticleNumber)) fort.push("ArticleNumber: " + el.ArticleNumber)
     }
+    console.log(fort)
     data = await fortnoxRefer.findOne({})
     res.render("fortnox-prod-list", {
         oms: oms,

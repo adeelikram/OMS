@@ -25,7 +25,13 @@
             <div class="dashboard-content-container" data-simplebar>
                 <div class="dashboard-content-inner">
 
+                    <script>
+                        if(<%=JSON.stringify(fort.length==0)%>) {
+                            alert("Access token of fortnox is missing")
+                            window.location.href = '/admin';
+                        }
 
+                    </script>
                     <div class="d-flex mx-xl-5 mt-xl-4">
                         <div class="row mx-xl-5">
                             <div class="col-xl-4 mx-xl-5">
@@ -66,28 +72,24 @@
                                                                     <%}%>
                                                             </select>
                                                             <ol type="a">
-                                                                <!-- <%// fort.splice(fort.indexOf('Skip'),1)%>
-                                                                    <%// fort.unshift('Skip')%> -->
-                                                                        <% for(var v of i[t]){%>
-                                                                            <li>
-                                                                                <%if(data[v]) {%>
-                                                                                    <%fort.splice(fort.indexOf(data[v]),1)%>
-                                                                                        <%fort.unshift(data[v])%>
-                                                                                            <%}%>
-                                                                                                <select
-                                                                                                    class="oms-fort-select ">
-                                                                                                    <%for (var j of
-                                                                                                        fort) {%>
-                                                                                                        <option
-                                                                                                            value="<%=j%>">
-                                                                                                            <%=j%>
-                                                                                                        </option>
-                                                                                                        <%}%>
-                                                                                                </select>
-                                                                            </li>
-                                                                            <!-- <%// fort.splice(fort.indexOf('Skip'),1)%>
-                                                                                <%// fort.unshift('Skip')%> -->
-                                                                                    <% } %>
+                                                                
+                                                                <% for(var v of i[t]){%>
+                                                                    <li>
+                                                                        <%if(data[v]) {%>
+                                                                            <%fort.splice(fort.indexOf(data[v]),1)%>
+                                                                                <%fort.unshift(data[v])%>
+                                                                                    <%}%>
+                                                                                        <select
+                                                                                            class="oms-fort-select ">
+                                                                                            <%for (var j of fort) {%>
+                                                                                                <option value="<%=j%>">
+                                                                                                    <%=j%>
+                                                                                                </option>
+                                                                                                <%}%>
+                                                                                        </select>
+                                                                    </li>
+                                                                    
+                                                                    <% } %>
 
                                                             </ol>
 

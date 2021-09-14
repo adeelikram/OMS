@@ -440,7 +440,11 @@
     async function sendContract() {
         const body = getFormValues('contract');
         var res = await axios.post('/fortnox-contracts', body)
-        if ("ErrorInformation" in res.data) alert("Error: " + res.data.ErrorInformation.message)
+        if ("ErrorInformation" in res.data) {
+            var {message,Message} = res.data.ErrorInformation
+            if (message) alert("Error: " + message)
+            else alert("Error: " + Message)
+        }
         else alert("data has been posted!")
     }
 
